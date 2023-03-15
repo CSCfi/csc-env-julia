@@ -18,6 +18,3 @@ prepend_path("MANPATH", MANDIR)
 setenv("JULIA_DEPOT_PATH", (os.getenv("JULIA_DEPOT_PATH") or "") .. JULIA_DEPOT_PATH)
 setenv("JULIA_LOAD_PATH", (os.getenv("JULIA_LOAD_PATH") or "") .. JULIA_LOAD_PATH)
 
-if (mode() == "load") then
-    LmodMessage("julia", JULIA_VERSION, "loaded")
-end

@@ -10,6 +10,3 @@ local JULIA_LOAD_PATH = ":/appl/soft/math/julia/depot/environments/v1.8_ijulia"
 prepend_path("PATH", JUPYTER_BIN)
 setenv("JULIA_LOAD_PATH", (os.getenv("JULIA_LOAD_PATH") or "") .. JULIA_LOAD_PATH)
 
-if (mode() == "load") then
-    LmodMessage("Julia kernel for Jupyter loaded")
-end
