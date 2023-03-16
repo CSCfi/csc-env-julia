@@ -4,7 +4,7 @@ s = ArgParseSettings()
     "-n"
         help = "size of the matrix"
         arg_type = Int
-        default = 1000
+        default = 1_000
     "--mkl"
         help = "use MKL"
         action = :store_true
