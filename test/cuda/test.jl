@@ -1,7 +1,7 @@
 using Test
 using CUDA
 
-println(CUDA.versioninfo())
+@show CUDA.versioninfo()
 
 n = 2^20
 x = CUDA.fill(1.0f0, n)
