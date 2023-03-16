@@ -19,7 +19,8 @@ using LinearAlgebra
 using BenchmarkTools
 
 BLAS.set_num_threads(nthreads())
-println(BLAS.get_config())
+@show BLAS.get_config()
+@show BLAS.get_num_threads()
 
 n = args["n"]
 A = rand(Float64, (n, n))
