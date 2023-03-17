@@ -10,7 +10,7 @@ local APPLDIR = pathJoin(JULIA_DIR, "usr/bin")
 local LIBDIR = pathJoin(JULIA_DIR, "usr/lib")
 local MANDIR = pathJoin(JULIA_DIR, "usr/share/man")
 
-depends_on("StdEnv")
+--depends_on("StdEnv")
 prepend_path("LD_LIBRARY_PATH", LIBDIR)
 prepend_path("PATH", APPLDIR)
 prepend_path("MANPATH", MANDIR)
