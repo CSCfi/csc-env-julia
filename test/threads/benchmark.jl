@@ -18,6 +18,7 @@ function sqrt_array!(a, b)
     end
 end
 
+@show nthreads()
 Random.seed!(802365)
 n = args["n"]
 a = rand(n)
