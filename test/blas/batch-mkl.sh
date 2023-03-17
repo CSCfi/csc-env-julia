@@ -6,6 +6,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=40
-#SBATCH --mem=4000
+#SBATCH --mem=16000
 module load use.own julia-test/1.8.5
 srun julia --project=. benchmark.jl --mkl -n 10000
