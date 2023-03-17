@@ -14,14 +14,14 @@ args = parse_args(s)
 if args["mkl"]
     using MKL
 end
-using Base.Threads
 using LinearAlgebra
 using BenchmarkTools
 
-BLAS.set_num_threads(nthreads())
 @show BLAS.get_config()
-@show BLAS.get_num_threads()
-
 n = args["n"]
 A = rand(Float64, (n, n))
-@btime $A * $A
+for threads in [1, 2, 4, 10, 20, 40]
+    BLAS.set_num_threads(threads)
+    @show BLAS.get_num_threads()
+    @btime $A * $A
+end

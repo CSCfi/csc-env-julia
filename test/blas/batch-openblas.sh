@@ -8,4 +8,4 @@
 #SBATCH --cpus-per-task=40
 #SBATCH --mem=4000
 module load use.own julia-test/1.8.5
-srun julia --project=. -t "$SLURM_CPUS_PER_TASK" benchmark.jl -n 10000
+srun julia --project=. benchmark.jl -n 10000
