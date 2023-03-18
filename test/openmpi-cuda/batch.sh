@@ -8,5 +8,5 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=4000
 #SBATCH --gres=gpu:v100:2
-module load use.own julia-test/1.8.5-openmpi-cuda
+module load julia/1.8.5-openmpi-cuda
 srun julia --project=. test.jl

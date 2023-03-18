@@ -5,5 +5,5 @@
 #SBATCH --time=00:15:00
 #SBATCH --ntasks=2
 #SBATCH --mem=1000
-module load use.own julia-test/1.8.5
+module load julia/1.8.5
 julia --project=. test.jl
