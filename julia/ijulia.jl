@@ -1,3 +1,6 @@
+using Pkg
+Pkg.add(name="IJulia", version="1.24.0")
+kernel = """
 {
   "display_name": "julia 1.8.5",
   "argv": [
@@ -12,3 +15,6 @@
   "env": {},
   "interrupt_mode": "signal"
 }
+"""
+kernel_path = joinpath(ENV["JUPYTER_DATA_DIR"], "kernels", "julia-v1.8", "kernel.json")
+write(kernel_path, kernel)
