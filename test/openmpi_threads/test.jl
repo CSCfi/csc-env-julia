@@ -1,4 +1,5 @@
 using MPI
+using Random
 using Base.Threads
 
 MPI.Init()
