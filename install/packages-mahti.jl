@@ -8,6 +8,6 @@ using CUDA
 CUDA.set_runtime_version!("local")
 
 using MPIPreferences
-MPIPrererences.use_system_binary()
+MPIPreferences.use_system_binary()
 
 Pkg.instantiate()
