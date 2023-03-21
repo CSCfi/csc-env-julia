@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=clustermanagers
+#SBATCH --job-name=distributed
 #SBATCH --account=project_2001659
 #SBATCH --partition=test
 #SBATCH --time=00:15:00
