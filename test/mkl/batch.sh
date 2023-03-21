@@ -8,4 +8,4 @@
 #SBATCH --cpus-per-task=40
 #SBATCH --mem=16000
 module load julia/1.8.5
-srun julia --project=. benchmark.jl --mkl -n 10000
+srun julia --project=. benchmark.jl -n 10000
