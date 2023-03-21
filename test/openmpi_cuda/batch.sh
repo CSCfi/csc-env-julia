@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=openmpi-cuda
+#SBATCH --job-name=openmpi_cuda
 #SBATCH --account=project_2001659
 #SBATCH --partition=gputest
 #SBATCH --time=00:15:00
