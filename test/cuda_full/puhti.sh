@@ -2,7 +2,7 @@
 #SBATCH --job-name=cuda_full
 #SBATCH --account=project_2001659
 #SBATCH --partition=gpu
-#SBATCH --time=01:00:00
+#SBATCH --time=00:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=10
