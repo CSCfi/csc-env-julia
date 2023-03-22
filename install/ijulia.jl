@@ -16,5 +16,5 @@ kernel = """
   "interrupt_mode": "signal"
 }
 """
-kernel_path = joinpath(ENV["JUPYTER_DATA_DIR"], "kernels", "julia-v1.8", "kernel.json")
+kernel_path = joinpath(ENV["JUPYTER_DATA_DIR"], "kernels", "julia-1.8", "kernel.json")
 write(kernel_path, kernel)
