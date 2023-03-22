@@ -16,7 +16,7 @@ tar -xzf "julia-${JULIA_VERSION}.tar.gz"
 
 # Setup the environment for the installation
 module purge
-module load cmake gcc python-data
+module load gcc cmake make python-data
 
 # Build Julia using gcc with some optimizations.
 # If the some dependencies can't be downloaded , they can be added manually.
