@@ -1,5 +1,8 @@
 using MPIBenchmarks
 
+mkpath("output")
+cd("output")
+
 # Collective benchmarks
 benchmark(IMBAllreduce())
 benchmark(IMBAlltoall())
