@@ -7,5 +7,5 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=8000
-module load julia/1.8.5-openmpi
+module load julia/1.8.5
 srun julia --project=. benchmark.jl
