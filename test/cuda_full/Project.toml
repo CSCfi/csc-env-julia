@@ -1,2 +1,3 @@
 [deps]
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+LLVM = "929cbde3-209d-540e-8aea-75f648917ca0"
