@@ -9,6 +9,6 @@ using CUDA
 CUDA.set_runtime_version!("local")
 
 using MPIPreferences
-MPIPreferences.use_system_binary()
+MPIPreferences.use_system_binary(; mpiexec=`srun`)
 
 Pkg.instantiate()
