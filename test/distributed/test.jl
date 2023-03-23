@@ -1,8 +1,7 @@
 using Distributed
-using ClusterManagers
 
-n = parse(Int, ENV["SLURM_NTASKS"])
-addprocs(SlurmManager(n), topology=:master_worker)
+n = parse(Int, ENV["SLURM_NTASKS_PER_NODE"])
+addprocs(n)
 task(i) = @spawnat i (myid(), gethostname(), getpid())
 futures = [task(i) for i in workers()]
 @show outputs = fetch.(futures)
