@@ -2,7 +2,7 @@
 set -eu
 
 # Julia version to install
-JULIA_VERSION="1.8.5"
+JULIA_VERSION=${1:-"1.8.5"}
 
 # Constants
 JULIA_GPG="3673DF529D9049477F76B37566E3C7DC03D6E495"
