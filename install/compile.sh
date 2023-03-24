@@ -14,7 +14,9 @@ JULIA_VERSION="1.8.5"
 # Extract the source code
 tar -xzf "julia-${JULIA_VERSION}.tar.gz"
 
-# Setup the environment for the installation
+# Setup the environment for the installation.
+# Devdocs containers The full list of requirements.
+# https://github.com/JuliaLang/julia/blob/master/doc/src/devdocs/build/build.md
 module purge
 module load gcc cmake make python-data
 
