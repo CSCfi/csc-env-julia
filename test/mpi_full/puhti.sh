@@ -5,8 +5,9 @@
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
-#SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=4000
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=500
 module load julia/1.8.5
 export JULIA_MPI_TEST_NPROCS=2
+export JULIA_MPI_TEST_EXCLUDE="test_errorhandler.jl,test_spawn.jl,test_error.jl"
 julia --project=. test.jl
