@@ -4,8 +4,8 @@ Julia language and dependencies.
 
 local JULIA_VERSION = "1.8.5"
 local JULIA_DIR = "/appl/soft/math/julia/julia-" .. JULIA_VERSION
-local JULIA_DEPOT_PATH = ":/appl/soft/math/julia/depot"
-local JULIA_LOAD_PATH = ":/appl/soft/math/julia/depot/environments/v1.8_shared"
+local JULIA_DEPOT_PATH = "::/appl/soft/math/julia/depot"
+local JULIA_LOAD_PATH = "::/appl/soft/math/julia/depot/environments/v1.8_shared"
 local JULIA_BINDIR = pathJoin(JULIA_DIR, "usr/bin")
 local JULIA_LIBDIR = pathJoin(JULIA_DIR, "usr/lib")
 local JULIA_MANDIR = pathJoin(JULIA_DIR, "usr/share/man")
