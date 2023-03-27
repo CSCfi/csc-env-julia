@@ -4,7 +4,7 @@
 #SBATCH --partition=gputest
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=128
+#SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:a100:1
 module load julia/1.8.5
 srun julia --project=. test.jl
