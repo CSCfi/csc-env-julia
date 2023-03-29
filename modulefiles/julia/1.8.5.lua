@@ -40,4 +40,4 @@ setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")
 append_path("PATH", pathJoin(JULIA_APPLDIR, "jupyter-env/bin"))
 
 -- Append Julia kernel location to Jupyter path.
-append_path("JUPYTER_PATH", pathJoin(JULIA_APPLDIR, "jupyter"))
+prepend_path("JUPYTER_PATH", pathJoin(JULIA_APPLDIR, "jupyter"))
