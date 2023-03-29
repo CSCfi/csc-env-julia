@@ -36,8 +36,9 @@ append_path("JULIA_LOAD_PATH", pathJoin(JULIA_APPLDIR, "depot/environments/v1.8_
 -- Disable memory pool for CUDA.jl
 setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")
 
--- Append Jupyter binary location
-append_path("PATH", pathJoin(JULIA_APPLDIR, "jupyter-env/bin"))
-
--- Append Julia kernel location to Jupyter path.
+-- Prepend Julia kernel location to Jupyter path so that Jupyter will find it.
 prepend_path("JUPYTER_PATH", pathJoin(JULIA_APPLDIR, "jupyter"))
+
+-- Append Jupyter binary location so that is can be shadowed by another jupyter
+-- that is prepended, for example, by loading python-data.
+append_path("PATH", pathJoin(JULIA_APPLDIR, "jupyter-env/bin"))
