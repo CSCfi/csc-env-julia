@@ -4,8 +4,8 @@ unsetenv("JULIA_LOAD_PATH")
 setenv("JULIA_DEPOT_PATH", "/appl/soft/math/julia/depot")
 setenv("JULIA_PROJECT", "/appl/soft/math/julia/depot/environments/v1.8_shared")
 
--- Diretory for the Jupyter kernel
-setenv("JUPYTER_DATA_DIR", "/appl/soft/math/julia/jupyter-env/share/jupyter")
+-- Diretory for the Julia kernel
+setenv("JUPYTER_DATA_DIR", "/appl/soft/math/julia/jupyter")
 
 -- Jupyter executable name
 setenv("JUPYTER", "jupyter")
