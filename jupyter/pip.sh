@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-./jupyter-env/bin/pip install -r requirements.txt
+/appl/soft/math/julia/jupyter-env/bin/pip install -r requirements.txt

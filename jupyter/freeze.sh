@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-./jupyter-env/bin/pip freeze -r requirements.txt > requirements-freeze.txt
+/appl/soft/math/julia/jupyter-env/bin/pip freeze -r requirements.txt > requirements-freeze.txt
