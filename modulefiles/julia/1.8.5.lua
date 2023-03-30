@@ -38,7 +38,3 @@ setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")
 
 -- Prepend Julia kernel location to Jupyter path so that Jupyter will find it.
 prepend_path("JUPYTER_PATH", pathJoin(JULIA_APPLDIR, "jupyter"))
-
--- Append Jupyter binary location so that is can be shadowed by another jupyter
--- that is prepended, for example, by loading python-data.
-append_path("PATH", pathJoin(JULIA_APPLDIR, "jupyter-env/bin"))
