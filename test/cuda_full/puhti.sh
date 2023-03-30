@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=cuda_full
 #SBATCH --account=project_2001659
-#SBATCH --partition=gpu
-#SBATCH --time=00:30:00
+#SBATCH --partition=gputest
+#SBATCH --time=00:15:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=10
