@@ -17,7 +17,8 @@ Pkg.pin("IJulia")
 rm(joinpath(dir, "kernels", "julia-$(VERSION.major).$(VERSION.minor)"); recursive=true)
 
 # Directory to IJulia installation
-ijulia_dir = "/appl/soft/math/julia/depot/packages/IJulia/6TIq1"
+import IJulia
+ijulia_dir = dirname(dirname(pathof(IJulia)))
 
 julia_script = """
 #!/usr/bin/env bash
@@ -47,6 +48,6 @@ write(joinpath(kernel_dir, "kernel.json"), kernelspec)
 write(joinpath(kernel_dir, "julia.sh"), julia_script)
 chmod(joinpath(kernel_dir, "julia.sh"), 0o775)
 
-copy_config(joinpath(ijulia_dir,"deps","logo-32x32.png"), kernel_dir)
-copy_config(joinpath(ijulia_dir,"deps","logo-64x64.png"), kernel_dir)
-copy_config(joinpath(ijulia_dir,"deps","logo-svg.svg"), kernel_dir)
+copy_config(joinpath(ijulia_dir, "deps", "logo-32x32.png"), kernel_dir)
+copy_config(joinpath(ijulia_dir, "deps", "logo-64x64.png"), kernel_dir)
+copy_config(joinpath(ijulia_dir, "deps", "logo-svg.svg"), kernel_dir)
