@@ -9,3 +9,6 @@ setenv("JUPYTER_DATA_DIR", "/appl/soft/math/julia/jupyter")
 
 -- Jupyter executable name
 setenv("JUPYTER", "jupyter")
+
+-- IJulia version 1.24.0 this causes an error. Uncomment when it is fixed.
+-- setenv("IJULIA_NODEFAULTKERNEL", "")
