@@ -9,7 +9,7 @@ module load julia-install/1.8.5
 [ -d "$JULIA_APPLDIR/julia-${JULIA_VERSION}" ] && exit 1
 
 # Extract the source code
-tar -xzf "$JULIA_APPLDIR/julia-${JULIA_VERSION}.tar.gz" --directory "$JULIA_APPLDIR"
+tar xf "$JULIA_APPLDIR/julia-${JULIA_VERSION}.tar.gz" --directory "$JULIA_APPLDIR"
 
 # Set the number of cores to use for compilation.
 # Don't use all cores on the login node!
