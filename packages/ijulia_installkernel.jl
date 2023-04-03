@@ -1,28 +1,37 @@
 import IJulia
 
-copy_config(src, dest) = cp(src, joinpath(dest, basename(src)), force=true)
+# Path to the IJulia.jl installation directory.
+const ijulia_dir = dirname(dirname(pathof(IJulia)))
+const julia_kernel = joinpath(ijulia_dir, "src", "kernel.jl")
 
-ijulia_dir = dirname(dirname(pathof(IJulia)))
-jupyter_dir = ENV["JUPYTER_DATA_DIR"]
-kernel_dir = joinpath(jupyter_dir, "kernels", "julia-$(Base.VERSION_STRING)")
+# Jupyter data dir
+const jupyter_dir = ENV["JUPYTER_DATA_DIR"]
 
-mkpath(kernel_dir)
+# Location to install the Julia kernel.
+const kernel_dir = joinpath(jupyter_dir, "kernels", "julia-$(Base.VERSION_STRING)")
 
-julia_script = """
+# Modules that we need to load
+const modules = "julia/$(Base.VERSION_STRING)"
+
+# Wrapper script for loading module before running a kernel.
+const wrapper_path = (kernel_dir, "julia.sh")
+const wrapper_script = """
 #!/usr/bin/env bash
-module load julia/$(Base.VERSION_STRING)
+module load $modules
 exec julia "\$@"
 """
 
-kernelspec = """
+# Kernel specification that uses the wrapper script.
+const kernel_path = joinpath(kernel_dir, "kernel.json")
+const kernelspec = """
 {
-  "display_name": "julia $(Base.VERSION_STRING)",
+  "display_name": "$modules",
   "argv": [
-    "$(joinpath(kernel_dir, "julia.sh"))",
+    "$wrapper_path",
     "-i",
     "--color=yes",
     "--project=@.",
-    "$(joinpath(ijulia_dir, "src", "kernel.jl"))",
+    "$julia_kernel",
     "{connection_file}"
   ],
   "language": "julia",
@@ -31,11 +40,12 @@ kernelspec = """
 }
 """
 
-write(joinpath(kernel_dir, "kernel.json"), kernelspec)
-
-write(joinpath(kernel_dir, "julia.sh"), julia_script)
-chmod(joinpath(kernel_dir, "julia.sh"), 0o775)
-
+# Create the kernel
+mkpath(kernel_dir)
+write(kernel_path, kernelspec)
+write(wrapper_path, wrapper_script)
+chmod(wrapper_path, 0o775)  # rwxrwxr-x
+copy_config(src, dest) = cp(src, joinpath(dest, basename(src)), force=true)
 copy_config(joinpath(ijulia_dir, "deps", "logo-32x32.png"), kernel_dir)
 copy_config(joinpath(ijulia_dir, "deps", "logo-64x64.png"), kernel_dir)
 copy_config(joinpath(ijulia_dir, "deps", "logo-svg.svg"), kernel_dir)
