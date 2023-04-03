@@ -2,8 +2,8 @@
 set -eu
 
 # Setup the environment for the installation.
-ml purge
-ml julia-install/1.8.5
+module purge
+module load julia-install/1.8.5
 
 # Fail if the Julia directory already exists.
 [ -d "$JULIA_APPLDIR/julia-${JULIA_VERSION}" ] && exit 1
