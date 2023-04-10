@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=mpi_benchmarks
+#SBATCH --job-name=benchmark_mpi
 #SBATCH --account=project_2001659
 #SBATCH --partition=test
 #SBATCH --time=00:15:00

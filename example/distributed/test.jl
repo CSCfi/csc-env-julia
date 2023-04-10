@@ -10,5 +10,4 @@ outputs = fetch.(futures)
 println(task())
 println.(outputs)
 
-# The Slurm resource allocation is released when all the workers have exited
 rmprocs.(workers())
