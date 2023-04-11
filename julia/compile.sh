@@ -18,4 +18,7 @@ NUM_CORES=12
 # Build Julia using gcc with some optimizations.
 # If the some dependencies can't be downloaded , they can be added manually.
 # Most problems fixed by running `make` again or `make clean && make`.
-(cd "$JULIA_APPLDIR/julia-${JULIA_VERSION}" && make -j "$NUM_CORES")
+(
+    cd "$JULIA_APPLDIR/julia-${JULIA_VERSION}" && \
+    make -j "$NUM_CORES"
+)

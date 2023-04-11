@@ -33,5 +33,12 @@ append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")
 append_path("JULIA_LOAD_PATH", pathJoin(JULIA_APPLDIR, "depot/environments/v1.8_shared"))
 
+-- Set Julia's thread count based on the Slurm allocation.
+local NUM_THREADS = os.getenv("SLURM_CPUS_PER_TASK")
+if NUM_THREADS ~= nil then
+    setenv("JULIA_CPU_THREADS", NUM_THREADS)
+    setenv("JULIA_NUM_THREADS", NUM_THREADS)
+end
+
 -- Disable memory pool for CUDA.jl
 setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")
