@@ -1,7 +1,6 @@
 using Distributed
 
-n = parse(Int, ENV["SLURM_CPUS_PER_TASK"]) - 1
-addprocs(n)
+addprocs(Sys.CPU_THREADS)
 
 @everywhere function task()
     return (myid(), gethostname(), getpid())

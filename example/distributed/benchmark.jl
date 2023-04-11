@@ -2,9 +2,7 @@ using Distributed
 using BenchmarkTools
 
 # Add processes before @everywhere using macros!
-#n = parse(Int, ENV["SLURM_CPUS_PER_TASK"])
-
-addprocs()
+addprocs(Sys.CPU_THREADS)
 
 function sqrt_sum(A)
     s = zero(eltype(A))
