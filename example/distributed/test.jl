@@ -1,9 +1,12 @@
 using Distributed
 
-n = parse(Int, ENV["SLURM_NTASKS_PER_NODE"]) - 1
+n = parse(Int, ENV["SLURM_CPUS_PER_TASK"]) - 1
 addprocs(n)
 
-@everywhere task() = (myid(), gethostname(), getpid())
+@everywhere function task()
+    return (myid(), gethostname(), getpid())
+end
+
 futures = [@spawnat i task() for i in workers()]
 outputs = fetch.(futures)
 

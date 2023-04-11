@@ -4,6 +4,9 @@
 #SBATCH --partition=test
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=128
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=128
 module load julia/1.8.5
-julia --project=. test.jl
+export JULIA_CPU_THREADS=$SLURM_CPUS_PER_TASK
+export JULIA_NUM_THREADS=$SLURM_CPUS_PER_TASK
+srun julia --project=. test.jl
