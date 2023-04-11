@@ -8,4 +8,6 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=2000
 module load julia/1.8.5
-srun julia --project=. test.jl
+export JULIA_CPU_THREADS="$((SLURM_TASKS_PER_NODE - 1))"
+export JULIA_NUM_THREADS="$SLURM_CPUS_PER_TASK"
+julia --project=. test.jl
