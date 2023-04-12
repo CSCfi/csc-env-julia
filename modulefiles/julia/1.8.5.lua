@@ -33,8 +33,9 @@ append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")
 append_path("JULIA_LOAD_PATH", pathJoin(JULIA_APPLDIR, "depot/environments/v1.8_shared"))
 
--- Set Julia's thread count based on the Slurm allocation.
--- Defaults to 1 if Slurm allocation is not set.
+-- Set Julia's thread count based on Slurm's `--cpus-per-task` value.
+-- Default to 1 if no value is set.
+-- https://docs.julialang.org/en/v1/manual/environment-variables/#Parallelization
 local NUM_THREADS = os.getenv("SLURM_CPUS_PER_TASK") or "1"
 setenv("JULIA_CPU_THREADS", NUM_THREADS)
 setenv("JULIA_NUM_THREADS", NUM_THREADS)
