@@ -22,16 +22,20 @@ prepend_path("MANPATH", pathJoin(JULIA_DIR, "usr/share/man"))
 
 -- We set the depot path explicitly such that it is easier to modify.
 -- https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH
+local JULIA_CSC_DEPOT = pathJoin(JULIA_APPLDIR, "depot")
 append_path("JULIA_DEPOT_PATH", pathJoin(os.getenv("HOME"), ".julia"))
-append_path("JULIA_DEPOT_PATH", pathJoin(JULIA_APPLDIR, "depot"))
+append_path("JULIA_DEPOT_PATH", JULIA_CSC_DEPOT)
 append_path("JULIA_DEPOT_PATH", pathJoin(JULIA_DIR, "usr/share/julia"))
+setenv("JULIA_CSC_DEPOT", JULIA_CSC_DEPOT)
 
 -- We set load path explicitly such that it is easier to modify.
 -- https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH
+local JULIA_CSC_ENVIRONMENT = pathJoin(JULIA_CSC_DEPOT, "environments/v1.8_shared")
 append_path("JULIA_LOAD_PATH", "@")
 append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")
-append_path("JULIA_LOAD_PATH", pathJoin(JULIA_APPLDIR, "depot/environments/v1.8_shared"))
+append_path("JULIA_LOAD_PATH", JULIA_CSC_ENVIRONMENT)
+setenv("JULIA_CSC_ENVIRONMENT", JULIA_CSC_ENVIRONMENT)
 
 -- Set Julia's thread count based on Slurm's `--cpus-per-task` value.
 -- Default to 1 if no value is set.
