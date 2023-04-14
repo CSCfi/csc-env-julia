@@ -9,6 +9,4 @@
 #SBATCH --mem-per-cpu=4000
 #SBATCH --gres=gpu:v100:1
 module load julia/1.8.5
-export JULIA_CPU_THREADS="$SLURM_CPUS_PER_TASK"
-export JULIA_NUM_THREADS="$SLURM_CPUS_PER_TASK"
 srun julia --project=. test.jl
