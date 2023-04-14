@@ -44,11 +44,9 @@ local NUM_THREADS = os.getenv("SLURM_CPUS_PER_TASK") or "1"
 setenv("JULIA_CPU_THREADS", NUM_THREADS)
 setenv("JULIA_NUM_THREADS", NUM_THREADS)
 
--- https://carstenbauer.github.io/ThreadPinning.jl/dev/explanations/blas/
--- We set OpenBLAS and MKL threads to one so that their thread count is
--- controlled by JULIA_NUM_THREADS.
-setenv("OPENBLAS_NUM_THREADS", "1")
-setenv("MKL_NUM_THREADS", "1")
+-- We set OpenBLAS and MKL thread counts to the number of available threads by default.
+setenv("OPENBLAS_NUM_THREADS", NUM_THREADS)
+setenv("MKL_NUM_THREADS", NUM_THREADS)
 
 -- Disable memory pool for CUDA.jl
 setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")
