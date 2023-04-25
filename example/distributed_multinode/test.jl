@@ -1,22 +1,23 @@
 using Distributed
 
-# List of nodes allocated by Slurm.
+# Read the list of nodenames allocated by Slurm.
 nodes = readlines(`scontrol show hostnames $(ENV["SLURM_JOB_NODELIST"])`)
 
-# Host name of the master process.
+# Retrieve the node name of the master process.
 local_node = gethostname()
 
 # Environment variable that we pass to the worker processes.
 proc_env = ["JULIA_NUM_THREADS"=>"1", "JULIA_CPU_THREADS"=>"1"]
 
-# Add processes on the local node with LocalManager
+# Add processes on the local node with LocalManager.
 addprocs(Sys.CPU_THREADS;
          env=proc_env,
          enable_threaded_blas=false)
 
-# Add processes on the other nodes with SSHManager
+# Add processes on the other nodes with SSHManager.
 addprocs([(node, Sys.CPU_THREADS) for node in nodes if node != local_node];
-         tunnel=true, env=proc_env,
+         tunnel=true,
+         env=proc_env,
          enable_threaded_blas=false)
 
 @everywhere function task()

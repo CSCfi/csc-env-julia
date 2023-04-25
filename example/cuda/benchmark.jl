@@ -8,4 +8,4 @@ Random.seed!(802365)
 
 A = rand(10_000, 10_000)
 A_d = CuArray(A)
-@btime $A_d * $A_d
+@btime CUDA.@sync $A_d * $A_d
