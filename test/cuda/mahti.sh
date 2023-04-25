@@ -9,4 +9,5 @@
 #SBATCH --gres=gpu:a100:1
 
 module load julia/1.8.5
+julia --project=. -e 'import Pkg; Pkg.instantiate()'
 srun julia --project=. test.jl
