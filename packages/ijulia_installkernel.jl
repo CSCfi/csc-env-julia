@@ -14,7 +14,7 @@ const kernel_dir = joinpath(jupyter_dir, "kernels", "julia-$(Base.VERSION_STRING
 const modules = "julia/$(Base.VERSION_STRING)"
 
 # Wrapper script for loading module before running a kernel.
-const wrapper_path = (kernel_dir, "julia.sh")
+const wrapper_path = joinpath(kernel_dir, "julia.sh")
 const wrapper_script = """
 #!/usr/bin/env bash
 module load $modules
