@@ -4,7 +4,7 @@ Julia language and dependencies.
 
 local JULIA_APPLDIR = "/appl/soft/math/julia"
 local JULIA_VERSION = "1.8.5"
-local JULIA_DIR = pathJoin(JULIA_APPLDIR, "julia-" .. JULIA_VERSION, "usr")
+local JULIA_DIR = pathJoin(JULIA_APPLDIR, "julia-" .. JULIA_VERSION)
 
 -- Load dependencies for Julia, MPI, GPUs and shared packages.
 depends_on("gcc/11", "openmpi/4", "cuda/11")
