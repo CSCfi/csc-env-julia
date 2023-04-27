@@ -28,7 +28,8 @@ wget "$JULIA_URL_ASC"
 
 # Verify the integrity of the downloaded source code.
 gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$JULIA_GPG"
-gpg --batch --verify "julia-${JULIA_VERSION}.tar.gz.asc" "julia-${JULIA_VERSION}.tar.gz"
+# FIXME
+gpg --batch --verify "julia-${JULIA_VERSION}-linux-x86_64.tar.gz.asc" "julia-${JULIA_VERSION}-linux-x86_64.tar.gz"
 
 # Extract binaries if directory does not already exist
 [ ! -d "julia-${JULIA_VERSION}" ] && tar xf "julia-${JULIA_VERSION}.tar.gz"
