@@ -1,9 +1,9 @@
 using Pkg
 
-# We set JUPYTER_DATA_DIR to temporary directory avoid install the default kernel.
+# We discard the default Julia kernel by setting Jupyter data directory to a temporary directory.
 ENV["JUPYTER_DATA_DIR"] = mktempdir()
 
-# Set Jupyter executable name to avoid installing Conda.
+# We avoid installing Conda by setting the Jupyter executable name.
 ENV["JUPYTER"] = "jupyter"
 
 # Install package
