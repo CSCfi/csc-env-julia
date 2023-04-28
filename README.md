@@ -64,7 +64,7 @@ julia -e 'using Pkg; Pkg.instantiate()'
 We need to copy the Julia module to the modulefiles directory.
 
 ```bash
-cp modulesfiles/julia/1.8.5.lua /appl/modulesfiles/julia/1.8.5.lua
+cp modulefiles/julia/1.8.5.lua /appl/modulefiles/julia/1.8.5.lua
 ```
 
 Note that we need to change the version string if we install a diffent version.
