@@ -30,7 +30,7 @@ Download and unpack the Julia binaries to the Julia application directory.
 ```bash
 export JULIA_APPLDIR="/appl/soft/math/julia"
 export JULIA_VERSION="1.8.5"
-sh julia/binary.sh
+bash julia/binary.sh
 ```
 
 
@@ -53,6 +53,8 @@ Now, we can install packages by running install scripts.
 julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
+julia packages/ijulia.jl
+julia packages/ijulia_installkernel.jl
 ```
 
 Finally, we must instantiate the installed packages.
@@ -62,7 +64,12 @@ julia packages/instantiate.jl
 ```
 
 
-## Modulefiles
+## Running tests
+Run tests for Julia and installed packages.
+
+
+## Adding modulefiles
+If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
 We need to copy the Julia module to the modulefiles directory.
 
 ```bash
