@@ -1,4 +1,5 @@
 local JULIA_APPLDIR = "/appl/soft/math/julia"
+local JULIA_CSC_DEPOT = pathJoin(JULIA_APPLDIR, "depot")
 
 -- Module dependecies for installing packages.
 depends_on("julia/1.8.5")
@@ -7,7 +8,6 @@ depends_on("julia/1.8.5")
 unsetenv("JULIA_LOAD_PATH")
 
 -- Directory for the shared packages and other depots.
-local JULIA_CSC_DEPOT = pathJoin(JULIA_APPLDIR, "depot")
 setenv("JULIA_DEPOT_PATH", JULIA_CSC_DEPOT)
 
 -- Directory for the shared environment.
