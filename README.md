@@ -50,13 +50,15 @@ module load julia-packages/1.8.5
 Now, we can install packages by running install scripts.
 
 ```bash
+julia packages/mkl.jl
 julia packages/mpi.jl
+julia packages/cuda.jl
 ```
 
 Finally, we must instantiate the installed packages.
 
 ```bash
-julia -e 'using Pkg; Pkg.instantiate()'
+julia packages/instantiate.jl
 ```
 
 
