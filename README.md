@@ -16,7 +16,7 @@ LUMI
 - Julia modulefiles directory: `/appl/local/csc/modulefiles/julia`
 - Julia application directory: `/appl/local/csc/soft/math/julia`
 
-Julia directories in the application directory
+Subdirectories in the Julia application directory
 
 - Julia installation directory: `julia-v#.#.#`
 - Shared Julia depot directory: `depot`
