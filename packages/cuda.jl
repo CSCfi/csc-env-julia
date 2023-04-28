@@ -4,5 +4,3 @@ Pkg.pin("CUDA")
 
 using CUDA
 CUDA.set_runtime_version!("local")
-
-Pkg.instantiate()

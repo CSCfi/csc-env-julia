@@ -5,6 +5,8 @@ Julia language and dependencies.
 local JULIA_APPLDIR = "/appl/soft/math/julia"
 local JULIA_VERSION = "1.8.5"
 local JULIA_DIR = pathJoin(JULIA_APPLDIR, "julia-" .. JULIA_VERSION)
+local JULIA_CSC_DEPOT = pathJoin(JULIA_APPLDIR, "depot")
+local JULIA_CSC_ENVIRONMENT = pathJoin(JULIA_CSC_DEPOT, "environments/v1.8_shared")
 
 -- Load dependencies for Julia, MPI, GPUs and shared packages.
 depends_on("gcc/11", "openmpi/4", "cuda/11")
@@ -20,7 +22,6 @@ prepend_path("MANPATH", pathJoin(JULIA_DIR, "share/man"))
 
 -- We set the depot path explicitly such that it is easier to modify.
 -- https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH
-local JULIA_CSC_DEPOT = pathJoin(JULIA_APPLDIR, "depot")
 append_path("JULIA_DEPOT_PATH", pathJoin(os.getenv("HOME"), ".julia"))
 append_path("JULIA_DEPOT_PATH", JULIA_CSC_DEPOT)
 append_path("JULIA_DEPOT_PATH", pathJoin(JULIA_DIR, "share/julia"))
@@ -28,7 +29,6 @@ setenv("JULIA_CSC_DEPOT", JULIA_CSC_DEPOT)
 
 -- We set load path explicitly such that it is easier to modify.
 -- https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH
-local JULIA_CSC_ENVIRONMENT = pathJoin(JULIA_CSC_DEPOT, "environments/v1.8_shared")
 append_path("JULIA_LOAD_PATH", "@")
 append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")

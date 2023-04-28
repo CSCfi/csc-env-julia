@@ -24,12 +24,48 @@ Subdirectories in the Julia application directory
 - Direcotry for Jupyter installation for Julia: `jupyter-env`
 
 
-## Installing the Julia environment
-Downloads and unpacks the binaries to `JULIA_APPLDIR`.
+## Installing Julia
+Download and unpack the Julia binaries to the Julia application directory.
 
 ```bash
 export JULIA_APPLDIR="/appl/soft/math/julia"
 export JULIA_VERSION="1.8.5"
 sh julia/binary.sh
 ```
+
+
+## Installing shared Julia packages
+First, we must add the modulefiles to the modulepath.
+
+```bash
+source modulefiles/env.sh
+```
+
+Then, we can load the `julia-packages` module.
+
+```bash
+module load julia-packages/1.8.5
+```
+
+Now, we can install packages by running install scripts.
+
+```bash
+julia packages/mpi.jl
+```
+
+Finally, we must instantiate the installed packages.
+
+```bash
+julia -e 'using Pkg; Pkg.instantiate()'
+```
+
+
+## Modulefiles
+We need to copy the Julia module to the modulefiles directory.
+
+```bash
+cp modulesfiles/julia/1.8.5.lua /appl/modulesfiles/julia/1.8.5.lua
+```
+
+Note that we need to change the version string if we install a diffent version.
 

@@ -5,5 +5,3 @@ Pkg.pin("MPI")
 
 using MPIPreferences
 MPIPreferences.use_system_binary(; mpiexec="srun")
-
-Pkg.instantiate()
