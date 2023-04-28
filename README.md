@@ -14,7 +14,6 @@ Puhti and Mahti
 LUMI
 
 - Julia modulefiles directory: `/appl/local/csc/modulefiles/julia`
-- Julia Jupyter modulefiles directory: `/appl/modulefiles/julia-jupyter`
 - Julia application directory: `/appl/local/csc/soft/math/julia`
 
 Julia directories in the application directory
