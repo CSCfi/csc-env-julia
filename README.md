@@ -8,19 +8,19 @@ All systems use Lmod and Slurm.
 
 
 ## Installation paths
-Julia modulefiles directory:
+Diretory for Julia modulefiles:
 
 - Puhti:`/appl/modulefiles/julia`
 - Mahti:`/appl/modulefiles/julia`
 - LUMI: `/appl/local/csc/modulefiles/julia`
 
-Julia Jupyter modulefiles directory:
+Directory for Julia Jupyter modulefiles:
 
 - Puhti: `/appl/modulefiles/julia-jupyter`
 - Mahti: `/appl/modulefiles/julia-jupyter`
 - LUMI: `/appl/local/csc/modulefiles/julia-jupyter`
 
-Julia application directory:
+Directory for the Julia application:
 
 - Puhti: `/appl/soft/math/julia`
 - Mahti: `/appl/soft/math/julia`
@@ -28,8 +28,8 @@ Julia application directory:
 
 Subdirectories in the Julia application directory:
 
-- Julia installation directory: `julia-v#.#.#`
-- Shared Julia depot directory: `depot`
+- Directory for Julia binary: `julia-v#.#.#`
+- Directory for shared Julia depots: `depot`
 - Directory for Julia kernels for Jupyter: `jupyter`
 - Directory for Jupyter installation for Julia: `jupyter-env`
 
@@ -44,7 +44,7 @@ bash julia/binary.sh
 ```
 
 
-## Installing shared Julia packages
+## Installing shared packages
 First, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
 ```bash
@@ -74,11 +74,11 @@ julia packages/instantiate.jl
 ```
 
 
-## Running tests
-Run tests for Julia and installed packages.
+## Testing Julia and shared packages
+Run tests for Julia and shared packages.
 
 
-## Adding modulefiles
+## Adding Julia module
 If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
 We need to copy the Julia module to the modulefiles directory.
 
@@ -89,12 +89,18 @@ cp modulefiles/julia/1.8.5.lua /appl/modulefiles/julia/1.8.5.lua
 Note that we need to change the version string if we install a diffent version.
 
 
-## Testing modulefiles
+## Testing Julia module
 We can test the Julia module by loading it, checking the Julia version and testing the Julia man pages.
 
 ```bash
 module load julia/1.8.5
+```
+
+```bash
 julia --version
-man julia
+```
+
+```bash
+man -w julia
 ```
 
