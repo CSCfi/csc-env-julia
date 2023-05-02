@@ -1,6 +1,5 @@
 #!/bin/bash
 #SBATCH --job-name=test_julia
-#SBATCH --account=project_2001659
 #SBATCH --partition=test
 #SBATCH --time=00:30:00
 #SBATCH --nodes=1

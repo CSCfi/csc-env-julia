@@ -1,6 +1,5 @@
 #!/bin/bash
 #SBATCH --job-name=test_mpi
-#SBATCH --account=project_2001659
 #SBATCH --partition=test
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1

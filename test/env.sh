@@ -1,2 +1,8 @@
 #!/usr/bin/env sh
-export SBATCH_ACCOUNT=project_2001659
+if [ "$USER" = "kuu-akka" ]; then
+    SBATCH_ACCOUNT=project_2000197
+else
+    SBATCH_ACCOUNT=project_2001659
+fi
+
+export SBATCH_ACCOUNT
