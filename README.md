@@ -2,7 +2,9 @@
 ## Systems
 - Puhti
 - Mahti
-- CSC local installation on LUMI
+- LUMI (CSC local installation)
+
+All systems use Lmod and Slurm.
 
 
 ## Installation paths
@@ -16,6 +18,7 @@ Julia Jupyter modulefiles directory:
 
 - Puhti: `/appl/modulefiles/julia-jupyter`
 - Mahti: `/appl/modulefiles/julia-jupyter`
+- LUMI: `/appl/local/csc/modulefiles/julia-jupyter`
 
 Julia application directory:
 
@@ -28,7 +31,7 @@ Subdirectories in the Julia application directory:
 - Julia installation directory: `julia-v#.#.#`
 - Shared Julia depot directory: `depot`
 - Directory for Julia kernels for Jupyter: `jupyter`
-- Direcotry for Jupyter installation for Julia: `jupyter-env`
+- Directory for Jupyter installation for Julia: `jupyter-env`
 
 
 ## Installing Julia
