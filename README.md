@@ -1,22 +1,29 @@
 # CSC Julia Environment
 ## Systems
-- Puhti and Mahti
-- Local installation on LUMI
+- Puhti
+- Mahti
+- CSC local installation on LUMI
 
 
 ## Installation paths
-Puhti and Mahti
+Julia modulefiles directory:
 
-- Julia modulefiles directory: `/appl/modulefiles/julia`
-- Julia Jupyter modulefiles directory: `/appl/modulefiles/julia-jupyter`
-- Julia application directory: `/appl/soft/math/julia`
+- Puhti:`/appl/modulefiles/julia`
+- Mahti:`/appl/modulefiles/julia`
+- LUMI: `/appl/local/csc/modulefiles/julia`
 
-LUMI
+Julia Jupyter modulefiles directory:
 
-- Julia modulefiles directory: `/appl/local/csc/modulefiles/julia`
-- Julia application directory: `/appl/local/csc/soft/math/julia`
+- Puhti: `/appl/modulefiles/julia-jupyter`
+- Mahti: `/appl/modulefiles/julia-jupyter`
 
-Subdirectories in the Julia application directory
+Julia application directory:
+
+- Puhti: `/appl/soft/math/julia`
+- Mahti: `/appl/soft/math/julia`
+- LUMI: `/appl/local/csc/soft/math/julia`
+
+Subdirectories in the Julia application directory:
 
 - Julia installation directory: `julia-v#.#.#`
 - Shared Julia depot directory: `depot`
@@ -35,7 +42,7 @@ bash julia/binary.sh
 
 
 ## Installing shared Julia packages
-First, we must add the modulefiles to the modulepath.
+First, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
 ```bash
 source modulefiles/env.sh
@@ -77,4 +84,14 @@ cp modulefiles/julia/1.8.5.lua /appl/modulefiles/julia/1.8.5.lua
 ```
 
 Note that we need to change the version string if we install a diffent version.
+
+
+## Testing modulefiles
+We can test the Julia module by loading it, checking the Julia version and testing the Julia man pages.
+
+```bash
+module load julia/1.8.5
+julia --version
+man julia
+```
 
