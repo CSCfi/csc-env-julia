@@ -6,7 +6,7 @@ Julia language and dependencies.
 local MAJOR = "1"
 local MINOR = "8"
 local PATCH = "5"
-local JULIA_VERSION = MAJOR .. "." .. MINOR "." .. PATCH
+local JULIA_VERSION = MAJOR .. "." .. MINOR .. "." .. PATCH
 
 -- Directories
 local JULIA_APPL_DIR = "/appl/local/csc/soft/math/julia"
