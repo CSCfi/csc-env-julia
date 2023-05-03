@@ -2,12 +2,13 @@ help([[
 Julia language and dependencies.
 ]])
 
--- Julia version using semantic versioning
+-- Version
 local MAJOR = "1"
 local MINOR = "8"
 local PATCH = "5"
 local JULIA_VERSION = MAJOR .. "." .. MINOR "." .. PATCH
 
+-- Directories
 local JULIA_APPL_DIR = "/appl/local/csc/soft/math/julia"
 local JULIA_RELEASE_DIR = pathJoin(JULIA_APPL_DIR, "julia-" .. JULIA_VERSION)
 local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")

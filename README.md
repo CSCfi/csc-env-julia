@@ -39,7 +39,7 @@ Subdirectories in the Julia application directory:
 Download and unpack the Julia binaries to the Julia application directory.
 
 ```bash
-export JULIA_APPLDIR="/appl/soft/math/julia"
+export JULIA_APPL_DIR="/appl/soft/math/julia"
 export JULIA_VERSION="1.8.5"
 bash julia/binary.sh
 ```
@@ -49,7 +49,11 @@ bash julia/binary.sh
 First, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
 ```bash
-source modulefiles/env.sh
+source modulefiles/puhti-mahti/env.sh
+```
+
+```bash
+source modulefiles/lumi/env.sh
 ```
 
 Then, we can load the `julia-packages` module.
@@ -89,12 +93,19 @@ sbatch --chdir test/cuda test/cuda/puhti.sh
 ## Adding Julia module
 If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
 We need to copy the Julia module to the modulefiles directory.
+Puhti and Mahti:
 
 ```bash
-cp modulefiles/julia/1.8.5.lua /appl/modulefiles/julia/1.8.5.lua
+cp modulefiles/puhti-mahti/julia/1.8.5.lua /appl/modulefiles/julia/1.8.5.lua
 ```
 
-Note that we need to change the version string if we install a diffent version.
+LUMI:
+
+```bash
+cp modulefiles/lumi/julia/1.8.5.lua /appl/local/csc/modulefiles/julia/1.8.5.lua
+```
+
+We need to change the version string if we install a diffent version.
 
 
 ## Testing Julia module

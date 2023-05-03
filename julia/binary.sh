@@ -1,11 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-# Julia version to install
-JULIA_VERSION=${JULIA_VERSION:-$1}
-
-# Installation directory
-JULIA_APPL_DIR=${JULIA_APPL_DIR:-$2}
+# Environment variables JULIA_VERSION and JULIA_APPL_DIR should be set.
 
 # GPG keys
 JULIA_GPG="3673DF529D9049477F76B37566E3C7DC03D6E495"
