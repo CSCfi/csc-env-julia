@@ -1,1 +1,1 @@
-local SBATCH_ACCOUNT = "project_462000007"
+setenv("SBATCH_ACCOUNT", "project_462000007")
