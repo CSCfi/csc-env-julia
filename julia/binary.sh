@@ -2,10 +2,10 @@
 set -eu
 
 # Julia version to install
-JULIA_VERSION=${JULIA_VERSION:-"1.8.5"}
+JULIA_VERSION=${JULIA_VERSION:-$1}
 
 # Installation directory
-JULIA_APPLDIR=${JULIA_APPLDIR:-"/appl/soft/math/julia"}
+JULIA_APPL_DIR=${JULIA_APPL_DIR:-$2}
 
 # GPG keys
 JULIA_GPG="3673DF529D9049477F76B37566E3C7DC03D6E495"
@@ -17,7 +17,7 @@ JULIA_URL_TAR="https://julialang-s3.julialang.org/bin/linux/x64/$MAJOR.$MINOR/ju
 JULIA_URL_ASC="${JULIA_URL_TAR}.asc"
 
 # Change directory
-cd "$JULIA_APPLDIR"
+cd "$JULIA_APPL_DIR"
 
 # Download the source code and signature.
 #curl --location "$JULIA_URL_TAR" --remote-name

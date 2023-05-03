@@ -5,7 +5,7 @@ const ijulia_dir = dirname(dirname(pathof(IJulia)))
 const julia_kernel = joinpath(ijulia_dir, "src", "kernel.jl")
 
 # Jupyter data dir
-const jupyter_dir = ENV["JUPYTER_DATA_DIR"]
+const jupyter_dir = joinpath(ENV["CSC_JULIA_APPL_DIR"], "jupyter")
 
 # Location to install the Julia kernel.
 const kernel_dir = joinpath(jupyter_dir, "kernels", "julia-$(Base.VERSION_STRING)")

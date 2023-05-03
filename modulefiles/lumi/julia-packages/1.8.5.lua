@@ -1,6 +1,3 @@
-local JULIA_APPLDIR = "/appl/soft/math/julia"
-local JULIA_CSC_DEPOT = pathJoin(JULIA_APPLDIR, "depot")
-
 -- Module dependecies for installing packages.
 depends_on("julia/1.8.5")
 
@@ -8,13 +5,10 @@ depends_on("julia/1.8.5")
 unsetenv("JULIA_LOAD_PATH")
 
 -- Directory for the shared packages and other depots.
-setenv("JULIA_DEPOT_PATH", JULIA_CSC_DEPOT)
+setenv("JULIA_DEPOT_PATH", os.getenv("CSC_JULIA_DEPOT_DIR"))
 
 -- Directory for the shared environment.
-setenv("JULIA_PROJECT", pathJoin(JULIA_CSC_DEPOT, "environments/v1.8_shared"))
+setenv("JULIA_PROJECT", os.getenv("CSC_JULIA_ENVIRONMENT_DIR"))
 
 -- Disable history when installing shared packages.
 setenv("JULIA_HISTORY", "/dev/null")
-
--- Diretory for the Julia kernel
-setenv("JUPYTER_DATA_DIR", pathJoin(JULIA_APPLDIR, "jupyter"))

@@ -1,14 +1,14 @@
 # CSC Julia Environment
 ## Systems
-- Puhti
-- Mahti
-- LUMI (CSC local installation)
+- Puhti: `puhti`
+- Mahti: `mahti`
+- LUMI (CSC local installation): `lumi`
 
 All systems use Lmod and Slurm.
 
 
 ## Installation paths
-Diretory for Julia modulefiles:
+Directory for Julia modulefiles:
 
 - Puhti:`/appl/modulefiles/julia`
 - Mahti:`/appl/modulefiles/julia`
@@ -28,8 +28,9 @@ Directory for the Julia application:
 
 Subdirectories in the Julia application directory:
 
-- Directory for Julia binary: `julia-v#.#.#`
+- Directory for Julia release: `julia-v#.#.#`
 - Directory for shared Julia depots: `depot`
+- Directory for shared Julia environment: `depot/environments/v#.#_shared`
 - Directory for Julia kernels for Jupyter: `jupyter`
 - Directory for Jupyter installation for Julia: `jupyter-env`
 
@@ -77,6 +78,13 @@ julia packages/instantiate.jl
 ## Testing Julia and shared packages
 Run tests for Julia and shared packages.
 
+```bash
+source test/env.sh
+sbatch --chdir test/julia test/julia/puhti.sh
+sbatch --chdir test/mpi test/mpi/puhti.sh
+sbatch --chdir test/cuda test/cuda/puhti.sh
+```
+
 
 ## Adding Julia module
 If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
@@ -90,7 +98,7 @@ Note that we need to change the version string if we install a diffent version.
 
 
 ## Testing Julia module
-We can test the Julia module by loading it, checking the Julia version and testing the Julia man pages.
+We can test the Julia module by loading it, checking the Julia version and checking the path to the Julia man pages.
 
 ```bash
 module load julia/1.8.5
