@@ -1,5 +1,5 @@
-using ArgParse
 using MKL
+using ArgParse
 using LinearAlgebra
 using BenchmarkTools
 
@@ -11,11 +11,12 @@ s = ArgParseSettings()
         default = 1_000
 end
 args = parse_args(s)
-@show BLAS.get_config()
 n = args["n"]
+
+#BLAS.set_num_threads(Sys.CPU_THREADS)
+@show BLAS.get_config()
+@show BLAS.get_num_threads()
+@show Base.Threads.nthreads()
+
 A = rand(Float64, (n, n))
-for threads in [1, 2, 4, 10, 20, 40]
-    BLAS.set_num_threads(threads)
-    @show BLAS.get_num_threads()
-    @btime $A * $A
-end
+@btime $A * $A
