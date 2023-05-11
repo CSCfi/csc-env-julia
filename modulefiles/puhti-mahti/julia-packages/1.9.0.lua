@@ -1,5 +1,5 @@
 -- Module dependecies for installing packages.
-depends_on("julia/1.8.5")
+depends_on("julia/1.9.0")
 
 -- We use the default load path by unsetting the environment variable.
 unsetenv("JULIA_LOAD_PATH")
