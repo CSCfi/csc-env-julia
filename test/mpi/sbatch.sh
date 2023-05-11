@@ -15,39 +15,26 @@ mkdir -p "v$JULIA_VERSION"
 
 puhti() {
     sbatch \
-        --job-name=test_julia \
-        --partition=small \
-        --time=00:40:00 \
+        --job-name=test_mpi \
+        --partition=test \
+        --time=00:15:00 \
         --nodes=1 \
-        --ntasks-per-node=1 \
-        --cpus-per-task=20 \
-        --mem-per-cpu=2000 \
+        --ntasks-per-node=2 \
+        --cpus-per-task=4 \
+        --mem-per-cpu=500 \
         --output="v$JULIA_VERSION/slurm-%j.out" \
         test.sh
 }
 
 mahti() {
     sbatch \
-        --job-name=test_julia \
+        --job-name=test_mpi \
         --partition=test \
-        --time=00:30:00 \
+        --time=00:15:00 \
         --nodes=1 \
-        --ntasks-per-node=1 \
-        --cpus-per-task=128 \
+        --ntasks-per-node=2 \
+        --cpus-per-task=64 \
         --mem=0 \
-        --output="v$JULIA_VERSION/slurm-%j.out" \
-        test.sh
-}
-
-lumi_c() {
-    sbatch \
-        --job-name=test_julia \
-        --partition=small \
-        --time=00:30:00 \
-        --nodes=1 \
-        --ntasks-per-node=1 \
-        --cpus-per-task=40 \
-        --mem-per-cpu=1750 \
         --output="v$JULIA_VERSION/slurm-%j.out" \
         test.sh
 }
