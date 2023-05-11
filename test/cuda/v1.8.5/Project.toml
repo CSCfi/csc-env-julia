@@ -2,4 +2,5 @@
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
 
 [compat]
+julia = "1.8.5"
 CUDA = "=4.0.1"
