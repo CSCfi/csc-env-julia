@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+if [ -z "$SBATCH_ACCOUNT" ]; then
+    echo "SBATCH_ACCOUNT should be set!" >&2
+    exit 1
+fi
 
 # Set Julia version to test
 JULIA_VERSION=${JULIA_VERSION:-"1.9.0"}
