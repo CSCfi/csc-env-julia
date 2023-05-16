@@ -10,7 +10,7 @@ export JULIA_VERSION=${JULIA_VERSION:-"1.8.5"}
 mkdir -p "v$JULIA_VERSION"
 
 # Slurm output file
-export SBATCH_OUTPUT="$PWD/v$JULIA_VERSION/%j.out"
+export SBATCH_OUTPUT="$PWD/v$JULIA_VERSION/test_julia_%j.out"
 
 # Puhti batch job
 puhti() {
