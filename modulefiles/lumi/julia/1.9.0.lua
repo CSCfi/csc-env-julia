@@ -4,8 +4,8 @@ Julia language and dependencies.
 
 -- Version
 local MAJOR = "1"
-local MINOR = "8"
-local PATCH = "5"
+local MINOR = "9"
+local PATCH = "0"
 local JULIA_VERSION = MAJOR .. "." .. MINOR .. "." .. PATCH
 
 -- Directories
