@@ -14,6 +14,9 @@ local JULIA_RELEASE_DIR = pathJoin(JULIA_APPL_DIR, "julia-" .. JULIA_VERSION)
 local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")
 local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. MAJOR .. "." .. MINOR .. "_shared")
 
+-- Julia's ccall conflicts with hardware partition specific programming environments
+conflict("craype-x86-rome", "craype-x86-trento", "craype-x86-milan")
+
 -- Load dependencies for Julia, MPI, GPUs and shared packages.
 depends_on("PrgEnv-gnu-amd", "gcc/11", "rocm/5.2")
 
