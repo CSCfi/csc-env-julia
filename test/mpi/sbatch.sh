@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-if [ -z "$SBATCH_ACCOUNT" ]; then
-    echo "SBATCH_ACCOUNT should be set!" >&2
-    exit 1
-fi
+# Use strict mode
+set -euo pipefail
 
 # Set Julia version to test
 export JULIA_VERSION=${JULIA_VERSION:-"1.8.5"}
@@ -11,10 +9,10 @@ export JULIA_VERSION=${JULIA_VERSION:-"1.8.5"}
 # Create diretory for Julia environment and Slurm output
 mkdir -p "v$JULIA_VERSION"
 
-# Batch scripts
-
+# Puhti batch job
 puhti() {
     sbatch \
+        --account="$SBATCH_ACCOUNT" \
         --job-name=test_mpi \
         --partition=test \
         --time=00:15:00 \
@@ -22,12 +20,14 @@ puhti() {
         --ntasks-per-node=2 \
         --cpus-per-task=4 \
         --mem-per-cpu=500 \
-        --output="v$JULIA_VERSION/slurm-%j.out" \
+        --output="v$JULIA_VERSION/test_mpi_%j.out" \
         test.sh
 }
 
+# Mahti batch job
 mahti() {
     sbatch \
+        --account="$SBATCH_ACCOUNT" \
         --job-name=test_mpi \
         --partition=test \
         --time=00:15:00 \
@@ -35,9 +35,13 @@ mahti() {
         --ntasks-per-node=2 \
         --cpus-per-task=64 \
         --mem=0 \
-        --output="v$JULIA_VERSION/slurm-%j.out" \
+        --output="v$JULIA_VERSION/test_mpi_%j.out" \
         test.sh
 }
 
 # Pass arguments
-"$@"
+case $1 in
+    puhti) puhti ;;
+    mahti) mahti ;;
+    *) exit 1
+esac

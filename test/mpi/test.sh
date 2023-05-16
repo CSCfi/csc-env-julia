@@ -4,7 +4,9 @@
 set -euo pipefail
 
 # Load Julia module
-module load julia/$JULIA_VERSION
+module purge
+module load "julia/$JULIA_VERSION"
+module list
 
 # Set Julia project
 export JULIA_PROJECT="$PWD/v$JULIA_VERSION"
