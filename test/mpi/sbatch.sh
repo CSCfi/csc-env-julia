@@ -39,9 +39,25 @@ mahti() {
         test.sh
 }
 
+# LUMI-C batch job
+lumi_c() {
+    sbatch \
+        --account="$SBATCH_ACCOUNT" \
+        --job-name=test_mpi \
+        --partition=debug \
+        --time=00:15:00 \
+        --nodes=1 \
+        --ntasks-per-node=2 \
+        --cpus-per-task=4 \
+        --mem-per-cpu=1000 \
+        --output="v$JULIA_VERSION/test_mpi_%j.out" \
+        test.sh
+}
+
 # Pass arguments
 case $1 in
     puhti) puhti ;;
     mahti) mahti ;;
+    lumi_c) lumi_c ;;
     *) exit 1
 esac

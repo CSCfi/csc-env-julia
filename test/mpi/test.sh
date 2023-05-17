@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # Load Julia module
-module purge
+module --quiet purge
 module load "julia/$JULIA_VERSION"
 module list
 

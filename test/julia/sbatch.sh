@@ -39,6 +39,7 @@ mahti() {
         --ntasks-per-node=1 \
         --cpus-per-task=128 \
         --mem=0 \
+        --exclusive \
         test.sh
 }
 
@@ -48,12 +49,13 @@ lumi_c() {
         --account="$SBATCH_ACCOUNT" \
         --output="$SBATCH_OUTPUT" \
         --job-name=test_julia \
-        --partition=small \
+        --partition=standard \
         --time=00:30:00 \
         --nodes=1 \
         --ntasks-per-node=1 \
-        --cpus-per-task=40 \
-        --mem-per-cpu=1750 \
+        --cpus-per-task=128 \
+        --mem=0 \
+        --exclusive \
         test.sh
 }
 
