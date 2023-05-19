@@ -35,34 +35,57 @@ Subdirectories in the Julia application directory:
 - Directory for Jupyter installation for Julia: `jupyter-env`
 
 
-## Installing Julia
-Download and unpack the Julia binaries to the Julia application directory.
+## Installing Julia binaries
+Download and unpack the [Julia binaries](https://julialang.org/downloads/) to the Julia application directory.
+
+Puhti and Mahti:
 
 ```bash
-export JULIA_APPL_DIR="/appl/soft/math/julia"
-export JULIA_VERSION="1.8.5"
-bash julia/binary.sh
+cd "/appl/soft/math/julia"
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
+tar xf julia-1.9.0-linux-x86_64.tar.gz
+```
+
+LUMI:
+
+```bash
+cd "/appl/local/csc/soft/math/julia"
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
+tar xf julia-1.9.0-linux-x86_64.tar.gz
 ```
 
 
 ## Installing shared packages
 First, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
+Puhti:
+
 ```bash
-source modulefiles/puhti-mahti/env.sh
+source modulefiles/puhti/env.sh
 ```
+
+Mahti:
+
+```bash
+source modulefiles/mahti/env.sh
+```
+
+LUMI:
 
 ```bash
 source modulefiles/lumi/env.sh
 ```
 
-Then, we can load the `julia-packages` module.
+Then, we can load the `julia` and `julia-pkg` modules.
 
 ```bash
-module load julia-packages/1.8.5
+module purge
+module load julia/1.9.0 julia-pkg
 ```
 
-Now, we can install packages by running install scripts.
+Now, we can install packages by running install scripts inside the `packages` directory and instantiate them.
+
+Puhti and Mahti:
 
 ```bash
 julia packages/mkl.jl
@@ -70,11 +93,14 @@ julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/ijulia.jl
 julia packages/ijulia_installkernel.jl
+julia packages/instantiate.jl
 ```
 
-Finally, we must instantiate the installed packages.
+LUMI:
 
 ```bash
+julia packages/mpi.jl
+julia packages/amdgpu.jl
 julia packages/instantiate.jl
 ```
 
@@ -83,36 +109,64 @@ julia packages/instantiate.jl
 Run tests for Julia and shared packages.
 
 ```bash
-source test/env.sh
-sbatch --chdir test/julia test/julia/puhti.sh
-sbatch --chdir test/mpi test/mpi/puhti.sh
-sbatch --chdir test/cuda test/cuda/puhti.sh
+module purge
+module load julia/1.9.0 julia-test
+```
+
+Puhti:
+
+```bash
+(cd test/julia && ./sbatch puhti)
+(cd test/mpi && ./sbatch puhti)
+(cd test/cuda && ./sbatch puhti)
+```
+
+Mahti:
+
+```bash
+(cd test/julia && ./sbatch mahti)
+(cd test/mpi && ./sbatch mahti)
+(cd test/cuda && ./sbatch mahti)
+```
+
+LUMI:
+
+```bash
+(cd test/julia && ./sbatch lumi_c)
+(cd test/mpi && ./sbatch lumi_c)
+(cd test/amdgpu && ./sbatch lumi_g)
 ```
 
 
 ## Adding Julia module
 If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
 We need to copy the Julia module to the modulefiles directory.
-Puhti and Mahti:
+
+Puhti:
 
 ```bash
-cp modulefiles/puhti-mahti/julia/1.8.5.lua /appl/modulefiles/julia/1.8.5.lua
+cp modulefiles/puhti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
+```
+
+Mahti:
+
+```bash
+cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/mahti/1.9.0.lua
 ```
 
 LUMI:
 
 ```bash
-cp modulefiles/lumi/julia/1.8.5.lua /appl/local/csc/modulefiles/julia/1.8.5.lua
+cp modulefiles/lumi/julia/1.9.0.lua /appl/local/csc/modulefiles/julia/1.9.0.lua
 ```
-
-We need to change the version string if we install a diffent version.
 
 
 ## Testing Julia module
 We can test the Julia module by loading it, checking the Julia version and checking the path to the Julia man pages.
 
 ```bash
-module load julia/1.8.5
+module purge
+module load julia/1.9.0
 ```
 
 ```bash
