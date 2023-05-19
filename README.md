@@ -18,7 +18,6 @@ Directory for Julia Jupyter modulefiles:
 
 - Puhti: `/appl/modulefiles/julia-jupyter`
 - Mahti: `/appl/modulefiles/julia-jupyter`
-- LUMI: `/appl/local/csc/modulefiles/julia-jupyter`
 
 Directory for the Julia application:
 
@@ -120,6 +119,7 @@ julia packages/instantiate.jl
 Run tests for Julia and shared packages.
 
 ```bash
+module unload julia-pkg
 module load julia/1.9.0 julia-test/env
 ```
 
@@ -156,12 +156,14 @@ Puhti:
 
 ```bash
 cp modulefiles/puhti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
+cp modulefiles/puhti/julia-jupyter/env.lua /appl/modulefiles/julia-jupyter/env.lua
 ```
 
 Mahti:
 
 ```bash
 cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
+cp modulefiles/mahti/julia-jupyter/env.lua /appl/modulefiles/julia-jupyter/env.lua
 ```
 
 LUMI:
