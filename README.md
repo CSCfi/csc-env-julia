@@ -41,6 +41,7 @@ Download and unpack the [Julia binaries](https://julialang.org/downloads/) to th
 Puhti and Mahti:
 
 ```bash
+module purge
 cd "/appl/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
@@ -49,6 +50,7 @@ tar xf julia-1.9.0-linux-x86_64.tar.gz
 LUMI:
 
 ```bash
+module purge
 cd "/appl/local/csc/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
@@ -61,34 +63,43 @@ First, we must add the modulefiles to the modulepath to make them available on t
 Puhti:
 
 ```bash
-source modulefiles/puhti/env.sh
+module use "$PWD/modulefiles/puhti"
 ```
 
 Mahti:
 
 ```bash
-source modulefiles/mahti/env.sh
+module use "$PWD/modulefiles/mahti"
 ```
 
 LUMI:
 
 ```bash
-source modulefiles/lumi/env.sh
+module use "$PWD/modulefiles/lumi"
 ```
 
-Then, we can load the `julia` and `julia-pkg` modules.
+Then, we can load the environments for installing shared Julia packages.
 
 ```bash
-module purge
-module load julia/1.9.0 julia-pkg
+module load julia/1.9.0 julia-pkg/env
 ```
 
 Now, we can install packages by running install scripts inside the `packages` directory and instantiate them.
 
-Puhti and Mahti:
+Puhti:
 
 ```bash
 julia packages/mkl.jl
+julia packages/mpi.jl
+julia packages/cuda.jl
+julia packages/ijulia.jl
+julia packages/ijulia_installkernel.jl
+julia packages/instantiate.jl
+```
+
+Mahti:
+
+```bash
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/ijulia.jl
@@ -109,8 +120,7 @@ julia packages/instantiate.jl
 Run tests for Julia and shared packages.
 
 ```bash
-module purge
-module load julia/1.9.0 julia-test
+module load julia/1.9.0 julia-test/env
 ```
 
 Puhti:
@@ -151,7 +161,7 @@ cp modulefiles/puhti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
 Mahti:
 
 ```bash
-cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/mahti/1.9.0.lua
+cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
 ```
 
 LUMI:
