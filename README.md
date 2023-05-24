@@ -80,7 +80,7 @@ module use "$PWD/modulefiles/lumi"
 Then, we can load the environments for installing shared Julia packages.
 
 ```bash
-module load julia/1.9.0 julia-pkg/env
+module load julia/1.9.0 julia-pkg
 ```
 
 Now, we can install packages by running install scripts inside the `packages` directory and instantiate them.
@@ -120,7 +120,7 @@ Run tests for Julia and shared packages.
 
 ```bash
 module unload julia-pkg
-module load julia/1.9.0 julia-test/env
+module load julia/1.9.0 julia-test
 ```
 
 Puhti:
@@ -156,14 +156,14 @@ Puhti:
 
 ```bash
 cp modulefiles/puhti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
-cp modulefiles/puhti/julia-jupyter/env.lua /appl/modulefiles/julia-jupyter/env.lua
+cp modulefiles/puhti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
 ```
 
 Mahti:
 
 ```bash
 cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
-cp modulefiles/mahti/julia-jupyter/env.lua /appl/modulefiles/julia-jupyter/env.lua
+cp modulefiles/mahti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
 ```
 
 LUMI:
