@@ -1,14 +1,14 @@
 -- Installing packages requires loading the julia module.
-prereq_any("julia/1.8.5", "julia/1.9.0")
+prereq("julia")
 
--- We use the default load path by unsetting the environment variable.
-unsetenv("JULIA_LOAD_PATH")
+-- Ese the default load path for installing shared packages.
+pushenv("JULIA_LOAD_PATH", "@:@v#.#:@stdlib")
 
 -- Directory for the shared packages and other depots.
-setenv("JULIA_DEPOT_PATH", os.getenv("CSC_JULIA_DEPOT_DIR"))
+pushenv("JULIA_DEPOT_PATH", os.getenv("CSC_JULIA_DEPOT_DIR"))
 
 -- Directory for the shared environment.
-setenv("JULIA_PROJECT", os.getenv("CSC_JULIA_ENVIRONMENT_DIR"))
+pushenv("JULIA_PROJECT", os.getenv("CSC_JULIA_ENVIRONMENT_DIR"))
 
 -- Disable history when installing shared packages.
-setenv("JULIA_HISTORY", "/dev/null")
+pushenv("JULIA_HISTORY", "/dev/null")

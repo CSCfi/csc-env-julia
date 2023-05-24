@@ -4,7 +4,7 @@ Julia language and dependencies.
 
 -- Version in the semantic version format "x.y.z-rc"
 local JULIA_VERSION = myModuleVersion()
-local JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR = version:match("(%d+)%.(%d+)")
+local JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR = JULIA_VERSION:match("(%d+)%.(%d+)")
 
 -- Directories
 local JULIA_APPL_DIR = "/appl/local/csc/soft/math/julia"
