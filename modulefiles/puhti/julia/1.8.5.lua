@@ -2,17 +2,15 @@ help([[
 Julia language and dependencies.
 ]])
 
--- Version
-local MAJOR = "1"
-local MINOR = "8"
-local PATCH = "5"
-local JULIA_VERSION = MAJOR .. "." .. MINOR .. "." .. PATCH
+-- Version in the semantic version format "x.y.z-rc"
+local JULIA_VERSION = myModuleVersion()
+local JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR = version:match("(%d+)%.(%d+)")
 
 -- Directories
 local JULIA_APPL_DIR = "/appl/soft/math/julia"
 local JULIA_RELEASE_DIR = pathJoin(JULIA_APPL_DIR, "julia-" .. JULIA_VERSION)
 local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")
-local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. MAJOR .. "." .. MINOR .. "_shared")
+local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. JULIA_VERSION_MAJOR .. "." .. JULIA_VERSION_MINOR .. "_shared")
 
 -- Load dependencies for Julia, MPI, GPUs and shared packages.
 depends_on("gcc/11", "openmpi/4", "cuda/11")
