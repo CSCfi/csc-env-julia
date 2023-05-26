@@ -40,7 +40,6 @@ Download and unpack the [Julia binaries](https://julialang.org/downloads/) to th
 Puhti and Mahti:
 
 ```bash
-module purge
 cd "/appl/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
@@ -49,7 +48,6 @@ tar xf julia-1.9.0-linux-x86_64.tar.gz
 LUMI:
 
 ```bash
-module purge
 cd "/appl/local/csc/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
@@ -62,18 +60,21 @@ During development, we must add the modulefiles to the module path as follows.
 Puhti:
 
 ```bash
+module purge
 module use "$PWD/modulefiles/puhti"
 ```
 
 Mahti:
 
 ```bash
+module purge
 module use "$PWD/modulefiles/mahti"
 ```
 
 LUMI:
 
 ```bash
+module purge
 module use "$PWD/modulefiles/lumi"
 ```
 
