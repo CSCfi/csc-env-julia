@@ -2,7 +2,7 @@
 ## Systems
 - Puhti: `puhti`
 - Mahti: `mahti`
-- LUMI (CSC local installation): `lumi`
+- LUMI: `lumi`
 
 All systems use Lmod and Slurm.
 
@@ -57,37 +57,15 @@ tar xf julia-1.9.0-linux-x86_64.tar.gz
 
 
 ## Installing shared packages
-First, we must add the modulefiles to the modulepath to make them available on the current shell session.
+We must add the modulefiles to the modulepath to make them available on the current shell session.
+Then, we can load the environment for installing shared Julia packages and install packages by running scripts inside the `packages` directory.
+Finally, we must instantiate the packages using the instantiate script.
 
 Puhti:
 
 ```bash
 module use "$PWD/modulefiles/puhti"
-```
-
-Mahti:
-
-```bash
-module use "$PWD/modulefiles/mahti"
-```
-
-LUMI:
-
-```bash
-module use "$PWD/modulefiles/lumi"
-```
-
-Then, we can load the environments for installing shared Julia packages.
-
-```bash
 module load julia/1.9.0 julia-pkg
-```
-
-Now, we can install packages by running install scripts inside the `packages` directory and instantiate them.
-
-Puhti:
-
-```bash
 julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
@@ -99,6 +77,8 @@ julia packages/instantiate.jl
 Mahti:
 
 ```bash
+module use "$PWD/modulefiles/mahti"
+module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/ijulia.jl
@@ -109,6 +89,8 @@ julia packages/instantiate.jl
 LUMI:
 
 ```bash
+module use "$PWD/modulefiles/lumi"
+module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/amdgpu.jl
 julia packages/instantiate.jl
@@ -118,14 +100,11 @@ julia packages/instantiate.jl
 ## Testing Julia and shared packages
 Run tests for Julia and shared packages.
 
-```bash
-module unload julia-pkg
-module load julia/1.9.0 julia-test
-```
-
 Puhti:
 
 ```bash
+module unload julia-pkg
+module load julia/1.9.0 julia-test
 (cd test/julia && ./sbatch puhti)
 (cd test/mpi && ./sbatch puhti)
 (cd test/cuda && ./sbatch puhti)
@@ -134,6 +113,8 @@ Puhti:
 Mahti:
 
 ```bash
+module unload julia-pkg
+module load julia/1.9.0 julia-test
 (cd test/julia && ./sbatch mahti)
 (cd test/mpi && ./sbatch mahti)
 (cd test/cuda && ./sbatch mahti)
@@ -142,6 +123,8 @@ Mahti:
 LUMI:
 
 ```bash
+module unload julia-pkg
+module load julia/1.9.0 julia-test
 (cd test/julia && ./sbatch lumi_c)
 (cd test/mpi && ./sbatch lumi_c)
 (cd test/amdgpu && ./sbatch lumi_g)
