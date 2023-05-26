@@ -56,6 +56,28 @@ tar xf julia-1.9.0-linux-x86_64.tar.gz
 ```
 
 
+## Using modulefiles during development
+During development, we must add the modulefiles to the module path as follows.
+
+Puhti:
+
+```bash
+module use "$PWD/modulefiles/puhti"
+```
+
+Mahti:
+
+```bash
+module use "$PWD/modulefiles/mahti"
+```
+
+LUMI:
+
+```bash
+module use "$PWD/modulefiles/lumi"
+```
+
+
 ## Installing shared packages
 We must add the modulefiles to the modulepath to make them available on the current shell session.
 Then, we can load the environment for installing shared Julia packages and install packages by running scripts inside the `packages` directory.
@@ -64,7 +86,6 @@ Finally, we must instantiate the packages using the instantiate script.
 Puhti:
 
 ```bash
-module use "$PWD/modulefiles/puhti"
 module load julia/1.9.0 julia-pkg
 julia packages/mkl.jl
 julia packages/mpi.jl
@@ -77,7 +98,6 @@ julia packages/instantiate.jl
 Mahti:
 
 ```bash
-module use "$PWD/modulefiles/mahti"
 module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/cuda.jl
@@ -89,7 +109,6 @@ julia packages/instantiate.jl
 LUMI:
 
 ```bash
-module use "$PWD/modulefiles/lumi"
 module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/amdgpu.jl
