@@ -1,5 +1,7 @@
 # CSC Julia Environment
 ## Systems
+This repository has installations for the following clusters.
+
 - Puhti: `puhti`
 - Mahti: `mahti`
 - LUMI: `lumi`
@@ -52,6 +54,18 @@ cd "/appl/local/csc/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
 ```
+
+
+## Structure of Julia binaries
+
+- `bin` : binary
+- `lib` : shared libraries
+- `include` : header files
+- `share/julia/base` : base library
+- `share/julia/stdlib` : standard libraries
+- `share/julia/test` : tests for base
+- `share/man` : man pages
+- `etc/julia/startup.jl` : startup script
 
 
 ## Using modulefiles during development
