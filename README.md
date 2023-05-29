@@ -1,19 +1,21 @@
 # CSC Julia Environment
 Intruction for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
+We denote the different systems using strings `puhti`, `mahti`, and `lumi`.
+
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
 ## Installation paths
-The `CSC_APPL_DIR` is `/appl` in Puhti and Mahti and `/appl/local/csc` in LUMI.
+In Puhti and Mahti, we have `CSC_APPL_DIR=/appl` and in LUMI we have `CSC_APPL_DIR=/appl/local/csc`.
 
 ```txt
 $CSC_APPL_DIR
 ├── modulefiles/
-│   └── julia/                # Julia modulefiles
+│   └── julia/                # Modulefiles for different version of Julia
 │       ├── 1.8.5.lua         # Modulefile for Julia v1.8.5
 │       └── 1.9.0.lua         # Modulefile for Julia v1.9.0
-└── soft/math/julia/
+└── soft/math/julia/          # Julia application directory
     ├── depot/                # Shared Julia depots such as installed packages, etc
     │   └── environments/     # Shared Julia environments
     │       ├── v1.8_shared/  # Shared environment for Julia v1.8.*
@@ -25,21 +27,11 @@ $CSC_APPL_DIR
 ```
 
 
-## Installing Julia release
-Download and unpack the pre-compiled binaries of a [Julia release](https://julialang.org/downloads/) to the Julia application directory.
-
-Puhti and Mahti:
+## Installing Julia binaries
+We can install Julia by downloading and unpacking the [pre-compiled Julia binaries](https://julialang.org/downloads/) to the Julia application directory.
 
 ```bash
-cd "/appl/soft/math/julia"
-wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
-tar xf julia-1.9.0-linux-x86_64.tar.gz
-```
-
-LUMI:
-
-```bash
-cd "/appl/local/csc/soft/math/julia"
+cd "$CSC_APPL_DIR/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
 ```
