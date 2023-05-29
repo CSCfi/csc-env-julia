@@ -36,8 +36,8 @@ Subdirectories in the Julia application directory:
 - Directory for Jupyter installation for Julia: `jupyter-env`
 
 
-## Installing Julia binaries
-Download and unpack the [Julia binaries](https://julialang.org/downloads/) to the Julia application directory.
+## Installing Julia release
+Download and unpack the [Julia release](https://julialang.org/downloads/) to the Julia application directory.
 
 Puhti and Mahti:
 
@@ -56,16 +56,21 @@ tar xf julia-1.9.0-linux-x86_64.tar.gz
 ```
 
 
-## Structure of Julia binaries
+## Structure of Julia release
+A Julia release contains the following files and directories among others.
 
-- `bin` : binary
-- `lib` : shared libraries
-- `include` : header files
-- `share/julia/base` : base library
-- `share/julia/stdlib` : standard libraries
-- `share/julia/test` : tests for base
-- `share/man` : man pages
-- `etc/julia/startup.jl` : startup script
+- `bin` directory contains the Julia executable which is dynamically linked to various libraries.
+  We must include this location in `PATH`.
+- `lib` directory contains shared libraries for the Julia executable.
+  These libraries are on the `RUNPATH` and can be overwritten by libraries on the `LD_LIBRARY_PATH` environment variable.
+- `include` directory contains header files.
+- `share/man` contains man pages.
+  We should add this directory to the `MANPATH` environment variable.
+- `share/julia/base` directory contains the base library.
+- `share/julia/stdlib` directory contains the standard libraries.
+- `share/julia/test` directory contains tests for base.
+  We can run the test by executing the `runtests.jl` files which run tests for the base and standard libraries.
+- `etc/julia/startup.jl` is a startup script that is executed after Julia starts.
 
 
 ## Using modulefiles during development
