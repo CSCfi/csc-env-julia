@@ -1,29 +1,43 @@
 # CSC Julia Environment
 Intruction for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
+We install and configure packages for MPI and GPU support to the shared environment.
 We denote the different systems using strings `puhti`, `mahti`, and `lumi`.
 
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
+
 ## Installation paths
 In Puhti and Mahti, we have `CSC_APPL_DIR=/appl` and in LUMI we have `CSC_APPL_DIR=/appl/local/csc`.
 
+Julia directory structure
+
 ```txt
-$CSC_APPL_DIR
-├── modulefiles/
-│   └── julia/                # Modulefiles for different version of Julia
-│       ├── 1.8.5.lua         # Modulefile for Julia v1.8.5
-│       └── 1.9.0.lua         # Modulefile for Julia v1.9.0
+$CSC_APPL_DIR/
+├── modulefiles/julia         # Modulefiles for different version of Julia
+│   ├── 1.8.5.lua             # Modulefile for Julia v1.8.5
+│   └── 1.9.0.lua             # Modulefile for Julia v1.9.0
 └── soft/math/julia/          # Julia application directory
     ├── depot/                # Shared Julia depots such as installed packages, etc
     │   └── environments/     # Shared Julia environments
     │       ├── v1.8_shared/  # Shared environment for Julia v1.8.*
     │       └── v1.9_shared/  # Shared environment for Julia v1.9.*
     ├── julia-1.8.5/          # Julia v1.8.5 pre-compiled binaries
-    ├── julia-1.9.0/          # Julia v1.9.0 pre-compiled binaries
-    ├── jupyter/              # Julia kernels for Jupyter
-    └── jupyter-env/          # Private Jupyter installation for Julia
+    └── julia-1.9.0/          # Julia v1.9.0 pre-compiled binaries
+```
+
+Julia Jupyter directory structure
+
+```txt
+$CSC_APPL_DIR/
+├── modulefiles/julia-jupyter/
+│   └── env.lua
+└── soft/math/julia-jupyter/
+    ├── data/kernels/
+    │   ├── julia-1.8.5/
+    │   └── julia-1.9.0/
+    └── env/
 ```
 
 
@@ -54,6 +68,10 @@ A Julia release, such as `julia-1.9.0`, contains the following files and directo
 - `share/julia/test` directory contains tests for base.
   We can run the test by executing the `runtests.jl` files which run tests for the base and standard libraries.
 - `etc/julia/startup.jl` is a startup script that is executed after Julia starts.
+
+
+## Modulefile template
+[modulefiles/julia/x.y.z](./modulefiles/template/julia/x.y.z.lua)
 
 
 ## Using modulefiles during development
