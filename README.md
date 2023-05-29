@@ -27,19 +27,6 @@ $CSC_APPL_DIR/
     └── julia-1.9.0/          # Julia v1.9.0 pre-compiled binaries
 ```
 
-Julia Jupyter directory structure
-
-```txt
-$CSC_APPL_DIR/
-├── modulefiles/julia-jupyter/
-│   └── env.lua
-└── soft/math/julia-jupyter/
-    ├── data/kernels/
-    │   ├── julia-1.8.5/
-    │   └── julia-1.9.0/
-    └── env/
-```
-
 
 ## Installing Julia binaries
 We can install Julia by downloading and unpacking the [pre-compiled Julia binaries](https://julialang.org/downloads/) to the Julia application directory.
@@ -111,8 +98,6 @@ module load julia/1.9.0 julia-pkg
 julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
-julia packages/ijulia.jl
-julia packages/ijulia_installkernel.jl
 julia packages/instantiate.jl
 ```
 
@@ -122,8 +107,6 @@ Mahti:
 module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/cuda.jl
-julia packages/ijulia.jl
-julia packages/ijulia_installkernel.jl
 julia packages/instantiate.jl
 ```
 
@@ -179,14 +162,12 @@ Puhti:
 
 ```bash
 cp modulefiles/puhti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
-cp modulefiles/puhti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
 ```
 
 Mahti:
 
 ```bash
 cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
-cp modulefiles/mahti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
 ```
 
 LUMI:
@@ -212,3 +193,36 @@ julia --version
 man -w julia
 ```
 
+
+## Jupyter
+Julia Jupyter directory structure
+
+```txt
+$CSC_APPL_DIR/
+├── modulefiles/julia-jupyter/
+│   └── env.lua
+└── soft/math/julia-jupyter/
+    ├── data/kernels/
+    │   ├── julia-1.8.5/
+    │   └── julia-1.9.0/
+    └── env/
+```
+
+```bash
+module load julia/1.9.0 julia-pkg
+julia packages/ijulia.jl
+julia packages/ijulia_installkernel.jl
+julia packages/instantiate.jl
+```
+
+Puhti:
+
+```bash
+cp modulefiles/puhti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
+```
+
+Mahti:
+
+```bash
+cp modulefiles/mahti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
+```
