@@ -5,9 +5,7 @@ The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
 ## Installation paths
-In Puhti and Mahti `CSC_APPL_DIR=/appl`.
-
-In LUMI `CSC_APPL_DIR=/appl/local/csc`.
+The `CSC_APPL_DIR` is `/appl` in Puhti and Mahti and `/appl/local/csc` in LUMI.
 
 ```txt
 $CSC_APPL_DIR
@@ -16,14 +14,14 @@ $CSC_APPL_DIR
 │       ├── 1.8.5.lua         # Modulefile for Julia v1.8.5
 │       └── 1.9.0.lua         # Modulefile for Julia v1.9.0
 └── soft/math/julia/
-    ├── depot/                # Shared Julia depots
+    ├── depot/                # Shared Julia depots such as installed packages, etc
     │   └── environments/     # Shared Julia environments
     │       ├── v1.8_shared/  # Shared environment for Julia v1.8.*
     │       └── v1.9_shared/  # Shared environment for Julia v1.9.*
     ├── julia-1.8.5/          # Julia v1.8.5 pre-compiled binaries
     ├── julia-1.9.0/          # Julia v1.9.0 pre-compiled binaries
     ├── jupyter/              # Julia kernels for Jupyter
-    └── jupyter-env/          # private Jupyter installation for Julia
+    └── jupyter-env/          # Private Jupyter installation for Julia
 ```
 
 
