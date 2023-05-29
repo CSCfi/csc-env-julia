@@ -1,43 +1,34 @@
 # CSC Julia Environment
-## Systems
-This repository has installations for the following clusters.
-
-- Puhti: `puhti`
-- Mahti: `mahti`
-- LUMI: `lumi`
-
-All systems use Lmod and Slurm.
+Intruction for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
+The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
+The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
 ## Installation paths
-Directory for Julia modulefiles:
+In Puhti and Mahti `CSC_APPL_DIR=/appl`.
 
-- Puhti:`/appl/modulefiles/julia`
-- Mahti:`/appl/modulefiles/julia`
-- LUMI: `/appl/local/csc/modulefiles/julia`
+In LUMI `CSC_APPL_DIR=/appl/local/csc`.
 
-Directory for Julia Jupyter modulefiles:
-
-- Puhti: `/appl/modulefiles/julia-jupyter`
-- Mahti: `/appl/modulefiles/julia-jupyter`
-
-Directory for the Julia application:
-
-- Puhti: `/appl/soft/math/julia`
-- Mahti: `/appl/soft/math/julia`
-- LUMI: `/appl/local/csc/soft/math/julia`
-
-Subdirectories in the Julia application directory:
-
-- Directory for Julia release: `julia-v#.#.#`
-- Directory for shared Julia depots: `depot`
-- Directory for shared Julia environment: `depot/environments/v#.#_shared`
-- Directory for Julia kernels for Jupyter: `jupyter`
-- Directory for Jupyter installation for Julia: `jupyter-env`
+```txt
+$CSC_APPL_DIR
+├── modulefiles/
+│   └── julia/                # Julia modulefiles
+│       ├── 1.8.5.lua         # Modulefile for Julia v1.8.5
+│       └── 1.9.0.lua         # Modulefile for Julia v1.9.0
+└── soft/math/julia/
+    ├── depot/                # Shared Julia depots
+    │   └── environments/     # Shared Julia environments
+    │       ├── v1.8_shared/  # Shared environment for Julia v1.8.*
+    │       └── v1.9_shared/  # Shared environment for Julia v1.9.*
+    ├── julia-1.8.5/          # Julia v1.8.5 pre-compiled binaries
+    ├── julia-1.9.0/          # Julia v1.9.0 pre-compiled binaries
+    ├── jupyter/              # Julia kernels for Jupyter
+    └── jupyter-env/          # private Jupyter installation for Julia
+```
 
 
 ## Installing Julia release
-Download and unpack the [Julia release](https://julialang.org/downloads/) to the Julia application directory.
+Download and unpack the pre-compiled binaries of a [Julia release](https://julialang.org/downloads/) to the Julia application directory.
 
 Puhti and Mahti:
 
@@ -56,14 +47,16 @@ tar xf julia-1.9.0-linux-x86_64.tar.gz
 ```
 
 
-## Structure of Julia release
-A Julia release contains the following files and directories among others.
+## Structure of Julia binaries
+A Julia release, such as `julia-1.9.0`, contains the following files and directories among others.
 
 - `bin` directory contains the Julia executable which is dynamically linked to various libraries.
   We must include this location in `PATH`.
 - `lib` directory contains shared libraries for the Julia executable.
   These libraries are on the `RUNPATH` and can be overwritten by libraries on the `LD_LIBRARY_PATH` environment variable.
+  We can use `ldd` or [`libtree`](https://github.com/haampie/libtree) to check which libraries are loaded and their paths.
 - `include` directory contains header files.
+- `libexec` contains executables which Julia uses internally.
 - `share/man` contains man pages.
   We should add this directory to the `MANPATH` environment variable.
 - `share/julia/base` directory contains the base library.
