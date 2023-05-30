@@ -1,17 +1,27 @@
 # CSC Julia Environment
 Intruction for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
 We install and configure packages for MPI and GPU support to the shared environment.
-We denote the different systems using strings `puhti`, `mahti`, and `lumi`.
 
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
+## Parameters
+We denote the system names as follows:
 
-## Installation paths
-In Puhti and Mahti, we have `CSC_APPL_DIR=/appl` and in LUMI we have `CSC_APPL_DIR=/appl/local/csc`.
+- Puhti: `CSC_SYSTEM_NAME=puhti`
+- Mahti: `CSC_SYSTEM_NAME=mahti`
+- LUMI: `CSC_SYSTEM_NAME=lumi`
 
-Julia directory structure
+We denote the application directory as follows:
+
+- Puhti: `CSC_APPL_DIR=/appl`
+- Mahti: `CSC_APPL_DIR=/appl`
+- LUMI: `CSC_APPL_DIR=/appl/local/csc`
+
+
+## Julia installation paths
+The Julia installation is structured as follows:
 
 ```txt
 $CSC_APPL_DIR/
@@ -64,25 +74,9 @@ A template modulefile: [modulefiles/julia/x.y.z.lua](./modulefiles/template/juli
 ## Using modulefiles during development
 During development, we must add the modulefiles to the module path as follows.
 
-Puhti:
-
 ```bash
 module purge
-module use "$PWD/modulefiles/puhti"
-```
-
-Mahti:
-
-```bash
-module purge
-module use "$PWD/modulefiles/mahti"
-```
-
-LUMI:
-
-```bash
-module purge
-module use "$PWD/modulefiles/lumi"
+module use "$PWD/modulefiles/$CSC_SYSTEM_NAME"
 ```
 
 
@@ -158,22 +152,8 @@ module load julia/1.9.0 julia-test
 If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
 We need to copy the Julia module to the modulefiles directory.
 
-Puhti:
-
 ```bash
-cp modulefiles/puhti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
-```
-
-Mahti:
-
-```bash
-cp modulefiles/mahti/julia/1.9.0.lua /appl/modulefiles/julia/1.9.0.lua
-```
-
-LUMI:
-
-```bash
-cp modulefiles/lumi/julia/1.9.0.lua /appl/local/csc/modulefiles/julia/1.9.0.lua
+cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
 ```
 
 
