@@ -7,17 +7,19 @@ The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
 ## Parameters
-We denote the system names as follows:
+We denote the system names and application directory as follows:
 
-- Puhti: `CSC_SYSTEM_NAME=puhti`
-- Mahti: `CSC_SYSTEM_NAME=mahti`
-- LUMI: `CSC_SYSTEM_NAME=lumi`
+Puhti:
+- `CSC_SYSTEM_NAME=puhti`
+- `CSC_APPL_DIR=/appl`
 
-We denote the application directory as follows:
+Mahti:
+- `CSC_SYSTEM_NAME=mahti`
+- `CSC_APPL_DIR=/appl`
 
-- Puhti: `CSC_APPL_DIR=/appl`
-- Mahti: `CSC_APPL_DIR=/appl`
-- LUMI: `CSC_APPL_DIR=/appl/local/csc`
+LUMI:
+- `CSC_SYSTEM_NAME=lumi`
+- `CSC_APPL_DIR=/appl/local/csc`
 
 
 ## Julia installation paths
