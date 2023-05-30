@@ -23,8 +23,8 @@ $CSC_APPL_DIR/
     │   └── environments/     # Shared Julia environments
     │       ├── v1.8_shared/  # Shared environment for Julia v1.8.*
     │       └── v1.9_shared/  # Shared environment for Julia v1.9.*
-    ├── julia-1.8.5/          # Julia v1.8.5 pre-compiled binaries
-    └── julia-1.9.0/          # Julia v1.9.0 pre-compiled binaries
+    ├── julia-1.8.5/          # Julia v1.8.5 binaries
+    └── julia-1.9.0/          # Julia v1.9.0 binaries
 ```
 
 
@@ -58,7 +58,7 @@ A Julia release, such as `julia-1.9.0`, contains the following files and directo
 
 
 ## Modulefile template
-[modulefiles/julia/x.y.z](./modulefiles/template/julia/x.y.z.lua)
+A template modulefile: [modulefiles/julia/x.y.z.lua](./modulefiles/template/julia/x.y.z.lua)
 
 
 ## Using modulefiles during development
@@ -200,13 +200,35 @@ Julia Jupyter directory structure
 ```txt
 $CSC_APPL_DIR/
 ├── modulefiles/julia-jupyter/
-│   └── env.lua
+│   └── env.lua                 # Sets Jupyter executable and Julia kernels to path
 └── soft/math/julia-jupyter/
-    ├── data/kernels/
-    │   ├── julia-1.8.5/
-    │   └── julia-1.9.0/
-    └── env/
+    ├── data/kernels/           # Julia kernels for Jupyter
+    │   ├── julia-1.8.5/        # Julia v1.8.5 kernel
+    │   └── julia-1.9.0/        # Julia v1.9.0 kernel
+    └── env/                    # Jupyter installed on Python virtualenv
 ```
+
+Install Jupyter
+
+```bash
+./jupyter/install.sh "$CSC_APPL_DIR/soft/math/julia-jupyter/env"
+```
+
+Modulefile: `modulefiles/julia-jupyter/env.lua`
+
+```lua
+local julia_jupyter_dir = "$CSC_APPL_DIR/soft/math/julia-jupyter"
+
+-- Set path to Python virtual env containing Jupyter.
+prepend_path("PATH", pathJoin(julia_jupyter_dir, "env/bin"))
+
+-- Set path to Julia kernels so that Jupyter can find them.
+-- Separate from `jupyter-env` so that it is possible to use other Jupyter
+-- installations if needed.
+prepend_path("JUPYTER_PATH", pathJoin(julia_jupyter_dir, "data"))
+```
+
+Installing IJulia and Julia kernel.
 
 ```bash
 module load julia/1.9.0 julia-pkg

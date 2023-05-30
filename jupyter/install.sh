@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-set -eu
-JULIA_JUPYTER_ENV_DIR=$JULIA_APPL_DIR/jupyter-env
+set -euo pipefail
+JULIA_JUPYTER_ENV_DIR=$1
+mkdir -p "$JULIA_JUPYTER_ENV_DIR"
 python3.9 -m venv "$JULIA_JUPYTER_ENV_DIR"
 export PATH="$JULIA_JUPYTER_ENV_DIR/bin:$PATH"
 pip install -r requirements.txt
