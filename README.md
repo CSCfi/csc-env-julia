@@ -196,37 +196,18 @@ Install Jupyter
 ./jupyter/install.sh "$CSC_APPL_DIR/soft/math/julia-jupyter/env"
 ```
 
-Modulefile: `modulefiles/julia-jupyter/env.lua`
-
-```lua
-local julia_jupyter_dir = "$CSC_APPL_DIR/soft/math/julia-jupyter"
-
--- Set path to Python virtual env containing Jupyter.
-prepend_path("PATH", pathJoin(julia_jupyter_dir, "env/bin"))
-
--- Set path to Julia kernels so that Jupyter can find them.
--- Separate from `jupyter-env` so that it is possible to use other Jupyter
--- installations if needed.
-prepend_path("JUPYTER_PATH", pathJoin(julia_jupyter_dir, "data"))
-```
-
 Installing IJulia and Julia kernel.
 
 ```bash
 module load julia/1.9.0 julia-pkg
 julia packages/ijulia.jl
-julia packages/ijulia_installkernel.jl
 julia packages/instantiate.jl
+julia packages/ijulia_installkernel.jl
 ```
 
-Puhti:
+Adding the modulefile
 
 ```bash
-cp modulefiles/puhti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
+cp modulefiles/$CSC_SYSTEM_NAME/julia-jupyter.lua $CSC_APPL_DIR/modulefiles/julia-jupyter/env.lua
 ```
 
-Mahti:
-
-```bash
-cp modulefiles/mahti/julia-jupyter.lua /appl/modulefiles/julia-jupyter/env.lua
-```
