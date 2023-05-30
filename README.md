@@ -6,7 +6,7 @@ The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing env
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
-## Parameters
+## Development environment
 We denote the system names and application directory as follows:
 
 Puhti:
@@ -20,6 +20,14 @@ Mahti:
 LUMI:
 - `CSC_SYSTEM_NAME=lumi`
 - `CSC_APPL_DIR=/appl/local/csc`
+
+During development, we must add the modulefiles to the module path as follows.
+
+```bash
+module purge
+module use "$PWD/modulefiles/dev"
+module load ...  # puhti | mahti | lumi
+```
 
 
 ## Julia installation paths
@@ -71,15 +79,6 @@ A Julia release, such as `julia-1.9.0`, contains the following files and directo
 
 ## Modulefile template
 A template modulefile: [modulefiles/julia/x.y.z.lua](./modulefiles/template/julia/x.y.z.lua)
-
-
-## Using modulefiles during development
-During development, we must add the modulefiles to the module path as follows.
-
-```bash
-module purge
-module use "$PWD/modulefiles/$CSC_SYSTEM_NAME"
-```
 
 
 ## Installing shared packages
