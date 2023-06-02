@@ -1,7 +1,6 @@
 # CSC Julia Environment
 Intruction for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
 We install and configure packages for MPI and GPU support to the shared environment.
-
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
@@ -55,6 +54,8 @@ We can install Julia by downloading and unpacking the [pre-compiled Julia binari
 cd "$CSC_APPL_DIR/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
+rm julia-1.9.0-linux-x86_64.tar.gz
+chmod -R a=rx julia-1.9.0
 ```
 
 
@@ -77,8 +78,22 @@ A Julia release, such as `julia-1.9.0`, contains the following files and directo
 - `etc/julia/startup.jl` is a startup script that is executed after Julia starts.
 
 
-## Modulefile template
-A template modulefile: [modulefiles/julia/x.y.z.lua](./modulefiles/template/julia/x.y.z.lua)
+## Julia modulefile
+A Julia modulefile, such as [`modulefiles/julia/x.y.z.lua`](./modulefiles/template/julia/x.y.z.lua), does the following:
+
+- Load dependencies such as compiler and MPI
+- `PATH`
+- `MANPATH`
+- `LD_LIBRARY_PATH`
+- `JULIA_DEPOT_PATH`
+- `JULIA_LOAD_PATH`
+- `JULIA_CPU_THREADS`
+- `JULIA_NUM_THREADS`
+- `OPENBLAS_NUM_THREADS`
+- `MKL_NUM_THREADS`
+
+We set the thread count based on amount of reserved cpus via Slurm, `SLURM_CPUS_PER_TASK`.
+The count defaults to 1 if reservation does not exist for example, on login nodes or if `--cpus-per-task`.
 
 
 ## Installing shared packages
@@ -94,6 +109,7 @@ julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/instantiate.jl
+chmod -R u=rwx,g=rwx,o=rw $CSC_APPL_DIR/soft/math/julia/depot
 ```
 
 Mahti:
@@ -103,6 +119,7 @@ module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/instantiate.jl
+chmod -R u=rwx,g=rwx,o=rw $CSC_APPL_DIR/soft/math/julia/depot
 ```
 
 LUMI:
@@ -112,6 +129,16 @@ module load julia/1.9.0 julia-pkg
 julia packages/mpi.jl
 julia packages/amdgpu.jl
 julia packages/instantiate.jl
+chmod -R u=rwx,g=rwx,o=rw $CSC_APPL_DIR/soft/math/julia/depot
+```
+
+
+## Synchronize directories on LUMI
+On LUMI, we must synchronize the installation across the independent Lustre filesystems to make them available from each Lustre filesystem.
+
+```bash
+echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/modulefiles/julia
+echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/soft/math/julia
 ```
 
 
@@ -159,6 +186,12 @@ cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/
 
 
 ## Testing Julia module
+On LUMI we must first add the modulefiles to the modulepath as follows.
+
+```bash
+module use /appl/local/csc/modulefiles
+```
+
 We can test the Julia module by loading it, checking the Julia version and checking the path to the Julia man pages.
 
 ```bash
@@ -210,3 +243,11 @@ Adding the modulefile
 cp modulefiles/$CSC_SYSTEM_NAME/julia-jupyter.lua $CSC_APPL_DIR/modulefiles/julia-jupyter/env.lua
 ```
 
+Test
+
+```bash
+module load julia-jupyter
+which jupyter
+jupyter --paths
+jupyter kernelspec list
+```
