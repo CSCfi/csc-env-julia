@@ -19,7 +19,7 @@ depends_on("gcc/11", "openmpi/4", "cuda/11")
 setenv("CSC_JULIA_APPL_DIR", JULIA_APPL_DIR)
 
 -- Path to the Julia library files.
-prepend_path("LD_LIBRARY_PATH", pathJoin(JULIA_RELEASE_DIR, "lib"))
+--prepend_path("LD_LIBRARY_PATH", pathJoin(JULIA_RELEASE_DIR, "lib"))
 
 -- Path to the Julia binary.
 prepend_path("PATH", pathJoin(JULIA_RELEASE_DIR, "bin"))

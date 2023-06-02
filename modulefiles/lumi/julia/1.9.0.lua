@@ -13,7 +13,8 @@ local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")
 local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. JULIA_VERSION_MAJOR .. "." .. JULIA_VERSION_MINOR .. "_shared")
 
 -- Load dependencies for Julia, MPI, GPUs and shared packages.
-depends_on("gcc/11", "PrgEnv-gnu-amd", "rocm/5.2")
+--depends_on("gcc/11", "PrgEnv-gnu-amd", "rocm/5.2")
+depends_on("PrgEnv-cray-amd", "rocm/5.2")
 
 -- Set Julia application directory to environment
 setenv("CSC_JULIA_APPL_DIR", JULIA_APPL_DIR)
