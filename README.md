@@ -53,9 +53,9 @@ We can install Julia by downloading and unpacking the [pre-compiled Julia binari
 ```bash
 cd "$CSC_APPL_DIR/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
+umask u=rwx,go=rx
 tar xf julia-1.9.0-linux-x86_64.tar.gz
 rm julia-1.9.0-linux-x86_64.tar.gz
-chmod -R a=rx julia-1.9.0
 ```
 
 
@@ -105,31 +105,31 @@ Puhti:
 
 ```bash
 module load julia/1.9.0 julia-pkg
+umask ug=rwx,o=rx
 julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/instantiate.jl
-chmod -R u=rwx,g=rwx,o=rw $CSC_APPL_DIR/soft/math/julia/depot
 ```
 
 Mahti:
 
 ```bash
 module load julia/1.9.0 julia-pkg
+umask ug=rwx,o=rx
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/instantiate.jl
-chmod -R u=rwx,g=rwx,o=rw $CSC_APPL_DIR/soft/math/julia/depot
 ```
 
 LUMI:
 
 ```bash
 module load julia/1.9.0 julia-pkg
+umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/amdgpu.jl
 julia packages/instantiate.jl
-chmod -R u=rwx,g=rwx,o=rw $CSC_APPL_DIR/soft/math/julia/depot
 ```
 
 
@@ -182,6 +182,7 @@ We need to copy the Julia module to the modulefiles directory.
 
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
+chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia
 ```
 
 
@@ -225,6 +226,7 @@ $CSC_APPL_DIR/
 Install Jupyter
 
 ```bash
+umask u=rwx,go=rx
 ./jupyter/install.sh "$CSC_APPL_DIR/soft/math/julia-jupyter/env"
 ```
 
@@ -232,6 +234,7 @@ Installing IJulia and Julia kernel.
 
 ```bash
 module load julia/1.9.0 julia-pkg
+umask u=rwx,go=rx
 julia packages/ijulia.jl
 julia packages/instantiate.jl
 julia packages/ijulia_installkernel.jl
@@ -241,6 +244,7 @@ Adding the modulefile
 
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia-jupyter.lua $CSC_APPL_DIR/modulefiles/julia-jupyter/env.lua
+chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia-jupyter
 ```
 
 Test
