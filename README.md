@@ -63,14 +63,12 @@ rm julia-1.9.0-linux-x86_64.tar.gz
 A Julia release, such as `julia-1.9.0`, contains the following files and directories among others.
 
 - `bin` directory contains the Julia executable which is dynamically linked to various libraries.
-  We must include this location in `PATH`.
 - `lib` directory contains shared libraries for the Julia executable.
   These libraries are on the `RUNPATH` and can be overwritten by libraries on the `LD_LIBRARY_PATH` environment variable.
   We can use `ldd` or [`libtree`](https://github.com/haampie/libtree) to check which libraries are loaded and their paths.
 - `include` directory contains header files.
 - `libexec` contains executables which Julia uses internally.
 - `share/man` contains man pages.
-  We should add this directory to the `MANPATH` environment variable.
 - `share/julia/base` directory contains the base library.
 - `share/julia/stdlib` directory contains the standard libraries.
 - `share/julia/test` directory contains tests for base.
@@ -79,21 +77,25 @@ A Julia release, such as `julia-1.9.0`, contains the following files and directo
 
 
 ## Julia modulefile
-A Julia modulefile, such as [`modulefiles/julia/x.y.z.lua`](./modulefiles/template/julia/x.y.z.lua), does the following:
+The Julia module sets the environment that allows users to run Julia, access the shared Julia environment and sets default values for threading.
+The modulefile is placed to `julia` directory and using its version and `.lua` extension.
+As an example of a Julia modulefile, we can look the the following template: [`julia/x.y.z.lua`](./modulefiles/template/julia/x.y.z.lua).
 
-- Load dependencies such as compiler and MPI
-- `PATH`
-- `MANPATH`
-- `LD_LIBRARY_PATH`
-- `JULIA_DEPOT_PATH`
-- `JULIA_LOAD_PATH`
-- `JULIA_CPU_THREADS`
-- `JULIA_NUM_THREADS`
-- `OPENBLAS_NUM_THREADS`
-- `MKL_NUM_THREADS`
+A Julia module loads dependencies for the programming environment and MPI.
 
-We set the thread count based on amount of reserved cpus via Slurm, `SLURM_CPUS_PER_TASK`.
+It also sets paths to the Julia binary.
+The module prepends the Julia `bin` directory to `PATH` making `julia` command available.
+Also, the module prepends the Julia `share/man` to `MANPATH` making `man julia` command available.
+
+The module also sets paths for Julia's [code loading](https://docs.julialang.org/en/v1/manual/code-loading/) mechanism.
+
+The module appends user-specific depot diretory (`$HOME/.julia`), a site-specific shared depot directory and Julia-specific shared depot directory (`share/julia`) to the `JULIA_DEPOT_PATH` which populates the [`DEPOT_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH) constant.
+
+The module appends the default locations (`@`, `@#.#`, `@stdlib`) and site-specific shared environment directory to the `JULIA_LOAD_PATH` which populates the [`LOAD_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH) constant.
+
+The module sets the thread count based on amount of reserved cpus via Slurm, `SLURM_CPUS_PER_TASK`.
 The count defaults to 1 if reservation does not exist for example, on login nodes or if `--cpus-per-task`.
+The module sets `JULIA_CPU_THREADS`, `JULIA_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, and `MKL_NUM_THREADS`.
 
 
 ## Installing shared packages
@@ -105,7 +107,7 @@ Puhti:
 
 ```bash
 module load julia/1.9.0 julia-pkg
-umask ug=rwx,o=rx
+umask u=rwx,go=rx
 julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
@@ -116,7 +118,7 @@ Mahti:
 
 ```bash
 module load julia/1.9.0 julia-pkg
-umask ug=rwx,o=rx
+umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/instantiate.jl
@@ -130,16 +132,10 @@ umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/amdgpu.jl
 julia packages/instantiate.jl
-```
-
-
-## Synchronize directories on LUMI
-On LUMI, we must synchronize the installation across the independent Lustre filesystems to make them available from each Lustre filesystem.
-
-```bash
-echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/modulefiles/julia
 echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/soft/math/julia
 ```
+
+On LUMI, we must synchronize the installation across the independent Lustre filesystems to make them available from each Lustre filesystem.
 
 
 ## Testing Julia and shared packages
@@ -183,6 +179,12 @@ We need to copy the Julia module to the modulefiles directory.
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
 chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia
+```
+
+LUMI:
+
+```bash
+echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/modulefiles/julia
 ```
 
 
