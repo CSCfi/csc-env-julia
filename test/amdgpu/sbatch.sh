@@ -3,16 +3,25 @@
 # Use strict mode
 set -euo pipefail
 
-# Set Julia version to test
-export JULIA_VERSION=${JULIA_VERSION:-"1.9.0"}
+_init() {
+    # Set Julia version to test
+    export JULIA_VERSION=${JULIA_VERSION:-$1}
 
-# Create diretory for Julia environment and Slurm output
-mkdir -p "v$JULIA_VERSION"
+    # Exit if Julia version is not provided
+    [ -z "$JULIA_VERSION" ] && exit 1
 
-# LUMI-G batch job
-lumi_g() {
+    # Create directory for Julia environment and Slurm output
+    mkdir -p "v$JULIA_VERSION"
+
+    # Slurm output file
+    export SBATCH_OUTPUT="$PWD/v$JULIA_VERSION/test_amdgpu_%j.out"
+}
+
+# LUMI batch job
+lumi() {
     sbatch \
         --account="$SBATCH_ACCOUNT" \
+        --output="$SBATCH_OUTPUT" \
         --job-name=test_amdgpu \
         --partition=dev-g \
         --time=01:00:00 \
@@ -21,12 +30,16 @@ lumi_g() {
         --gpus-per-task=2 \
         --cpus-per-task=32 \
         --mem-per-cpu=1750 \
-        --output="v$JULIA_VERSION/test_amdgpu_%j.out" \
         test.sh
 }
 
 # Pass arguments
 case $1 in
-    lumi_g) lumi_g ;;
-    *) exit 1 ;;
+    lumi)
+        _init "$2"
+        lumi
+        ;;
+    *)
+        exit 1
+        ;;
 esac

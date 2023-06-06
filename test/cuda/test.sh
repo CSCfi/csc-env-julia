@@ -5,7 +5,7 @@ set -euo pipefail
 
 # Load Julia module
 module --quiet purge
-module load "julia/$JULIA_VERSION"
+module load "julia-cuda/$JULIA_VERSION"
 module list
 
 # Set Julia project

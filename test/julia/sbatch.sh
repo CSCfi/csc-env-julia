@@ -3,14 +3,19 @@
 # Use strict mode
 set -euo pipefail
 
-# Set Julia version to test
-export JULIA_VERSION=${JULIA_VERSION:-"1.8.5"}
+_init() {
+    # Set Julia version to test
+    export JULIA_VERSION=${JULIA_VERSION:-$1}
 
-# Create diretory for Julia environment and Slurm output
-mkdir -p "v$JULIA_VERSION"
+    # Exit if Julia version is not provided
+    [ -z "$JULIA_VERSION" ] && exit 1
 
-# Slurm output file
-export SBATCH_OUTPUT="$PWD/v$JULIA_VERSION/test_julia_%j.out"
+    # Create directory for Julia environment and Slurm output
+    mkdir -p "v$JULIA_VERSION"
+
+    # Slurm output file
+    export SBATCH_OUTPUT="$PWD/v$JULIA_VERSION/test_julia_%j.out"
+}
 
 # Puhti batch job
 puhti() {
@@ -43,8 +48,8 @@ mahti() {
         test.sh
 }
 
-# LUMI-C batch job
-lumi_c() {
+# LUMI batch job
+lumi() {
     sbatch \
         --account="$SBATCH_ACCOUNT" \
         --output="$SBATCH_OUTPUT" \
@@ -61,8 +66,19 @@ lumi_c() {
 
 # Pass arguments
 case $1 in
-    puhti) puhti ;;
-    mahti) mahti ;;
-    lumi_c) lumi_c ;;
-    *) exit 1 ;;
+    puhti)
+        _init "$2"
+        puhti
+        ;;
+    mahti)
+        _init "$2"
+        mahti
+        ;;
+    lumi)
+        _init "$2"
+        lumi
+        ;;
+    *)
+        exit 1
+        ;;
 esac
