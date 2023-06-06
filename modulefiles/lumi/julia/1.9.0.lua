@@ -13,8 +13,8 @@ local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")
 local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. JULIA_VERSION_MAJOR .. "." .. JULIA_VERSION_MINOR .. "_shared")
 
 -- Load dependencies for Julia, MPI, GPUs and shared packages.
---depends_on("gcc/11", "PrgEnv-gnu-amd", "rocm/5.2")
-depends_on("PrgEnv-cray-amd", "rocm/5.2")
+--depends_on("gcc/11", "PrgEnv-gnu")
+depends_on("PrgEnv-cray")
 
 -- Set Julia application directory to environment
 setenv("CSC_JULIA_APPL_DIR", JULIA_APPL_DIR)
@@ -53,6 +53,3 @@ setenv("JULIA_NUM_THREADS", NUM_THREADS)
 -- We set OpenBLAS and MKL thread counts to the number of available threads by default.
 setenv("OPENBLAS_NUM_THREADS", NUM_THREADS)
 setenv("MKL_NUM_THREADS", NUM_THREADS)
-
--- Use local ROCm installation for AMDGPU.jl.
-setenv("JULIA_AMDGPU_DISABLE_ARTIFACTS", "1")

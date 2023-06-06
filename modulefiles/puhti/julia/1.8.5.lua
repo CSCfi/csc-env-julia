@@ -12,8 +12,8 @@ local JULIA_RELEASE_DIR = pathJoin(JULIA_APPL_DIR, "julia-" .. JULIA_VERSION)
 local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")
 local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. JULIA_VERSION_MAJOR .. "." .. JULIA_VERSION_MINOR .. "_shared")
 
--- Load dependencies for Julia, MPI, GPUs and shared packages.
-depends_on("gcc/11", "openmpi/4", "cuda/11")
+-- Load compiler and MPI
+depends_on("gcc", "openmpi")
 
 -- Set Julia application directory to environment
 setenv("CSC_JULIA_APPL_DIR", JULIA_APPL_DIR)
@@ -52,6 +52,3 @@ setenv("JULIA_NUM_THREADS", NUM_THREADS)
 -- We set OpenBLAS and MKL thread counts to the number of available threads by default.
 setenv("OPENBLAS_NUM_THREADS", NUM_THREADS)
 setenv("MKL_NUM_THREADS", NUM_THREADS)
-
--- Disable memory pool for CUDA.jl
-setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")
