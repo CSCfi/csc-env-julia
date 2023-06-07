@@ -1,7 +1,7 @@
 # CSC Julia Environment
 Instructions for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
 We install and configure MPI and GPU packages in the shared environment.
-The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
+The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for environment modules and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
 
@@ -212,7 +212,7 @@ $CSC_APPL_DIR/
     └── env/                    # Jupyter installed on Python virtualenv
 ```
 
-Install Jupyter
+Install Jupyter on Python virtual environment.
 
 ```bash
 umask u=rwx,go=rx
