@@ -1,54 +1,43 @@
-help([[
-Julia language and dependencies.
-]])
+help("The Julia programming language")
+whatis("Name: " .. myModuleName())
+whatis("Version " .. myModuleVersion())
+whatis("Description: The Julia programming language")
+whatis("URL: http://julialang.org")
 
--- Version in the semantic version format "x.y.z-rc"
-local JULIA_VERSION = myModuleVersion()
-local JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR = JULIA_VERSION:match("(%d+)%.(%d+)")
+local appl_dir = "/appl/soft/math/julia"
+local version = myModuleVersion()
+local release_dir = pathJoin(appl_dir, "julia-" .. version)
 
--- Directories
-local JULIA_APPL_DIR = "/appl/soft/math/julia"
-local JULIA_RELEASE_DIR = pathJoin(JULIA_APPL_DIR, "julia-" .. JULIA_VERSION)
-local JULIA_DEPOT_DIR = pathJoin(JULIA_APPL_DIR, "depot")
-local JULIA_ENVIRONMENT_DIR = pathJoin(JULIA_DEPOT_DIR, "environments/v" .. JULIA_VERSION_MAJOR .. "." .. JULIA_VERSION_MINOR .. "_shared")
+depends_on("gcc", "openmpi>")
 
--- Load compiler and MPI
-depends_on("gcc", "openmpi")
+prepend_path("PATH", pathJoin(release_dir, "bin"))
+prepend_path("MANPATH", pathJoin(release_dir, "share/man"))
+--prepend_path("LD_LIBRARY_PATH", pathJoin(release_dir, "lib"))
 
--- Set Julia application directory to environment
-setenv("CSC_JULIA_APPL_DIR", JULIA_APPL_DIR)
+local user_depot_dir = pathJoin(os.getenv("HOME"), ".julia")
+local site_depot_dir = pathJoin(appl_dir, "depot")
+local julia_depot_dir = pathJoin(release_dir, "share/julia")
 
--- Path to the Julia library files.
---prepend_path("LD_LIBRARY_PATH", pathJoin(JULIA_RELEASE_DIR, "lib"))
+append_path("JULIA_DEPOT_PATH", user_depot_dir)
+append_path("JULIA_DEPOT_PATH", site_depot_dir)
+append_path("JULIA_DEPOT_PATH", julia_depot_dir)
 
--- Path to the Julia binary.
-prepend_path("PATH", pathJoin(JULIA_RELEASE_DIR, "bin"))
+local version_major, version_minor = version:match("(%d+)%.(%d+)")
+local site_environment_dir = pathJoin(depot_dir, "environments/v" .. version_major .. "." .. version_minor .. "_shared")
 
--- Path to the Julia man pages.
-prepend_path("MANPATH", pathJoin(JULIA_RELEASE_DIR, "share/man"))
-
--- We set the depot path explicitly such that it is easier to modify.
--- https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH
-append_path("JULIA_DEPOT_PATH", pathJoin(os.getenv("HOME"), ".julia"))
-append_path("JULIA_DEPOT_PATH", JULIA_DEPOT_DIR)
-append_path("JULIA_DEPOT_PATH", pathJoin(JULIA_RELEASE_DIR, "share/julia"))
-setenv("CSC_JULIA_DEPOT_DIR", JULIA_DEPOT_DIR)
-
--- We set load path explicitly such that it is easier to modify.
--- https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH
 append_path("JULIA_LOAD_PATH", "@")
 append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")
-append_path("JULIA_LOAD_PATH", JULIA_ENVIRONMENT_DIR)
-setenv("CSC_JULIA_ENVIRONMENT_DIR", JULIA_ENVIRONMENT_DIR)
+append_path("JULIA_LOAD_PATH", site_environment_dir)
 
--- Set Julia's thread count based on Slurm's `--cpus-per-task` value.
--- Default to 1 if no value is set.
--- https://docs.julialang.org/en/v1/manual/environment-variables/#Parallelization
-local NUM_THREADS = os.getenv("SLURM_CPUS_PER_TASK") or "1"
-setenv("JULIA_CPU_THREADS", NUM_THREADS)
-setenv("JULIA_NUM_THREADS", NUM_THREADS)
+local num_threads = os.getenv("SLURM_CPUS_PER_TASK") or "1"
 
--- We set OpenBLAS and MKL thread counts to the number of available threads by default.
-setenv("OPENBLAS_NUM_THREADS", NUM_THREADS)
-setenv("MKL_NUM_THREADS", NUM_THREADS)
+setenv("JULIA_CPU_THREADS", num_threads)
+setenv("JULIA_NUM_THREADS", num_threads)
+setenv("OPENBLAS_NUM_THREADS", num_threads)
+setenv("MKL_NUM_THREADS", num_threads)
+
+setenv("CSC_JULIA_APPL_DIR", appl_dir)
+setenv("CSC_JULIA_DEPOT_DIR", depot_dir)
+setenv("CSC_JULIA_ENVIRONMENT_DIR", environment_dir)
+
