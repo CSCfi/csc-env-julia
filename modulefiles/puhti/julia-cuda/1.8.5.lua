@@ -1,3 +1,5 @@
+help("Environment for using CUDA.jl with the Julia language.")
+
 depends_on("julia/1.8.5", "cuda")
 
 -- Disable memory pool for CUDA.jl
