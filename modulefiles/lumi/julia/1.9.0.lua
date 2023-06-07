@@ -39,6 +39,6 @@ setenv("OPENBLAS_NUM_THREADS", num_threads)
 setenv("MKL_NUM_THREADS", num_threads)
 
 setenv("CSC_JULIA_APPL_DIR", appl_dir)
-setenv("CSC_JULIA_DEPOT_DIR", depot_dir)
-setenv("CSC_JULIA_ENVIRONMENT_DIR", environment_dir)
+setenv("CSC_JULIA_DEPOT_DIR", site_depot_dir)
+setenv("CSC_JULIA_ENVIRONMENT_DIR", site_environment_dir)
 
