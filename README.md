@@ -8,28 +8,13 @@ The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 ## Development environment
 We denote the system names and application directory as follows:
 
-Puhti:
+`CSC_SYSTEM_NAME`|`CSC_APPL_DIR`
+-|-
+`puhti`|`/appl`
+`mahti`|`/appl`
+`lumi`|`/appl/local/csc`
 
-```bash
-CSC_SYSTEM_NAME=puhti
-CSC_APPL_DIR=/appl
-```
-
-Mahti:
-
-```bash
-CSC_SYSTEM_NAME=mahti
-CSC_APPL_DIR=/appl
-```
-
-LUMI:
-
-```bash
-CSC_SYSTEM_NAME=lumi
-CSC_APPL_DIR=/appl/local/csc
-```
-
-During development, we must add the modulefiles to the module path as follows.
+During development, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
 ```bash
 module purge
@@ -94,13 +79,12 @@ A Julia environment module template is available here: [`julia/x.y.z.lua`](./mod
 The Julia environment module makes `julia` command available by prepending the `bin` directory to `PATH` and `man julia` command available by prepending the `share/man` directory to `MANPATH`.
 The environment module also defines the depot and load paths that control Julia's [code loading](https://docs.julialang.org/en/v1/manual/code-loading/) mechanism.
 We can populate Julia's [`DEPOT_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH) constant by setting `JULIA_DEPOT_PATH` environment variable and Julia' [`LOAD_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH) constant by setting `JULIA_LOAD_PATH` environment variable.
-The module appends a user-specific depot directory (`$HOME/.julia`), a site-specific shared depot directory and Julia-specific shared depot directory (`share/julia`) to the depot path.
-The module appends the current environment, default environment, standard library and site-specific shared environment directory to the load path.
+The module appends a user-specific depot directory (`$HOME/.julia`), a site-specific shared depot directory, and Julia-specific shared depot directory (`share/julia`) to the depot path.
+The module appends the current environment (`@`), default environment (`@v#.#`), standard library (`@stdlib`) and site-specific shared environment directory to the load path.
 
 
 ## Installing shared packages
-We must add the modulefiles to the modulepath to make them available on the current shell session.
-Then, we can load the environment for installing shared Julia packages and install packages by running scripts inside the `packages` directory.
+We can load the environment for installing shared Julia packages and install packages by running scripts inside the `packages` directory.
 Finally, we must instantiate the packages using the instantiate script.
 
 Puhti:
@@ -214,7 +198,7 @@ man -w julia
 ```
 
 
-## Jupyter
+## Julia-Jupyter
 Julia Jupyter directory structure
 
 ```txt
