@@ -8,7 +8,7 @@ local appl_dir = "/appl/soft/math/julia"
 local version = myModuleVersion()
 local release_dir = pathJoin(appl_dir, "julia-" .. version)
 
-depends_on("gcc", "openmpi>")
+depends_on("gcc", "openmpi")
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
 prepend_path("MANPATH", pathJoin(release_dir, "share/man"))
