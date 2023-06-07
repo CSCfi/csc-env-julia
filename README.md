@@ -1,6 +1,6 @@
 # CSC Julia Environment
-Intruction for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
-We install and configure packages for MPI and GPU support to the shared environment.
+Instructions for installing the [Julia language](https://julialang.org/) and configuring a shared environment on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance clusters.
+We install and configure MPI and GPU packages in the shared environment.
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for managing environments and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 
@@ -9,16 +9,25 @@ The [Julia source code](https://github.com/JuliaLang/julia) is at GitHub.
 We denote the system names and application directory as follows:
 
 Puhti:
-- `CSC_SYSTEM_NAME=puhti`
-- `CSC_APPL_DIR=/appl`
+
+```bash
+CSC_SYSTEM_NAME=puhti
+CSC_APPL_DIR=/appl
+```
 
 Mahti:
-- `CSC_SYSTEM_NAME=mahti`
-- `CSC_APPL_DIR=/appl`
+
+```bash
+CSC_SYSTEM_NAME=mahti
+CSC_APPL_DIR=/appl
+```
 
 LUMI:
-- `CSC_SYSTEM_NAME=lumi`
-- `CSC_APPL_DIR=/appl/local/csc`
+
+```bash
+CSC_SYSTEM_NAME=lumi
+CSC_APPL_DIR=/appl/local/csc
+```
 
 During development, we must add the modulefiles to the module path as follows.
 
@@ -60,42 +69,33 @@ rm julia-1.9.0-linux-x86_64.tar.gz
 
 
 ## Structure of Julia binaries
-A Julia release, such as `julia-1.9.0`, contains the following files and directories among others.
+A Julia release, such as `julia-1.9.0`, contains the following files and directories, among others.
 
-- `bin` directory contains the Julia executable which is dynamically linked to various libraries.
-- `lib` directory contains shared libraries for the Julia executable.
+-  The `bin` directory contains the Julia executable, which is dynamically linked to various libraries.
+- The `lib` directory contains shared libraries for the Julia executable.
   These libraries are on the `RUNPATH` and can be overwritten by libraries on the `LD_LIBRARY_PATH` environment variable.
   We can use `ldd` or [`libtree`](https://github.com/haampie/libtree) to check which libraries are loaded and their paths.
-- `include` directory contains header files.
-- `libexec` contains executables which Julia uses internally.
-- `share/man` contains man pages.
-- `share/julia/base` directory contains the base library.
-- `share/julia/stdlib` directory contains the standard libraries.
-- `share/julia/test` directory contains tests for base.
+- The `include` directory contains header files.
+- The `libexec` contains executables that Julia uses internally.
+- The `share/man` contains man pages.
+- The `share/julia/base` directory contains the base library.
+- The `share/julia/stdlib` directory contains the standard libraries.
+- The `share/julia/test` directory contains tests for the base.
   We can run the test by executing the `runtests.jl` files which run tests for the base and standard libraries.
-- `etc/julia/startup.jl` is a startup script that is executed after Julia starts.
+- The `etc/julia/startup.jl` is a startup script that is executed when we invoke the Julia command.
 
 
-## Julia modulefile
-The Julia module sets the environment that allows users to run Julia, access the shared Julia environment and sets default values for threading.
-The modulefile is placed to `julia` directory and using its version and `.lua` extension.
-As an example of a Julia modulefile, we can look the the following template: [`julia/x.y.z.lua`](./modulefiles/template/julia/x.y.z.lua).
+## Julia environment module
+The Julia environment module defines an environment for loading the dependencies for the programming environment and MPI, running the Julia command, and loading shared Julia packages.
+Furthermore, the module defines default Julia's CPU and thread counts, based on Slurm reservation if one exists (e.g. in slurm job) and otherwise sets them to one (e.g. on login nodes).
+The modulefile is placed in the `julia` directory and named as`<version>.lua`, for example, `julia/1.9.0.lua`.
+A Julia environment module template is available here: [`julia/x.y.z.lua`](./modulefiles/template/julia/x.y.z.lua).
 
-A Julia module loads dependencies for the programming environment and MPI.
-
-It also sets paths to the Julia binary.
-The module prepends the Julia `bin` directory to `PATH` making `julia` command available.
-Also, the module prepends the Julia `share/man` to `MANPATH` making `man julia` command available.
-
-The module also sets paths for Julia's [code loading](https://docs.julialang.org/en/v1/manual/code-loading/) mechanism.
-
-The module appends user-specific depot diretory (`$HOME/.julia`), a site-specific shared depot directory and Julia-specific shared depot directory (`share/julia`) to the `JULIA_DEPOT_PATH` which populates the [`DEPOT_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH) constant.
-
-The module appends the default locations (`@`, `@#.#`, `@stdlib`) and site-specific shared environment directory to the `JULIA_LOAD_PATH` which populates the [`LOAD_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH) constant.
-
-The module sets the thread count based on amount of reserved cpus via Slurm, `SLURM_CPUS_PER_TASK`.
-The count defaults to 1 if reservation does not exist for example, on login nodes or if `--cpus-per-task`.
-The module sets `JULIA_CPU_THREADS`, `JULIA_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, and `MKL_NUM_THREADS`.
+The Julia environment module makes `julia` command available by prepending the `bin` directory to `PATH` and `man julia` command available by prepending the `share/man` directory to `MANPATH`.
+The environment module also defines the depot and load paths that control Julia's [code loading](https://docs.julialang.org/en/v1/manual/code-loading/) mechanism.
+We can populate Julia's [`DEPOT_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.DEPOT_PATH) constant by setting `JULIA_DEPOT_PATH` environment variable and Julia' [`LOAD_PATH`](https://docs.julialang.org/en/v1/base/constants/#Base.LOAD_PATH) constant by setting `JULIA_LOAD_PATH` environment variable.
+The module appends a user-specific depot directory (`$HOME/.julia`), a site-specific shared depot directory and Julia-specific shared depot directory (`share/julia`) to the depot path.
+The module appends the current environment, default environment, standard library and site-specific shared environment directory to the load path.
 
 
 ## Installing shared packages
@@ -106,7 +106,7 @@ Finally, we must instantiate the packages using the instantiate script.
 Puhti:
 
 ```bash
-module load julia/1.9.0 julia-pkg
+module load julia/1.9.0 julia-cuda/1.9.0 julia-pkg
 umask u=rwx,go=rx
 julia packages/mkl.jl
 julia packages/mpi.jl
@@ -117,7 +117,7 @@ julia packages/instantiate.jl
 Mahti:
 
 ```bash
-module load julia/1.9.0 julia-pkg
+module load julia/1.9.0 julia-cuda/1.9.0 julia-pkg
 umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/cuda.jl
@@ -127,7 +127,7 @@ julia packages/instantiate.jl
 LUMI:
 
 ```bash
-module load julia/1.9.0 julia-pkg
+module load julia/1.9.0 julia-amdgpu/1.9.0 julia-pkg
 umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/amdgpu.jl
@@ -145,7 +145,8 @@ Puhti:
 
 ```bash
 module unload julia-pkg
-module load julia/1.9.0 julia-test
+module load julia-test
+export JULIA_VERSION=1.9.0
 (cd test/julia && ./sbatch puhti)
 (cd test/mpi && ./sbatch puhti)
 (cd test/cuda && ./sbatch puhti)
@@ -155,7 +156,8 @@ Mahti:
 
 ```bash
 module unload julia-pkg
-module load julia/1.9.0 julia-test
+module load julia-test
+export JULIA_VERSION=1.9.0
 (cd test/julia && ./sbatch mahti)
 (cd test/mpi && ./sbatch mahti)
 (cd test/cuda && ./sbatch mahti)
@@ -165,10 +167,11 @@ LUMI:
 
 ```bash
 module unload julia-pkg
-module load julia/1.9.0 julia-test
-(cd test/julia && ./sbatch lumi_c)
-(cd test/mpi && ./sbatch lumi_c)
-(cd test/amdgpu && ./sbatch lumi_g)
+module load julia-test
+export JULIA_VERSION=1.9.0
+(cd test/julia && ./sbatch lumi)
+(cd test/mpi && ./sbatch lumi)
+(cd test/amdgpu && ./sbatch lumi)
 ```
 
 
