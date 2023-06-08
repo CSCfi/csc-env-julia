@@ -23,7 +23,7 @@ append_path("JULIA_DEPOT_PATH", site_depot_dir)
 append_path("JULIA_DEPOT_PATH", julia_depot_dir)
 
 local version_major, version_minor = version:match("(%d+)%.(%d+)")
-local site_environment_dir = pathJoin(depot_dir, "environments/v" .. version_major .. "." .. version_minor .. "_shared")
+local site_environment_dir = pathJoin(site_depot_dir, "environments/v" .. version_major .. "." .. version_minor .. "_shared")
 
 append_path("JULIA_LOAD_PATH", "@")
 append_path("JULIA_LOAD_PATH", "@v#.#")
