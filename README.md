@@ -14,12 +14,26 @@ We denote the system names and application directory as follows:
 `mahti`|`/appl`
 `lumi`|`/appl/local/csc`
 
+LUMI has four independent Lustre file systems, `/pfs/lustrep{1,2,3,4}`.
+The `/appl` directory is a symbolic link to one of the `/pfs/lustrep{1,2,3,4}/appl` directories, depending on the node.
+To make LUMI installation available from all of the Lustre file systems, we must synchronize the installations afterwards using the `/appl/local/csc/bin/sync_appl_csc.sh` script.
+
+```bash
+bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/mydirectory
+```
+
 During development, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
 ```bash
 module purge
 module use "$PWD/modulefiles/dev"
 module load ...  # puhti | mahti | lumi
+```
+
+We should use restrict the read, write and execute permissions for installations as follows.
+
+```bash
+umask u=rwx,go=rx
 ```
 
 
@@ -47,7 +61,6 @@ We can install Julia by downloading and unpacking the [pre-compiled Julia binari
 ```bash
 cd "$CSC_APPL_DIR/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
-umask u=rwx,go=rx
 tar xf julia-1.9.0-linux-x86_64.tar.gz
 rm julia-1.9.0-linux-x86_64.tar.gz
 ```
@@ -91,7 +104,6 @@ Puhti:
 
 ```bash
 module load julia/1.9.0 julia-cuda/1.9.0 julia-pkg
-umask u=rwx,go=rx
 julia packages/mkl.jl
 julia packages/mpi.jl
 julia packages/cuda.jl
@@ -102,7 +114,6 @@ Mahti:
 
 ```bash
 module load julia/1.9.0 julia-cuda/1.9.0 julia-pkg
-umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/cuda.jl
 julia packages/instantiate.jl
@@ -112,11 +123,9 @@ LUMI:
 
 ```bash
 module load julia/1.9.0 julia-amdgpu/1.9.0 julia-pkg
-umask u=rwx,go=rx
 julia packages/mpi.jl
 julia packages/amdgpu.jl
 julia packages/instantiate.jl
-echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/soft/math/julia
 ```
 
 On LUMI, we must synchronize the installation across the independent Lustre filesystems to make them available from each Lustre filesystem.
@@ -163,15 +172,20 @@ export JULIA_VERSION=1.9.0
 If the tests pass, we can make the Julia installation available to users by adding a Julia module to the modulefiles directory.
 We need to copy the Julia module to the modulefiles directory.
 
+Puhti and Mahti:
+
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
+cp modulefiles/$CSC_SYSTEM_NAME/julia-cuda/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia-cuda/1.9.0.lua
 chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia
 ```
 
 LUMI:
 
 ```bash
-echo 1 | bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/modulefiles/julia
+cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
+cp modulefiles/$CSC_SYSTEM_NAME/julia-amdgpu/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia-amdgpu/1.9.0.lua
+chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia
 ```
 
 
@@ -215,7 +229,6 @@ $CSC_APPL_DIR/
 Install Jupyter on Python virtual environment.
 
 ```bash
-umask u=rwx,go=rx
 ./jupyter/install.sh "$CSC_APPL_DIR/soft/math/julia-jupyter/env"
 ```
 
@@ -223,7 +236,6 @@ Installing IJulia and Julia kernel.
 
 ```bash
 module load julia/1.9.0 julia-pkg
-umask u=rwx,go=rx
 julia packages/ijulia.jl
 julia packages/instantiate.jl
 julia packages/ijulia_installkernel.jl

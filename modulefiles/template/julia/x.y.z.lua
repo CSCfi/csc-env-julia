@@ -4,11 +4,11 @@ whatis("Version " .. myModuleVersion())
 whatis("Description: The Julia programming language")
 whatis("URL: http://julialang.org")
 
+depends_on("gcc", "openmpi")
+
 local appl_dir = "/appl/soft/math/julia"
 local version = myModuleVersion()
 local release_dir = pathJoin(appl_dir, "julia-" .. version)
-
-depends_on("<compiler>", "<mpi>", "...")
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
 prepend_path("MANPATH", pathJoin(release_dir, "share/man"))
