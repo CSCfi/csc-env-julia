@@ -43,12 +43,25 @@ const kernelspec = """
 """
 
 # Create the kernel
+function copy_config(src, dir, mode)
+    dest = joinpath(dir, basename(src))
+    cp(src, dest, force=true)
+    chmod(dest, mode)
+end
+
+const mode1 = 0o664  # rw-rw-r--
+const mode2 = 0o775  # rwxrwxr-x
+
 mkpath(kernel_dir)
 write(kernel_path, kernelspec)
+chmod(kernel_path, mode1)
+
 write(run_kernel_path, run_kernel_script)
+chmod(run_kernel_path, mode1)
+
 write(wrapper_path, wrapper_script)
-chmod(wrapper_path, 0o775)  # rwxrwxr-x
-copy_config(src, dest) = cp(src, joinpath(dest, basename(src)), force=true)
-copy_config(joinpath(ijulia_dir, "deps", "logo-32x32.png"), kernel_dir)
-copy_config(joinpath(ijulia_dir, "deps", "logo-64x64.png"), kernel_dir)
-copy_config(joinpath(ijulia_dir, "deps", "logo-svg.svg"), kernel_dir)
+chmod(wrapper_path, mode2)
+
+copy_config(joinpath(ijulia_dir, "deps", "logo-32x32.png"), kernel_dir, mode1)
+copy_config(joinpath(ijulia_dir, "deps", "logo-64x64.png"), kernel_dir, mode1)
+copy_config(joinpath(ijulia_dir, "deps", "logo-svg.svg"), kernel_dir, mode1)
