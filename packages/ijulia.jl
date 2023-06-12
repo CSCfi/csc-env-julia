@@ -7,5 +7,5 @@ ENV["JUPYTER_DATA_DIR"] = mktempdir()
 ENV["JUPYTER"] = "jupyter"
 
 # Install package
-Pkg.add(name="IJulia", version="1.24.0")
+Pkg.add(name="IJulia", version="1.24.2")
 Pkg.pin("IJulia")
