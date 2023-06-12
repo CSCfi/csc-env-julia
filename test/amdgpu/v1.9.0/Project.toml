@@ -2,4 +2,5 @@
 AMDGPU = "21141c5a-9bdb-4563-92ae-f87d6854732e"
 
 [compat]
+AMDGPU = "=0.4.13"
 julia = "1.9.0"
