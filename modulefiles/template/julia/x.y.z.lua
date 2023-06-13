@@ -1,6 +1,6 @@
 help("The Julia programming language")
 whatis("Name: " .. myModuleName())
-whatis("Version " .. myModuleVersion())
+whatis("Version: " .. myModuleVersion())
 whatis("Description: The Julia programming language")
 whatis("URL: http://julialang.org")
 
