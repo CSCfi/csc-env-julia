@@ -32,12 +32,12 @@ append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")
 append_path("JULIA_LOAD_PATH", site_environment_dir)
 
-local num_threads = os.getenv("SLURM_CPUS_PER_TASK") or "1"
+local default_num_threads = os.getenv("SLURM_CPUS_PER_TASK") or "1"
 
-pushenv("JULIA_CPU_THREADS", os.getenv("JULIA_CPU_THREADS") or num_threads)
-pushenv("JULIA_NUM_THREADS", os.getenv("JULIA_NUM_THREADS") or num_threads)
-pushenv("OPENBLAS_NUM_THREADS", os.getenv("OPENBLAS_NUM_THREADS") or num_threads)
-pushenv("MKL_NUM_THREADS", os.getenv("MKL_NUM_THREADS") or num_threads)
+pushenv("JULIA_CPU_THREADS", os.getenv("JULIA_CPU_THREADS") or default_num_threads)
+pushenv("JULIA_NUM_THREADS", os.getenv("JULIA_NUM_THREADS") or default_num_threads)
+pushenv("OPENBLAS_NUM_THREADS", os.getenv("OPENBLAS_NUM_THREADS") or default_num_threads)
+pushenv("MKL_NUM_THREADS", os.getenv("MKL_NUM_THREADS") or default_num_threads)
 
 setenv("CSC_JULIA_APPL_DIR", appl_dir)
 setenv("CSC_JULIA_DEPOT_DIR", site_depot_dir)
