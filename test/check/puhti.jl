@@ -1,12 +1,13 @@
-@info "Print information about the installation"
-println(VERSION)
-println(DEPOT_PATH)
-println(LOAD_PATH)
-println(Base.load_path())
-println(Base.active_project())
-
 @info "Check stdlib availability"
 using Test
+import InteractiveUtils
+
+@info "Print information about the installation"
+InteractiveUtils.versioninfo()
+@show DEPOT_PATH
+@show LOAD_PATH
+@show Base.load_path()
+@show Base.active_project()
 
 @info "Check that the default environment is the default user location."
 @test Base.active_project() == joinpath(homedir(), ".julia", "environments", "v$(VERSION.major).$(VERSION.minor)", "Project.toml")
