@@ -14,14 +14,6 @@ We denote the system names and application directory as follows:
 `mahti`|`/appl`
 `lumi`|`/appl/local/csc`
 
-LUMI has four independent Lustre file systems, `/pfs/lustrep{1,2,3,4}`.
-The `/appl` directory is a symbolic link to one of the `/pfs/lustrep{1,2,3,4}/appl` directories, depending on the node.
-To make LUMI installation available from all of the Lustre file systems, we must synchronize the installations afterwards using the `/appl/local/csc/bin/sync_appl_csc.sh` script.
-
-```bash
-bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/mydirectory
-```
-
 During development, we must add the modulefiles to the modulepath to make them available on the current shell session.
 
 ```bash
@@ -55,6 +47,16 @@ We can also force the correct access rights on an installation directory.
 
 ```bash
 chmod -R u=rwX,go=rX <install-dir>
+```
+
+
+## Synchronizing LUMI installation
+LUMI has four independent Lustre file systems, `/pfs/lustrep{1,2,3,4}`.
+The `/appl` directory is a symbolic link to one of the `/pfs/lustrep{1,2,3,4}/appl` directories, depending on the node.
+To make LUMI installation available from all of the Lustre file systems, we must synchronize the installations afterwards using the `/appl/local/csc/bin/sync_appl_csc.sh` script.
+
+```bash
+bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/<install-dir>
 ```
 
 
@@ -209,12 +211,6 @@ cp modulefiles/$CSC_SYSTEM_NAME/julia-amdgpu/1.9.0.lua $CSC_APPL_DIR/modulefiles
 
 
 ## Checking the Julia module and installation
-On LUMI we must first add the modulefiles to the modulepath as follows.
-
-```bash
-module use /appl/local/csc/modulefiles
-```
-
 We can test the Julia module by loading it, checking the Julia version and checking the path to the Julia man pages.
 
 ```bash
