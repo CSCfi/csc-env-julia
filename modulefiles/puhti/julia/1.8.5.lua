@@ -1,14 +1,16 @@
+local name = myModuleName()
+local version = myModuleVersion()
+
 help("The Julia programming language")
-whatis("Name: " .. myModuleName())
-whatis("Version: " .. myModuleVersion())
+whatis("Name: " .. name)
+whatis("Version: " .. version)
 whatis("Description: The Julia programming language")
 whatis("URL: http://julialang.org")
 
-local appl_dir = "/appl/soft/math/julia"
-local version = myModuleVersion()
-local release_dir = pathJoin(appl_dir, "julia-" .. version)
-
 depends_on("gcc/11", "openmpi/4")
+
+local appl_dir = "/appl/soft/math/julia"
+local release_dir = pathJoin(appl_dir, "julia-" .. version)
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
 prepend_path("MANPATH", pathJoin(release_dir, "share/man"))
@@ -30,14 +32,13 @@ append_path("JULIA_LOAD_PATH", "@v#.#")
 append_path("JULIA_LOAD_PATH", "@stdlib")
 append_path("JULIA_LOAD_PATH", site_environment_dir)
 
-local num_threads = os.getenv("SLURM_CPUS_PER_TASK") or "1"
+local default_num_threads = os.getenv("SLURM_CPUS_PER_TASK") or "1"
 
-setenv("JULIA_CPU_THREADS", num_threads)
-setenv("JULIA_NUM_THREADS", num_threads)
-setenv("OPENBLAS_NUM_THREADS", num_threads)
-setenv("MKL_NUM_THREADS", num_threads)
+pushenv("JULIA_CPU_THREADS", os.getenv("JULIA_CPU_THREADS") or default_num_threads)
+pushenv("JULIA_NUM_THREADS", os.getenv("JULIA_NUM_THREADS") or default_num_threads)
+pushenv("OPENBLAS_NUM_THREADS", os.getenv("OPENBLAS_NUM_THREADS") or default_num_threads)
+pushenv("MKL_NUM_THREADS", os.getenv("MKL_NUM_THREADS") or default_num_threads)
 
 setenv("CSC_JULIA_APPL_DIR", appl_dir)
 setenv("CSC_JULIA_DEPOT_DIR", site_depot_dir)
 setenv("CSC_JULIA_ENVIRONMENT_DIR", site_environment_dir)
-
