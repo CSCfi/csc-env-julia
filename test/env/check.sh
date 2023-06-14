@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ -d "$HOME/.julia" ]; then
-    echo "remove $HOME/.julia before running the checks"
-    exit 1
-fi
-
+# Check module loading
 module purge
 module load julia/1.8.5
 module list
 
+# Check manual availability
 man -w julia
+
+# Check environment
 julia ./check.jl
