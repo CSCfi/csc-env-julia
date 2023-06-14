@@ -27,13 +27,34 @@ During development, we must add the modulefiles to the modulepath to make them a
 ```bash
 module purge
 module use "$PWD/modulefiles/dev"
-module load ...  # puhti | mahti | lumi
+module load <CSC_SYSTEM_NAME>
 ```
 
+
+## Permissions
 We should use restrict the read, write and execute permissions for installations as follows.
+On Puhti and Mahti:
 
 ```bash
+umask ug=rwx,o=rx
+```
+
+We can also force the correct access rights on an installation directory.
+
+```bash
+chmod -R ug=rwX,o=rX <install-dir>
+```
+
+On LUMI:
+
+```
 umask u=rwx,go=rx
+```
+
+We can also force the correct access rights on an installation directory.
+
+```bash
+chmod -R u=rwX,go=rX <install-dir>
 ```
 
 
@@ -177,7 +198,6 @@ Puhti and Mahti:
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
 cp modulefiles/$CSC_SYSTEM_NAME/julia-cuda/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia-cuda/1.9.0.lua
-chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia
 ```
 
 LUMI:
@@ -185,11 +205,10 @@ LUMI:
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
 cp modulefiles/$CSC_SYSTEM_NAME/julia-amdgpu/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia-amdgpu/1.9.0.lua
-chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia
 ```
 
 
-## Testing Julia module
+## Checking the Julia module and installation
 On LUMI we must first add the modulefiles to the modulepath as follows.
 
 ```bash
@@ -199,16 +218,7 @@ module use /appl/local/csc/modulefiles
 We can test the Julia module by loading it, checking the Julia version and checking the path to the Julia man pages.
 
 ```bash
-module purge
-module load julia/1.9.0
-```
-
-```bash
-julia --version
-```
-
-```bash
-man -w julia
+JULIA_VERSION=1.9.0 ./test/check/julia.sh $CSC_SYSTEM_NAME
 ```
 
 
@@ -245,14 +255,10 @@ Adding the modulefile
 
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia-jupyter.lua $CSC_APPL_DIR/modulefiles/julia-jupyter/env.lua
-chmod -R o=rX $CSC_APPL_DIR/modulefiles/julia-jupyter
 ```
 
 Test
 
 ```bash
-module load julia-jupyter
-which jupyter
-jupyter --paths
-jupyter kernelspec list
+./test/check/julia-jupyter.sh
 ```
