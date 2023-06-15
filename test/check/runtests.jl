@@ -10,7 +10,7 @@ const islumi = csc_system_name == "lumi"
 
 if ispuhti || ismahti
     const csc_appl_dir = "/appl"
-else if islumi
+elseif islumi
     const csc_appl_dir = "/appl/local/csc"
 else
     throw(ArgumentError("wrong system name"))
@@ -29,7 +29,7 @@ const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments
 @test haskey(ENV, "JULIA_LOAD_PATH")
 @test length(LOAD_PATH) == 4
 @test LOAD_PATH[1] == "@"
-@test LOAD_PATH[2] == "@#.#"
+@test LOAD_PATH[2] == "@v#.#"
 @test LOAD_PATH[3] == "@stdlib"
 @test LOAD_PATH[4] == site_environment_dir
 
@@ -39,9 +39,9 @@ const default_project = joinpath(homedir(), ".julia", "environments", "v$(VERSIO
 const load_path = Base.load_path()
 const stdlib_dir = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia", "stdlib", "v$(VERSION.major).$(VERSION.minor)")
 @test length(load_path) == 3
-@test load_path[1] = default_project
-@test load_path[2] = stdlib_dir
-@test load_path[3] = joinpath(site_environment_dir, "Project.toml")
+@test load_path[1] == default_project
+@test load_path[2] == stdlib_dir
+@test load_path[3] == joinpath(site_environment_dir, "Project.toml")
 
 @info "Check that the default environment is the default user location."
 @test Base.active_project() == default_project
@@ -66,8 +66,8 @@ Pkg.instantiate()
 import Example
 
 @info "Check that Julia man pages are available"
-const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia", "man", "man1", "julia.1")
-@test contains(first(readlines(`man -w julia`)), julia_man)
+const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
+@test first(readlines(`man -w julia`)) == julia_man
 
 @info "Check that MPI is available as a shared package."
 import MPI

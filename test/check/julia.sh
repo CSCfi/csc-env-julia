@@ -7,7 +7,6 @@ case ${1:-} in
         module load "julia/$JULIA_VERSION"
         module list
         export CSC_SYSTEM_NAME=$1
-        julia runtests.jl
         ;;
     lumi)
         module purge
@@ -15,9 +14,10 @@ case ${1:-} in
         module load "julia/$JULIA_VERSION"
         module list
         export CSC_SYSTEM_NAME=$1
-        julia runtests.jl
         ;;
     *)
         exit 1
         ;;
 esac
+
+julia runtests.jl
