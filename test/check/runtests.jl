@@ -69,26 +69,35 @@ pushfirst!(DEPOT_PATH, joinpath(tmp, ".julia"))
     import Example
 end
 
+const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
+
 @testset "Man pages" begin
     @info "Check that Julia man pages are available"
-    const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
     @test first(readlines(`man -w julia`)) == julia_man
 end
 
 @testset "Shared packages" begin
     @info "Check that MPI is available as a shared package."
-    import MPI
-    @test contains(pathof(MPI), joinpath(csc_julia_appl_dir, "depot", "packages" , "MPI"))
+    @test begin
+        import MPI
+        contains(pathof(MPI), joinpath(csc_julia_appl_dir, "depot", "packages" , "MPI"))
+    end
 
     @info "Check that IJulia is available as a shared package."
-    import IJulia
-    @test contains(pathof(IJulia), joinpath(csc_julia_appl_dir, "depot", "packages", "IJulia")) skip=islumi
+    @test begin
+        import IJulia
+        contains(pathof(IJulia), joinpath(csc_julia_appl_dir, "depot", "packages", "IJulia"))
+    end skip=islumi
 
     @info "Check that CUDA is available as a shared package."
-    import CUDA
-    @test contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA")) skip=islumi
+    @test begin
+        import CUDA
+        contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
+    end skip=islumi
 
     @info "Check that AMDPGU is available as a shared package."
-    import AMDPGU
-    @test contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA")) skip=(ispuhti || ismahti)
+    @test begin
+        import AMDPGU
+        contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
+    end skip=(ispuhti || ismahti)
 end
