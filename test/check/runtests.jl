@@ -18,6 +18,7 @@ end
 const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
 
 @info "Depot path"
+@test haskey(ENV, "JULIA_DEPOT_PATH")
 @test length(DEPOT_PATH) == 3
 @test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
 @test DEPOT_PATH[2] == joinpath(csc_julia_appl_dir, "depot")
@@ -25,6 +26,7 @@ const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
 
 @info "Load path"
 const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments", "v$(VERSION.major).$(VERSION.minor)_shared")
+@test haskey(ENV, "JULIA_LOAD_PATH")
 @test length(LOAD_PATH) == 4
 @test LOAD_PATH[1] == "@"
 @test LOAD_PATH[2] == "@#.#"
@@ -43,6 +45,12 @@ const stdlib_dir = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "ju
 
 @info "Check that the default environment is the default user location."
 @test Base.active_project() == default_project
+
+@info "Check that environment variables for threading are defined."
+@test haskey(ENV, "JULIA_CPU_THREADS")
+@test all(isdigit.(collect(ENV["JULIA_CPU_THREADS"])))
+@test haskey(ENV, "JULIA_NUM_THREADS")
+@test all(isdigit.(collect(ENV["JULIA_NUM_THREADS"])))
 
 @info "We change the default user depot to a clean temporary depot to avoid side-effects."
 popfirst!(DEPOT_PATH)
