@@ -17,77 +17,78 @@ else
 end
 const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
 
-@info "Depot path"
-@test haskey(ENV, "JULIA_DEPOT_PATH")
-@test length(DEPOT_PATH) == 3
-@test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
-@test DEPOT_PATH[2] == joinpath(csc_julia_appl_dir, "depot")
-@test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia")
+@testset "DEPOT_PATH" begin
+    @test haskey(ENV, "JULIA_DEPOT_PATH")
+    @test length(DEPOT_PATH) == 3
+    @test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
+    @test DEPOT_PATH[2] == joinpath(csc_julia_appl_dir, "depot")
+    @test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia")
+end
 
-@info "Load path"
 const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments", "v$(VERSION.major).$(VERSION.minor)_shared")
-@test haskey(ENV, "JULIA_LOAD_PATH")
-@test length(LOAD_PATH) == 4
-@test LOAD_PATH[1] == "@"
-@test LOAD_PATH[2] == "@v#.#"
-@test LOAD_PATH[3] == "@stdlib"
-@test LOAD_PATH[4] == site_environment_dir
 
-const default_project = joinpath(homedir(), ".julia", "environments", "v$(VERSION.major).$(VERSION.minor)", "Project.toml")
+@testset "LOAD_PATH" begin
+    @test haskey(ENV, "JULIA_LOAD_PATH")
+    @test length(LOAD_PATH) == 4
+    @test LOAD_PATH[1] == "@"
+    @test LOAD_PATH[2] == "@v#.#"
+    @test LOAD_PATH[3] == "@stdlib"
+    @test LOAD_PATH[4] == site_environment_dir
+end
 
-@info "Expanded load path"
 const load_path = Base.load_path()
+const default_project = joinpath(homedir(), ".julia", "environments", "v$(VERSION.major).$(VERSION.minor)", "Project.toml")
 const stdlib_dir = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia", "stdlib", "v$(VERSION.major).$(VERSION.minor)")
-@test length(load_path) == 3
-@test load_path[1] == default_project
-@test load_path[2] == stdlib_dir
-@test load_path[3] == joinpath(site_environment_dir, "Project.toml")
 
-@info "Check that the default environment is the default user location."
-@test Base.active_project() == default_project
+@testset "Expanded load path and active project" begin
+    @test length(load_path) == 3
+    @test load_path[1] == default_project
+    @test load_path[2] == stdlib_dir
+    @test load_path[3] == joinpath(site_environment_dir, "Project.toml")
+    @test Base.active_project() == default_project
+end
 
-@info "Check that environment variables for threading are defined."
-@test haskey(ENV, "JULIA_CPU_THREADS")
-@test all(isdigit.(collect(ENV["JULIA_CPU_THREADS"])))
-@test haskey(ENV, "JULIA_NUM_THREADS")
-@test all(isdigit.(collect(ENV["JULIA_NUM_THREADS"])))
+@testset "Environment variables" begin
+    @test haskey(ENV, "JULIA_CPU_THREADS")
+    @test all(isdigit.(collect(ENV["JULIA_CPU_THREADS"])))
+    @test haskey(ENV, "JULIA_NUM_THREADS")
+    @test all(isdigit.(collect(ENV["JULIA_NUM_THREADS"])))
+end
 
 @info "We change the default user depot to a clean temporary depot to avoid side-effects."
 popfirst!(DEPOT_PATH)
 tmp = mktempdir(; cleanup=true)
 pushfirst!(DEPOT_PATH, joinpath(tmp, ".julia"))
 
-@info "Check that environments work"
-import Pkg
-Pkg.activate(tmp)
-Pkg.compat("julia", string(VERSION))
-Pkg.add("Example")
-Pkg.instantiate()
-import Example
+@testset "Using environments" begin
+    import Pkg
+    Pkg.activate(tmp)
+    Pkg.compat("julia", string(VERSION))
+    Pkg.add("Example")
+    Pkg.instantiate()
+    import Example
+end
 
-@info "Check that Julia man pages are available"
-const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
-@test first(readlines(`man -w julia`)) == julia_man
+@testset "Man pages" begin
+    @info "Check that Julia man pages are available"
+    const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
+    @test first(readlines(`man -w julia`)) == julia_man
+end
 
-@info "Check that MPI is available as a shared package."
-import MPI
-@test contains(pathof(MPI), joinpath(csc_julia_appl_dir, "depot", "packages" , "MPI"))
+@testset "Shared packages" begin
+    @info "Check that MPI is available as a shared package."
+    import MPI
+    @test contains(pathof(MPI), joinpath(csc_julia_appl_dir, "depot", "packages" , "MPI"))
 
-if ispuhti || ismahti
     @info "Check that IJulia is available as a shared package."
     import IJulia
-    @test contains(pathof(IJulia), joinpath(csc_julia_appl_dir, "depot", "packages", "IJulia"))
-end
+    @test contains(pathof(IJulia), joinpath(csc_julia_appl_dir, "depot", "packages", "IJulia")) skip=islumi
 
-if ispuhti || ismahti
     @info "Check that CUDA is available as a shared package."
     import CUDA
-    @test contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
-end
+    @test contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA")) skip=islumi
 
-if islumi
     @info "Check that AMDPGU is available as a shared package."
     import AMDPGU
-    @test contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
+    @test contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA")) skip=(ispuhti || ismahti)
 end
-
