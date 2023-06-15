@@ -163,6 +163,7 @@ Puhti:
 module unload julia-pkg
 module load julia-test
 export JULIA_VERSION=1.9.0
+(cd test && ./julia.sh puhti)
 (cd test/julia && ./sbatch puhti)
 (cd test/mpi && ./sbatch puhti)
 (cd test/cuda && ./sbatch puhti)
@@ -174,6 +175,7 @@ Mahti:
 module unload julia-pkg
 module load julia-test
 export JULIA_VERSION=1.9.0
+(cd test && ./julia.sh mahti)
 (cd test/julia && ./sbatch mahti)
 (cd test/mpi && ./sbatch mahti)
 (cd test/cuda && ./sbatch mahti)
@@ -185,6 +187,7 @@ LUMI:
 module unload julia-pkg
 module load julia-test
 export JULIA_VERSION=1.9.0
+(cd test && ./julia.sh lumi)
 (cd test/julia && ./sbatch lumi)
 (cd test/mpi && ./sbatch lumi)
 (cd test/amdgpu && ./sbatch lumi)
@@ -207,14 +210,6 @@ LUMI:
 ```bash
 cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/1.9.0.lua
 cp modulefiles/$CSC_SYSTEM_NAME/julia-amdgpu/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia-amdgpu/1.9.0.lua
-```
-
-
-## Checking the Julia module and installation
-We can test the Julia module by loading it, checking the Julia version and checking the path to the Julia man pages.
-
-```bash
-JULIA_VERSION=1.9.0 ./test/check/julia.sh $CSC_SYSTEM_NAME
 ```
 
 
