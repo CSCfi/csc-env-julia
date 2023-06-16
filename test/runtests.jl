@@ -43,7 +43,7 @@ const stdlib_dir = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "ju
 @testset "Expanded load path and active project" begin
     @test length(load_path) == 3
     @test load_path[1] == default_project
-    @test load_path[2] == stdlib_dir
+    @test load_path[2] == realpath(stdlib_dir)
     @test load_path[3] == joinpath(site_environment_dir, "Project.toml")
     @test Base.active_project() == default_project
 end
@@ -98,6 +98,6 @@ end
     @info "Check that AMDPGU is available as a shared package."
     @test begin
         import AMDPGU
-        contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
+        contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "AMDGPU"))
     end skip=(ispuhti || ismahti)
 end
