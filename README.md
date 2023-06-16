@@ -23,7 +23,7 @@ module load <CSC_SYSTEM_NAME>
 ```
 
 
-## Permissions
+## Setting permissions
 We should use restrict the read, write and execute permissions for installations as follows.
 On Puhti and Mahti:
 
@@ -53,7 +53,7 @@ chmod -R u=rwX,go=rX <install-dir>
 ## Synchronizing LUMI installation
 LUMI has four independent Lustre file systems, `/pfs/lustrep{1,2,3,4}`.
 The `/appl` directory is a symbolic link to one of the `/pfs/lustrep{1,2,3,4}/appl` directories, depending on the node.
-To make LUMI installation available from all of the Lustre file systems, we must synchronize the installations afterwards using the `/appl/local/csc/bin/sync_appl_csc.sh` script.
+To make LUMI installation available from all of the Lustre file systems, we must synchronize the installation across all Lustre file systems afterwards as follows:
 
 ```bash
 bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/<install-dir>
@@ -151,7 +151,9 @@ julia packages/amdgpu.jl
 julia packages/instantiate.jl
 ```
 
-On LUMI, we must synchronize the installation across the independent Lustre filesystems to make them available from each Lustre filesystem.
+```bash
+bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/soft/math/julia
+```
 
 
 ## Testing Julia and shared packages
@@ -212,6 +214,11 @@ cp modulefiles/$CSC_SYSTEM_NAME/julia/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia/
 cp modulefiles/$CSC_SYSTEM_NAME/julia-amdgpu/1.9.0.lua $CSC_APPL_DIR/modulefiles/julia-amdgpu/1.9.0.lua
 ```
 
+```bash
+bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/modulefiles/julia
+bash /appl/local/csc/bin/sync_appl_csc.sh /appl/local/csc/modulefiles/julia-amdgpu
+```
+
 
 ## Julia-Jupyter
 Julia Jupyter directory structure
@@ -251,5 +258,5 @@ cp modulefiles/$CSC_SYSTEM_NAME/julia-jupyter.lua $CSC_APPL_DIR/modulefiles/juli
 Test
 
 ```bash
-./test/check/julia-jupyter.sh
+./jupyter/test.sh
 ```
