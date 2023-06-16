@@ -2,6 +2,7 @@ using Test
 
 import InteractiveUtils
 InteractiveUtils.versioninfo()
+println()
 
 const csc_system_name = ENV["CSC_SYSTEM_NAME"]
 const ispuhti = csc_system_name == "puhti"
@@ -13,7 +14,7 @@ if ispuhti || ismahti
 elseif islumi
     const csc_appl_dir = "/appl/local/csc"
 else
-    throw(ArgumentError("wrong system name"))
+    throw(ArgumentError("System \"$csc_syste_name\" not recognized"))
 end
 const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
 
@@ -36,11 +37,11 @@ const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments
     @test LOAD_PATH[4] == site_environment_dir
 end
 
-const load_path = Base.load_path()
 const default_project = joinpath(homedir(), ".julia", "environments", "v$(VERSION.major).$(VERSION.minor)", "Project.toml")
 const stdlib_dir = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia", "stdlib", "v$(VERSION.major).$(VERSION.minor)")
 
 @testset "Expanded load path and active project" begin
+    load_path = Base.load_path()
     @test length(load_path) == 3
     @test load_path[1] == default_project
     @test load_path[2] == realpath(stdlib_dir)
@@ -57,16 +58,20 @@ end
 
 @info "We change the default user depot to a clean temporary depot to avoid side-effects."
 popfirst!(DEPOT_PATH)
-tmp = mktempdir(; cleanup=true)
-pushfirst!(DEPOT_PATH, joinpath(tmp, ".julia"))
+const tmp = mktempdir(; cleanup=true)
+const tmp_depot = joinpath(tmp, ".julia")
+pushfirst!(DEPOT_PATH, tmp_depot)
 
 @testset "Using environments" begin
-    import Pkg
-    Pkg.activate(tmp)
-    Pkg.compat("julia", string(VERSION))
-    Pkg.add("Example")
-    Pkg.instantiate()
-    import Example
+    @test begin
+        import Pkg
+        Pkg.activate(tmp)
+        Pkg.compat("julia", string(VERSION))
+        Pkg.add("Example")
+        Pkg.instantiate()
+        import Example
+        true
+    end
 end
 
 const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
