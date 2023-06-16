@@ -82,26 +82,26 @@ const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man
 end
 
 @testset "Shared packages" begin
-    @info "Check that MPI is available as a shared package."
     @test begin
+        @info "Check that MPI is available as a shared package."
         import MPI
         contains(pathof(MPI), joinpath(csc_julia_appl_dir, "depot", "packages" , "MPI"))
     end
 
-    @info "Check that IJulia is available as a shared package."
     @test begin
+        @info "Check that IJulia is available as a shared package."
         import IJulia
         contains(pathof(IJulia), joinpath(csc_julia_appl_dir, "depot", "packages", "IJulia"))
     end skip=islumi
 
-    @info "Check that CUDA is available as a shared package."
     @test begin
+        @info "Check that CUDA is available as a shared package."
         import CUDA
         contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
     end skip=islumi
 
-    @info "Check that AMDGPU is available as a shared package."
     @test begin
+        @info "Check that AMDGPU is available as a shared package."
         import AMDGPU
         contains(pathof(AMDGPU), joinpath(csc_julia_appl_dir, "depot", "packages", "AMDGPU"))
     end skip=(ispuhti || ismahti)
