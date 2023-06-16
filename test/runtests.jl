@@ -95,9 +95,10 @@ end
         contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
     end skip=islumi
 
-    @info "Check that AMDPGU is available as a shared package."
+    @info "Check that AMDGPU is available as a shared package."
     @test begin
-        import AMDPGU
-        contains(pathof(AMDPGU), joinpath(csc_julia_appl_dir, "depot", "packages", "AMDGPU"))
+        import AMDGPU
+        contains(pathof(AMDGPU), joinpath(csc_julia_appl_dir, "depot", "packages", "AMDGPU"))
     end skip=(ispuhti || ismahti)
+
 end
