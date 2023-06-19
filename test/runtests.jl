@@ -114,14 +114,14 @@ const execute = 0x01
 isexecutable(perm::UInt8) = (~execute | perm) == 0xff
 
 """rwxrwsr-x"""
-function perm1(s::Base.Filesystem.Statstruct)
+function perm1(s::Base.Filesystem.StatStruct)
     uperm(s1) == read & write & execute &&
     gperm(s1) == read & write & execute &&
     operm(s1) == read & execute
 end
 
 """rw-rw-r--"""
-function perm2(s::Base.Filesystem.Statstruct)
+function perm2(s::Base.Filesystem.StatStruct)
     uperm(s1) == read & write &&
     gperm(s1) == read & write &&
     uperm(s1) == read
