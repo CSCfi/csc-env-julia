@@ -105,5 +105,51 @@ end
         import AMDGPU
         contains(pathof(AMDGPU), joinpath(csc_julia_appl_dir, "depot", "packages", "AMDGPU"))
     end skip=(ispuhti || ismahti)
+end
 
+const read = 0x04
+const write = 0x02
+const execute = 0x01
+
+isexecutable(perm::UInt8) = (~execute | perm) == 0xff
+
+"""rwxrwsr-x"""
+function perm1(s::Base.Filesystem.Statstruct)
+    uperm(s1) == read & write & execute &&
+    gperm(s1) == read & write & execute &&
+    operm(s1) == read & execute
+end
+
+"""rw-rw-r--"""
+function perm2(s::Base.Filesystem.Statstruct)
+    uperm(s1) == read & write &&
+    gperm(s1) == read & write &&
+    uperm(s1) == read
+end
+
+function check_permissions(dir)
+    for (root, _, files) in walkdir(dir)
+        @test perm1(stat(root))
+        for file in files
+            if isfile(file)
+                s2 = stat(file)
+                if isexecutable(uperm(s2))
+                    @test perm1(s2)
+                else
+                    @test perm2(s2)
+                end
+            elseif islink(file)
+                continue
+            else
+                throw ErrorException("File is not ordinary file or link.")
+            end
+        end
+    end
+end
+
+@testset "File permissions" begin
+    # directory: rwxrwsr-x
+    # file (normal): rw-rw-r--
+    # file (executable): rwxrwxr-x
+    check_permissions(csc_julia_appl_dir)
 end
