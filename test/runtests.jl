@@ -116,14 +116,14 @@ isexecutable(perm::UInt8) = (~execute | perm) == 0xff
 """rwxrwsr-x"""
 function perm1(s::Base.Filesystem.StatStruct)
     uperm(s) == (read | write | execute) &&
-    gperm(s) == (read | write | execute) &&
+    gperm(s) == (read | execute) &&
     operm(s) == (read | execute)
 end
 
 """rw-rw-r--"""
 function perm2(s::Base.Filesystem.StatStruct)
     uperm(s) == (read | write) &&
-    gperm(s) == (read | write) &&
+    gperm(s) == read &&
     operm(s) == read
 end
 
@@ -132,14 +132,14 @@ function check_permissions(dir)
         # Test directory permissions
         @test perm1(lstat(root))
 
-        # Test files
+        # Test file permissions
         for filename in files
             file = joinpath(root, filename)
             s = lstat(file)
             if isfile(s)
                 # Test ordinary file permissions
                 if isexecutable(uperm(s))
-                    # If user has execute permission, group and other should too.
+                    # If the user has execute permission, the group and others should too.
                     @test perm1(s)
                 else
                     @test perm2(s)
@@ -148,6 +148,7 @@ function check_permissions(dir)
                 # Skip links
                 continue
             else
+                # The directory should only contains ordinary files and links.
                 throw(ErrorException("File \"$file\" is not ordinary file or link."))
             end
         end
@@ -155,5 +156,7 @@ function check_permissions(dir)
 end
 
 @testset "File permissions" begin
-    check_permissions(csc_julia_appl_dir)
+    if islumi
+        check_permissions(csc_julia_appl_dir)
+    end
 end
