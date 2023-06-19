@@ -1,11 +1,11 @@
 local name = myModuleName()
 local version = myModuleVersion()
 
-help("The Julia programming language")
-whatis("Name: " .. name)
-whatis("Version: " .. version)
-whatis("Description: The Julia programming language")
-whatis("URL: http://julialang.org")
+help([[The Julia programming language]])
+whatis("Name : " .. name)
+whatis("Version : " .. version)
+whatis("Description : The Julia programming language")
+whatis("URL : http://julialang.org")
 
 depends_on("gcc/11", "openmpi/4")
 

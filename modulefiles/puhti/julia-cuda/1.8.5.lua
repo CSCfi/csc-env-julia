@@ -1,4 +1,4 @@
-help("Environment for using CUDA.jl with the Julia language.")
+help([[Environment for using CUDA.jl with the Julia language.]])
 
 depends_on("julia/" .. myModuleVersion(), "cuda/11")
 

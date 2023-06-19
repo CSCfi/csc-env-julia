@@ -1,4 +1,4 @@
-help("Environment for using AMDGPU.jl with the Julia language.")
+help([[Environment for using AMDGPU.jl with the Julia language.]])
 
 depends_on("julia/" .. myModuleVersion(), "amd-mixed", "rocm/5.2")
 
