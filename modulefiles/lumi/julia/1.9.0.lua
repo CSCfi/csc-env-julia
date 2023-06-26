@@ -11,7 +11,7 @@ depends_on("PrgEnv-cray")
 --depends_on("gcc/11", "PrgEnv-gnu")
 
 local appl_dir = "/appl/local/csc/soft/math/julia"
-local release_dir = pathJoin(appl_dir, "julia-" .. version)
+local release_dir = pathJoin(appl_dir, version)
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
 prepend_path("MANPATH", pathJoin(release_dir, "share/man"))

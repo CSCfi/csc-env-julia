@@ -10,7 +10,7 @@ whatis("URL : http://julialang.org")
 depends_on("gcc/11", "openmpi/4")
 
 local appl_dir = "/appl/soft/math/julia"
-local release_dir = pathJoin(appl_dir, "julia-" .. version)
+local release_dir = pathJoin(appl_dir, version)
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
 prepend_path("MANPATH", pathJoin(release_dir, "share/man"))
