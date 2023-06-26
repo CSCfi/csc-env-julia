@@ -34,7 +34,7 @@ umask ug=rwx,o=rx
 We can also force the correct access rights on an installation directory.
 
 ```bash
-chmod -R ug=rwX,o=rX <install-dir>
+chmod -R ug=rwX,o=rX <dir>
 ```
 
 On LUMI:
@@ -46,7 +46,7 @@ umask u=rwx,go=rx
 We can also force the correct access rights on an installation directory.
 
 ```bash
-chmod -R u=rwX,go=rX <install-dir>
+chmod -R u=rwX,go=rX <dir>
 ```
 
 
@@ -73,8 +73,8 @@ $CSC_APPL_DIR/
     │   └── environments/     # Shared Julia environments
     │       ├── v1.8_shared/  # Shared environment for Julia v1.8.*
     │       └── v1.9_shared/  # Shared environment for Julia v1.9.*
-    ├── julia-1.8.5/          # Julia v1.8.5 binaries
-    └── julia-1.9.0/          # Julia v1.9.0 binaries
+    ├── 1.8.5/                # Julia v1.8.5 binaries
+    └── 1.9.0/                # Julia v1.9.0 binaries
 ```
 
 
@@ -85,12 +85,13 @@ We can install Julia by downloading and unpacking the [pre-compiled Julia binari
 cd "$CSC_APPL_DIR/soft/math/julia"
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-linux-x86_64.tar.gz
 tar xf julia-1.9.0-linux-x86_64.tar.gz
+mv julia-1.9.0 1.9.0
 rm julia-1.9.0-linux-x86_64.tar.gz
 ```
 
 
 ## Structure of Julia binaries
-A Julia release, such as `julia-1.9.0`, contains the following files and directories, among others.
+A Julia binary release, such as `julia/1.9.0/`, contains the following files and directories, among others.
 
 -  The `bin` directory contains the Julia executable, which is dynamically linked to various libraries.
 - The `lib` directory contains shared libraries for the Julia executable.

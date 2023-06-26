@@ -23,7 +23,7 @@ const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
     @test length(DEPOT_PATH) == 3
     @test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
     @test DEPOT_PATH[2] == joinpath(csc_julia_appl_dir, "depot")
-    @test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia")
+    @test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia")
 end
 
 const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments", "v$(VERSION.major).$(VERSION.minor)_shared")
@@ -38,7 +38,7 @@ const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments
 end
 
 const default_project = joinpath(homedir(), ".julia", "environments", "v$(VERSION.major).$(VERSION.minor)", "Project.toml")
-const stdlib_dir = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "julia", "stdlib", "v$(VERSION.major).$(VERSION.minor)")
+const stdlib_dir = joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia", "stdlib", "v$(VERSION.major).$(VERSION.minor)")
 
 @testset "Expanded load path and active project" begin
     load_path = Base.load_path()
@@ -74,7 +74,7 @@ pushfirst!(DEPOT_PATH, tmp_depot)
     end
 end
 
-const julia_man = joinpath(csc_julia_appl_dir, "julia-$(VERSION)", "share", "man", "man1", "julia.1")
+const julia_man = joinpath(csc_julia_appl_dir, string(VERSION), "share", "man", "man1", "julia.1")
 
 @testset "Man pages" begin
     @info "Check that Julia man pages are available"
