@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
+
+# Exit if script is sourced.
+[[ "${BASH_SOURCE[0]}" != "${0}" ]] && exit 1
+
 set -euo pipefail
+
+SCRIPT_DIR=$(dirname "$0")
 
 case ${1:-} in
     puhti|mahti)
@@ -22,4 +28,4 @@ case ${1:-} in
         ;;
 esac
 
-julia runtests.jl
+julia "$SCRIPT_DIR/runtests.jl"
