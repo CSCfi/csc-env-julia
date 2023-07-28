@@ -1,39 +1,47 @@
 - name: "Install csc-julia-env"
   become: false
-  vars:
-    - repo_dir: "{{ playbook_dir }}/.."
 
   tasks:
     - name: "Create julia application directory"
-      file:
+      ansible.builtin.file:
         path: "{{ appl_dir }}/julia"
         state: "directory"
 
     - name: "Download julia"
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ julia_url }}"
         dest: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         checksum: "{{ julia_checksum }}"
         mode: "ug=rw,o="
 
     - name: "Extract the julia archive"
-      unarchive:
+      ansible.builtin.unarchive:
         src: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         dest: "{{ appl_dir }}/julia"
         remote_src: true
 
     - name: "Rename julia binaries"
-      copy:
+      ansible.builtin.copy:
         src: "{{ appl_dir }}/julia/julia-1.9.2"
         dest: "{{ appl_dir }}/julia/1.9.2"
         remote_src: true
 
     - name: "Remove the old directory"
-      file:
+      ansible.builtin.file:
         src: "{{ appl_dir }}/julia/julia-1.9.2"
         state: "absent"
 
     - name: "Create julia depot directory"
-      file:
+      ansible.builtin.file:
         path: "{{ appl_dir }}/julia/depot"
         state: "directory"
+
+    - name: "Create julia modulefiles directory"
+      ansible.builtin.file:
+        path: "{{ modulefiles_dir }}/julia"
+        state: "directory"
+
+    - name: "Create julia modulefile"
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/modulefiles/julia.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia/{{ julia_version }}.lua"
