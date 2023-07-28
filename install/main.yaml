@@ -1,0 +1,39 @@
+- name: "Install csc-julia-env"
+  become: false
+  vars:
+    - repo_dir: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: "Create julia application directory"
+      file:
+        path: "{{ appl_dir }}/julia"
+        state: "directory"
+
+    - name: "Download julia"
+      get_url:
+        url: "{{ julia_url }}"
+        dest: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
+        checksum: "{{ julia_checksum }}"
+        mode: "ug=rw,o="
+
+    - name: "Extract the julia archive"
+      unarchive:
+        src: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
+        dest: "{{ appl_dir }}/julia"
+        remote_src: true
+
+    - name: "Rename julia binaries"
+      copy:
+        src: "{{ appl_dir }}/julia/julia-1.9.2"
+        dest: "{{ appl_dir }}/julia/1.9.2"
+        remote_src: true
+
+    - name: "Remove the old directory"
+      file:
+        src: "{{ appl_dir }}/julia/julia-1.9.2"
+        state: "absent"
+
+    - name: "Create julia depot directory"
+      file:
+        path: "{{ appl_dir }}/julia/depot"
+        state: "directory"
