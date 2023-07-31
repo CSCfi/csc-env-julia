@@ -7,9 +7,11 @@ whatis("Version : " .. version)
 whatis("Description : The Julia programming language")
 whatis("URL : http://julialang.org")
 
-depends_on("gcc/11", "openmpi/4")
+{% for module in modules %}
+depends_on("{{ module }}")
+{% endfor %}
 
-local julia_appl_dir = "/appl/soft/math/julia"
+local julia_appl_dir = "{{ appl_dir }}/julia"
 local release_dir = pathJoin(julia_appl_dir, version)
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
