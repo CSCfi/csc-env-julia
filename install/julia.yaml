@@ -1,4 +1,4 @@
-- name: "Install csc-julia-env"
+- name: "Install julia environment"
   become: false
 
   tasks:
