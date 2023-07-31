@@ -14,22 +14,23 @@
         src: "{{ repo_dir }}/jupyter/requirements-freeze.txt"
         dest: "{{ appl_dir }}/julia-jupyter/requirements.txt"
 
-    - name: "Create diretory for virtual environment"
-      ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-jupyter/env"
-        state: "directory"
-
     - name: "Create Python virtual environment"
-      ansible.builtin.shell: |
+      ansible.builtin.command: |
           python3.9 -m venv "env"
-      chdir: "{{ appl_dir }}/julia-jupyter"
+      args:
+        creates: "{{ appl_dir }}/julia-jupyter/env"
+        chdir: "{{ appl_dir }}/julia-jupyter"
 
     - name: "Install packages to the virtual environment"
-      ansible.builtin.shell: |
+      ansible.builtin.command: |
         ./env/bin/pip install requirements.txt
-      chdir: "{{ appl_dir }}/julia-jupyter"
+      args:
+        creates: "{{ appl_dir }}/julia-jupyter/env/bin/jupyter"
+        chdir: "{{ appl_dir }}/julia-jupyter"
 
     - name: "Remove the default kernel"
-      ansible.builtin.shell: |
+      ansible.builtin.command: |
         ./env/bin/jupyter kernelspec remove -y python3
-      chdir: "{{ appl_dir }}/julia-jupyter"
+      args:
+        removes: "{{ appl_dir }}/julia-jupyter/env/kernels/..."  # TODO
+        chdir: "{{ appl_dir }}/julia-jupyter"
