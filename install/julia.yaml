@@ -6,6 +6,7 @@
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia"
         state: "directory"
+        group: "{{ group }}"
 
     - name: "Download julia"
       ansible.builtin.get_url:
@@ -13,18 +14,21 @@
         dest: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         checksum: "{{ julia_checksum }}"
         mode: "ug=rw,o="
+        group: "{{ group }}"
 
     - name: "Extract the julia archive"
       ansible.builtin.unarchive:
         src: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         dest: "{{ appl_dir }}/julia"
         remote_src: true
+        group: "{{ group }}"
 
     - name: "Rename julia binaries"
       ansible.builtin.copy:
         src: "{{ appl_dir }}/julia/julia-1.9.2"
         dest: "{{ appl_dir }}/julia/1.9.2"
         remote_src: true
+        group: "{{ group }}"
 
     - name: "Remove the old directory"
       ansible.builtin.file:
@@ -35,19 +39,23 @@
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia/depot"
         state: "directory"
+        group: "{{ group }}"
 
     - name: "Create julia modulefiles directory"
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia"
         state: "directory"
+        group: "{{ group }}"
 
     - name: "Create julia modulefile"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/modulefiles/julia.lua.j2"
         dest: "{{ modulefiles_dir }}/julia/{{ julia_version }}.lua"
+        group: "{{ group }}"
 
     - name: "Create julia-pkg modulefile"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
         dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
         mode: "ug=rw,o="
+        group: "{{ group }}"

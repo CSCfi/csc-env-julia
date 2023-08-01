@@ -6,11 +6,13 @@
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-jupyter"
         state: "directory"
+        group: "{{ group }}"
 
     - name: "Copy requirements for the virtual environment"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/jupyter/requirements-freeze.txt"
         dest: "{{ appl_dir }}/julia-jupyter/requirements.txt"
+        group: "{{ group }}"
 
     - name: "Create Python virtual environment"
       ansible.builtin.command: |
@@ -44,3 +46,4 @@
       ansible.builtin.template:
         src: "{{ playbook_dir }}/modulefiles/julia-jupyter.lua.j2"
         dest: "{{ modulefiles_dir }}/julia-jupyter/env.lua"
+        group: "{{ group }}"

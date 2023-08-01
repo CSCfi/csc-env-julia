@@ -13,6 +13,7 @@ puhti:
       modules:
         - "gcc/11"
         - "openmpi/4"
+      gpu: "cuda"
 mahti:
   hosts:
     mahti-install:
@@ -24,6 +25,7 @@ mahti:
       modules:
         - "gcc/11"
         - "openmpi/4"
+      gpu: "cuda"
 lumi:
   hosts:
     lumi:
@@ -34,3 +36,4 @@ lumi:
       modulefiles_dir: "/appl/local/csc/modulefiles"
       modules:
         - "prgEnv-cray"
+      gpu: "amdgpu"
