@@ -45,3 +45,9 @@
       ansible.builtin.template:
         src: "{{ playbook_dir }}/modulefiles/julia.lua.j2"
         dest: "{{ modulefiles_dir }}/julia/{{ julia_version }}.lua"
+
+    - name: "Create julia-pkg modulefile"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
+        dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
+        mode: "ug=rw,o="
