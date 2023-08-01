@@ -1,7 +1,5 @@
 - name: "Install julia-jupyter environment"
   become: false
-  vars:
-    repo_dir: "{{ playbook_dir }}/.."
 
   tasks:
     - name: "Create julia-jupyter application directory"
@@ -11,7 +9,7 @@
 
     - name: "Copy requirements for the virtual environment"
       ansible.builtin.copy:
-        src: "{{ repo_dir }}/jupyter/requirements-freeze.txt"
+        src: "{{ playbook_dir }}/jupyter/requirements-freeze.txt"
         dest: "{{ appl_dir }}/julia-jupyter/requirements.txt"
 
     - name: "Create Python virtual environment"
@@ -27,6 +25,13 @@
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
         creates: "{{ appl_dir }}/julia-jupyter/env/bin/jupyter"
+
+    - name: "Freeze pip requirements"
+      ansible.builtin.command: |
+        ./env/bin/pip freeze -r requirements.txt > requirements-freeze.txt
+      args:
+        chdir: "{{ appl_dir }}/julia-jupyter"
+        creates: "{{ appl_dir }}/julia-jupyter/requirements-freeze.txt"
 
     - name: "Remove the default kernel"
       ansible.builtin.command: |
