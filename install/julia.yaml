@@ -53,6 +53,18 @@
         dest: "{{ modulefiles_dir }}/julia/{{ julia_version }}.lua"
         group: "{{ group }}"
 
+    - name: "Create julia-{{ gpu }} modulefiles directory"
+      ansible.builtin.file:
+        path: "{{ modulefiles_dir }}/julia-{{gpu}}"
+        state: "directory"
+        group: "{{ group }}"
+
+    - name: "Create julia-{{ gpu }} modulefile"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/modulefiles/julia-{{ gpu }}.lua"
+        dest: "{{ modulefiles_dir }}/julia-{{ gpu }}/{{ julia_version }}.lua"
+        group: "{{ group }}"
+
     - name: "Create julia-pkg modulefile"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
