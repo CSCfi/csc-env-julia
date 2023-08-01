@@ -1,39 +1,48 @@
-localhost:
+# Use localhost for testing
+group_localhost:
   hosts:
     localhost:
       ansible_connection: "local"
-puhti:
+  vars:
+    group: "csc"
+    appl_dir: "{{ ansible_env.HOME }}/scratch/appl/soft/math"
+    modulefiles_dir: "{{ ansible_env.HOME}}/scratch/appl/modulefiles"
+    modules:
+      - "gcc/11"
+      - "openmpi/4"
+    gpu: "cuda"
+group_puhti:
   hosts:
     puhti-install:
       ansible_connection: "ssh"
-    vars:
-      group: "p_installation"
-      appl_dir: "/appl/soft/math"
-      modulefiles_dir: "/appl/modulefiles"
-      modules:
-        - "gcc/11"
-        - "openmpi/4"
-      gpu: "cuda"
-mahti:
+  vars:
+    group: "p_installation"
+    appl_dir: "/appl/soft/math"
+    modulefiles_dir: "/appl/modulefiles"
+    modules:
+      - "gcc/11"
+      - "openmpi/4"
+    gpu: "cuda"
+group_mahti:
   hosts:
     mahti-install:
       ansible_connection: "ssh"
-    vars:
-      group: "m_installation"
-      appl_dir: "/appl/soft/math"
-      modulefiles_dir: "/appl/modulefiles"
-      modules:
-        - "gcc/11"
-        - "openmpi/4"
-      gpu: "cuda"
-lumi:
+  vars:
+    group: "m_installation"
+    appl_dir: "/appl/soft/math"
+    modulefiles_dir: "/appl/modulefiles"
+    modules:
+      - "gcc/11"
+      - "openmpi/4"
+    gpu: "cuda"
+group_lumi:
   hosts:
     lumi:
       ansible_connection: "ssh"
-    vars:
-      group: "appl_csc"
-      appl_dir: "/appl/local/csc/soft/math"
-      modulefiles_dir: "/appl/local/csc/modulefiles"
-      modules:
-        - "prgEnv-cray"
-      gpu: "amdgpu"
+  vars:
+    group: "appl_csc"
+    appl_dir: "/pfs/lustrep1/appl/local/csc/soft/math"
+    modulefiles_dir: "/pfs/lustrep1/appl/local/csc/modulefiles"
+    modules:
+      - "prgEnv-cray"
+    gpu: "amdgpu"
