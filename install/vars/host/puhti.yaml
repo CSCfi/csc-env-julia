@@ -1,5 +1,0 @@
-appl_dir: "/appl/soft/math"
-modulefiles_dir: "/appl/modulefiles"
-modules:
-  - "gcc/11"
-  - "openmpi/4"
