@@ -1,4 +1,9 @@
 - name: "Install julia-jupyter environment"
+  hosts:
+    - "group_localhost"
+    #- "group_puhti"
+    #- "group_mahti"
+    #- "group_lumi"
   become: false
 
   tasks:
@@ -23,13 +28,13 @@
 
     - name: "Install packages to the virtual environment"
       ansible.builtin.command: |
-        ./env/bin/pip install requirements.txt
+        ./env/bin/pip install -r requirements.txt
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
         creates: "{{ appl_dir }}/julia-jupyter/env/bin/jupyter"
 
     - name: "Freeze pip requirements"
-      ansible.builtin.command: |
+      ansible.builtin.shell: |
         ./env/bin/pip freeze -r requirements.txt > requirements-freeze.txt
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
@@ -41,6 +46,12 @@
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
         removes: "{{ appl_dir }}/julia-jupyter/env/kernels/python3"
+
+    - name: "Create julia-jupyter modulefiles directory"
+      ansible.builtin.file:
+        path: "{{ modulefiles_dir }}/julia-jupyter"
+        state: "directory"
+        group: "{{ group }}"
 
     - name: "Create julia-jupyter modulefile"
       ansible.builtin.template:
