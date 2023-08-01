@@ -18,7 +18,6 @@
         url: "{{ julia_url }}"
         dest: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         checksum: "{{ julia_checksum }}"
-        mode: "ug=rw,o="
         group: "{{ group }}"
 
     - name: "Extract the julia archive"
@@ -37,7 +36,7 @@
 
     - name: "Remove the old directory"
       ansible.builtin.file:
-        src: "{{ appl_dir }}/julia/julia-1.9.2"
+        dest: "{{ appl_dir }}/julia/julia-1.9.2"
         state: "absent"
 
     - name: "Create julia depot directory"
