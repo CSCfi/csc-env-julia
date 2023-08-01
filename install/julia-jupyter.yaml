@@ -18,19 +18,24 @@
       ansible.builtin.command: |
           python3.9 -m venv "env"
       args:
-        creates: "{{ appl_dir }}/julia-jupyter/env"
         chdir: "{{ appl_dir }}/julia-jupyter"
+        creates: "{{ appl_dir }}/julia-jupyter/env"
 
     - name: "Install packages to the virtual environment"
       ansible.builtin.command: |
         ./env/bin/pip install requirements.txt
       args:
-        creates: "{{ appl_dir }}/julia-jupyter/env/bin/jupyter"
         chdir: "{{ appl_dir }}/julia-jupyter"
+        creates: "{{ appl_dir }}/julia-jupyter/env/bin/jupyter"
 
     - name: "Remove the default kernel"
       ansible.builtin.command: |
         ./env/bin/jupyter kernelspec remove -y python3
       args:
-        removes: "{{ appl_dir }}/julia-jupyter/env/kernels/..."  # TODO
         chdir: "{{ appl_dir }}/julia-jupyter"
+        removes: "{{ appl_dir }}/julia-jupyter/env/kernels/python3"
+
+    - name: "Create julia-jupyter modulefile"
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/modulefiles/julia-jupyter.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia-jupyter/env.lua"
