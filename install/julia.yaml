@@ -26,18 +26,10 @@
         dest: "{{ appl_dir }}/julia"
         remote_src: true
         group: "{{ group }}"
-
-    - name: "Rename julia binaries"
-      ansible.builtin.copy:
-        src: "{{ appl_dir }}/julia/julia-1.9.2"
-        dest: "{{ appl_dir }}/julia/1.9.2"
-        remote_src: true
-        group: "{{ group }}"
-
-    - name: "Remove the old directory"
-      ansible.builtin.file:
-        dest: "{{ appl_dir }}/julia/julia-1.9.2"
-        state: "absent"
+        creates: "{{ appl_dir }}/julia/{{ julia_version }}"
+        extra_opts:
+          - "--transform"
+          - "s/julia-{{ julia_version }}/{{ julia_version }}/g"
 
     - name: "Create julia depot directory"
       ansible.builtin.file:
