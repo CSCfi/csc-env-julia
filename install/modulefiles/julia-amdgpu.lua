@@ -8,5 +8,5 @@ depends_on("rocm/5.2")
 setenv("JULIA_AMDGPU_DISABLE_ARTIFACTS", "1")
 
 -- Enable GPU-aware MPI
-depends_on("craype-accel-amd-gfx90a")
-setenv("MPICH_GPU_SUPPORT_ENABLED", "1")
+--depends_on("craype-accel-amd-gfx90a")
+--setenv("MPICH_GPU_SUPPORT_ENABLED", "1")

@@ -1,10 +1,10 @@
 import IJulia
 
+# Jupyter data dir. E.g., /appl/soft/math/julia-jupyter/data
+const jupyter_dir = ARGS[1]
+
 # Path to the IJulia.jl installation directory.
 const ijulia_dir = dirname(dirname(pathof(IJulia)))
-
-# Jupyter data dir
-const jupyter_dir = joinpath(ENV["CSC_APPL_DIR"], "soft", "math", "julia-jupyter", "data")
 
 # Location to install the Julia kernel.
 const kernel_dir = joinpath(jupyter_dir, "kernels", "julia-$(Base.VERSION_STRING)")

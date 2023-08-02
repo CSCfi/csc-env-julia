@@ -1,9 +1,9 @@
 - name: "Install julia environment"
   hosts:
     - "group_localhost"
-    #- "group_puhti"
-    #- "group_mahti"
-    #- "group_lumi"
+    - "group_puhti"
+    - "group_mahti"
+    - "group_lumi"
   become: false
 
   tasks:
@@ -11,6 +11,7 @@
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia"
         state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Download julia"
@@ -18,6 +19,7 @@
         url: "{{ julia_url }}"
         dest: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         checksum: "{{ julia_checksum }}"
+        mode: "ug=rw,o="
         group: "{{ group }}"
 
     - name: "Extract the julia archive"
@@ -25,6 +27,7 @@
         src: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         dest: "{{ appl_dir }}/julia"
         remote_src: true
+        mode: "ug=rwX,o=rX"
         group: "{{ group }}"
         creates: "{{ appl_dir }}/julia/{{ julia_version }}"
         extra_opts:
@@ -35,35 +38,40 @@
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia/depot"
         state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Create julia modulefiles directory"
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia"
         state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Create julia modulefile"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/modulefiles/julia.lua.j2"
         dest: "{{ modulefiles_dir }}/julia/{{ julia_version }}.lua"
+        mode: "ug=rw,o=r"
         group: "{{ group }}"
 
     - name: "Create julia-{{ gpu }} modulefiles directory"
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia-{{gpu}}"
         state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Create julia-{{ gpu }} modulefile"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/modulefiles/julia-{{ gpu }}.lua"
         dest: "{{ modulefiles_dir }}/julia-{{ gpu }}/{{ julia_version }}.lua"
+        mode: "ug=rw,o=r"
         group: "{{ group }}"
 
-    #- name: "Create julia-pkg modulefile"
-    #  ansible.builtin.copy:
-    #    src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
-    #    dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
-    #    mode: "ug=rw,o="
-    #    group: "{{ group }}"
+    - name: "Create julia-pkg modulefile"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
+        dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
+        mode: "ug=rw,o="
+        group: "{{ group }}"

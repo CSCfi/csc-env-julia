@@ -1,0 +1,25 @@
+- name: "Install julia environment"
+  hosts:
+    - "group_localhost"
+    - "group_puhti"
+    - "group_mahti"
+    - "group_lumi"
+  become: false
+  vars:
+    julia: "{{ appl_dir }}/julia/{{ julia_version }}/bin/julia"
+  environment:
+    JULIA_LOAD_PATH: "@:@v#.#:@stdlib"
+    JULIA_DEPOT_PATH: "{{ appl_dir }}/julia/depot"
+    JULIA_PROJECT: "{{ appl_dir }}/julia/depot/environments/v#.#_shared"
+    JULIA_HISTORY: "/dev/null"
+
+  tasks:
+    - name: "Install MPI.jl"
+      ansible.builtin.script:
+        cmd: "{{ playbook_dir }}/pkg/mpi.jl"
+        executable: "{{ julia }}"
+
+    - name: "Install GPU"
+      ansible.builtin.script:
+        cmd: "{{ playbook_dir }}/pkg/{{ gpu }}.jl"
+        executable: "{{ julia }}"

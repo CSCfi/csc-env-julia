@@ -1,0 +1,9 @@
+- name: "Synchronize lustre partitions on lumi"
+  hosts:
+    - "group_lumi"
+  become: false
+
+  task:
+    - name: ""
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ appl_dir }}/julia" "/pfs/lustrep2/appl/local/csc/soft/math/julia"
