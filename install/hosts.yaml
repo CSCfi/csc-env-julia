@@ -37,12 +37,12 @@ group_mahti:
     gpu: "cuda"
 group_lumi:
   hosts:
-    lumi:
+    lumi4:
       ansible_connection: "ssh"
   vars:
     group: "appl_csc"
-    appl_dir: "/pfs/lustrep1/appl/local/csc/soft/math"
-    modulefiles_dir: "/pfs/lustrep1/appl/local/csc/modulefiles"
+    appl_dir: "/appl/local/csc/soft/math"
+    modulefiles_dir: "/appl/local/csc/modulefiles"
     modules:
       - "prgEnv-cray"
     gpu: "amdgpu"
