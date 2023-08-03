@@ -6,20 +6,21 @@
     - "group_lumi"
   become: false
   vars:
-    julia: "{{ appl_dir }}/julia/{{ julia_version }}/bin/julia"
-  environment:
-    JULIA_LOAD_PATH: "@:@v#.#:@stdlib"
-    JULIA_DEPOT_PATH: "{{ appl_dir }}/julia/depot"
-    JULIA_PROJECT: "{{ appl_dir }}/julia/depot/environments/v#.#_shared"
-    JULIA_HISTORY: "/dev/null"
+    julia_wrapper: "/tmp/julia"
 
   tasks:
+    - name: "Install julia executable wrapper script"
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/wrapper/julia.j2"
+        dest: "{{ julia_wrapper }}"
+        mode: "u=rwx,go="
+
     - name: "Install MPI.jl"
       ansible.builtin.script:
         cmd: "{{ playbook_dir }}/pkg/mpi.jl"
-        executable: "{{ julia }}"
+        executable: "{{ julia_wrapper }}"
 
     - name: "Install GPU"
       ansible.builtin.script:
         cmd: "{{ playbook_dir }}/pkg/{{ gpu }}.jl"
-        executable: "{{ julia }}"
+        executable: "{{ julia_wrapper }}"
