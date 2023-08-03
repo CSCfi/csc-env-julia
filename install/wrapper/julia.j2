@@ -1,4 +1,5 @@
 #!/bin/bash
+module use "{{ modulefiles_dir }}"
 module load "julia/{{ julia_version }}"
 module load "julia-{{ cpu }}/{{ julia_version }}"
 module load ".julia-pkg"
