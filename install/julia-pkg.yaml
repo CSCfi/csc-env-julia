@@ -5,15 +5,17 @@
     - "group_mahti"
     - "group_lumi"
   become: false
+  environment:
+    JULIA_PKG_PRECOMPILE_AUTO: "0"
   vars:
     julia_wrapper: "/tmp/julia"
 
   tasks:
-    - name: "Install julia executable wrapper script"
+    - name: "Install julia wrapper"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/wrapper/julia.j2"
         dest: "{{ julia_wrapper }}"
-        mode: "u=rwx,go="
+        mode: "u=rx,go="
 
     - name: "Install MPI.jl"
       ansible.builtin.script:
@@ -24,3 +26,8 @@
       ansible.builtin.script:
         cmd: "{{ playbook_dir }}/pkg/{{ gpu }}.jl"
         executable: "{{ julia_wrapper }}"
+
+    - name: "Remove julia wrapper"
+      ansible.builtin.file:
+        path: "{{ julia_wrapper }}"
+        state: "absent"
