@@ -15,6 +15,7 @@ group_puhti:
   hosts:
     puhti-install:
       ansible_connection: "ssh"
+      ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
     group: "p_installation"
     appl_dir: "/appl/soft/math"
@@ -27,6 +28,7 @@ group_mahti:
   hosts:
     mahti-install:
       ansible_connection: "ssh"
+      ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
     group: "m_installation"
     appl_dir: "/appl/soft/math"
@@ -37,8 +39,9 @@ group_mahti:
     gpu: "cuda"
 group_lumi:
   hosts:
-    lumi4:
+    lumi:
       ansible_connection: "ssh"
+      ansible_python_interpreter: "/opt/cray/pe/python/3.9.13.1/bin/python3.9"
   vars:
     group: "appl_csc"
     appl_dir: "/appl/local/csc/soft/math"
