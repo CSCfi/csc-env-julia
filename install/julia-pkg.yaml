@@ -8,6 +8,7 @@
   environment:
     JULIA_PKG_PRECOMPILE_AUTO: "0"
   vars:
+    julia_version: "1.9.2"
     julia_wrapper: "/tmp/julia"
 
   tasks:
