@@ -32,7 +32,7 @@
         creates: "{{ appl_dir }}/julia/{{ julia_version }}"
         extra_opts:
           - "--transform"
-          - "s/julia-{{ julia_version }}/{{ julia_version }}/g"
+          - "s/{{ julia_prefix }}/{{ julia_version }}/"
 
     - name: "Create julia depot directory"
       ansible.builtin.file:
