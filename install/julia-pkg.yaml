@@ -12,6 +12,20 @@
     julia_wrapper: "/tmp/julia"
 
   tasks:
+    - name: "Create julia-pkg modulefile"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
+        dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
+        mode: "ug=rw,o="
+        group: "{{ group }}"
+
+    - name: "Create julia depot directory"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia/depot"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
     - name: "Install julia wrapper"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/wrapper/julia.j2"
@@ -27,6 +41,19 @@
       ansible.builtin.script:
         cmd: "{{ playbook_dir }}/pkg/{{ gpu }}.jl"
         executable: "{{ julia_wrapper }}"
+
+    - name: "Precompile packages"
+      ansible.builtin.script:
+        cmd: "{{ playbook_dir }}/pkg/precompile.jl"
+        executable: "{{ julia_wrapper }}"
+
+    - name: "Ensure correct access rights"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia/depot"
+        state: "directory"
+        recurse: true
+        mode: "ug=rwX,o=rX"
+        group: "{{ group }}"
 
     - name: "Remove julia wrapper"
       ansible.builtin.file:

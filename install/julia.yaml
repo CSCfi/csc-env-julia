@@ -34,13 +34,6 @@
           - "--transform"
           - "s/{{ julia_prefix }}/{{ julia_version }}/"
 
-    - name: "Create julia depot directory"
-      ansible.builtin.file:
-        path: "{{ appl_dir }}/julia/depot"
-        state: "directory"
-        mode: "ug=rwx,o=rx,g+s"
-        group: "{{ group }}"
-
     - name: "Create julia modulefiles directory"
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia"
@@ -57,7 +50,7 @@
 
     - name: "Create julia-{{ gpu }} modulefiles directory"
       ansible.builtin.file:
-        path: "{{ modulefiles_dir }}/julia-{{gpu}}"
+        path: "{{ modulefiles_dir }}/julia-{{ gpu }}"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
@@ -67,11 +60,4 @@
         src: "{{ playbook_dir }}/modulefiles/julia-{{ gpu }}.lua"
         dest: "{{ modulefiles_dir }}/julia-{{ gpu }}/{{ julia_version }}.lua"
         mode: "ug=rw,o=r"
-        group: "{{ group }}"
-
-    - name: "Create julia-pkg modulefile"
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
-        dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
-        mode: "ug=rw,o="
         group: "{{ group }}"
