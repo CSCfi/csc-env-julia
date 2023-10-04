@@ -1,0 +1,4 @@
+julia_version: "1.9.3"
+julia_url: "https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.3-linux-x86_64.tar.gz"
+julia_checksum: "sha256:d76670cc9ba3e0fd4c1545dd3d00269c0694976a1176312795ebce1692d323d1"
+julia_prefix: "julia-1.9.3"
