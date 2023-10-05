@@ -39,7 +39,7 @@
 
     - name: "Install GPU"
       ansible.builtin.script:
-        cmd: "{{ playbook_dir }}/pkg/{{ gpu }}.jl"
+        cmd: "{{ playbook_dir }}/pkg/{{ julia_gpu }}.jl"
         executable: "{{ julia_wrapper }}"
 
     - name: "Precompile packages"
