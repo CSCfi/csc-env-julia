@@ -1,4 +1,4 @@
-- name: "Install julia environment"
+: "Install julia environment"
   hosts:
     - "group_localhost"
     - "group_puhti"
@@ -14,7 +14,7 @@
   tasks:
     - name: "Create julia depot directory"
       ansible.builtin.file:
-        path: "{{ appl_dir }}/julia/depot"
+        path: "{{ appl_dir }}/julia-depot"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
@@ -42,7 +42,7 @@
 
     - name: "Ensure correct access rights"
       ansible.builtin.file:
-        path: "{{ appl_dir }}/julia/depot"
+        path: "{{ appl_dir }}/julia-depot"
         state: "directory"
         recurse: true
         mode: "ug=rwX,o=rX"

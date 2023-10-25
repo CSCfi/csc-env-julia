@@ -11,7 +11,8 @@ whatis("URL : http://julialang.org")
 depends_on("{{ module }}")
 {% endfor %}
 
-local julia_appl_dir = "{{ appl_dir }}/julia"
+local appl_dir = "{{ appl_dir }}"
+local julia_appl_dir = pathJoin(appl_dir, "julia")
 local release_dir = pathJoin(julia_appl_dir, version)
 
 prepend_path("PATH", pathJoin(release_dir, "bin"))
@@ -19,7 +20,7 @@ prepend_path("MANPATH", pathJoin(release_dir, "share/man"))
 --prepend_path("LD_LIBRARY_PATH", pathJoin(release_dir, "lib"))
 
 local user_depot_dir = pathJoin(os.getenv("HOME"), ".julia")
-local site_depot_dir = pathJoin(julia_appl_dir, "depot")
+local site_depot_dir = pathJoin(appl_dir, "julia-depot")
 local julia_depot_dir = pathJoin(release_dir, "share/julia")
 
 append_path("JULIA_DEPOT_PATH", user_depot_dir)

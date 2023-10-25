@@ -10,5 +10,5 @@ pushenv("JULIA_DEPOT_PATH", os.getenv("CSC_JULIA_DEPOT_DIR") or "")
 -- Directory for the shared environment.
 pushenv("JULIA_PROJECT", os.getenv("CSC_JULIA_ENVIRONMENT_DIR") or "")
 
--- Disable history when installing shared packages.
-pushenv("JULIA_HISTORY", "/dev/null")
+-- Disable automatic precompilation when installing packages
+pushenv("JULIA_PKG_PRECOMPILE_AUTO", "0")
