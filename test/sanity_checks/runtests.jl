@@ -22,7 +22,7 @@ const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
     @test haskey(ENV, "JULIA_DEPOT_PATH")
     @test length(DEPOT_PATH) == 3
     @test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
-    @test DEPOT_PATH[2] == joinpath(csc_julia_appl_dir, "depot")
+    @test DEPOT_PATH[2] == joinpath(csc_appl_dir, "depot")
     @test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia")
 end
 
