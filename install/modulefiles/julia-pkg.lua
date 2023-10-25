@@ -8,6 +8,7 @@ pushenv("JULIA_LOAD_PATH", "@:@v#.#:@stdlib")
 pushenv("JULIA_DEPOT_PATH", os.getenv("CSC_JULIA_DEPOT_DIR") or "")
 
 -- Directory for the shared environment.
+-- TODO: replace with a test environment so that we don't break production
 pushenv("JULIA_PROJECT", os.getenv("CSC_JULIA_ENVIRONMENT_DIR") or "")
 
 -- Disable automatic precompilation when installing packages

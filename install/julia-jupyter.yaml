@@ -1,8 +1,8 @@
 - name: "Install julia-jupyter environment"
   hosts:
     - "group_localhost"
-    #- "group_puhti"
-    #- "group_mahti"
+    - "group_puhti"
+    - "group_mahti"
     #- "group_lumi"
   become: false
 
@@ -11,17 +11,19 @@
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-jupyter"
         state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Copy requirements for the virtual environment"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/jupyter/requirements-freeze.txt"
+        src: "{{ playbook_dir }}/jupyter/requirements.txt"
         dest: "{{ appl_dir }}/julia-jupyter/requirements.txt"
+        mode: "ug=rw,o=r"
         group: "{{ group }}"
 
     - name: "Create Python virtual environment"
       ansible.builtin.command: |
-          python3.9 -m venv "env"
+        python3.9 -m venv "env"
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
         creates: "{{ appl_dir }}/julia-jupyter/env"
@@ -51,10 +53,12 @@
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia-jupyter"
         state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Create julia-jupyter modulefile"
+    - name: "Create a julia-jupyter module"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/modulefiles/julia-jupyter.lua.j2"
         dest: "{{ modulefiles_dir }}/julia-jupyter/env.lua"
+        mode: "ug=rw,o=r"
         group: "{{ group }}"
