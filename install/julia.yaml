@@ -49,16 +49,16 @@
         group: "{{ group }}"
 
     - name: "Create a directory for julia GPU modulefiles"
-      ansible.builtin.file:
-        path: "{{ modulefiles_dir }}/julia-{{ julia_gpu }}"
+      ansible.builtin.template:
+        path: "{{ modulefiles_dir }}/julia-{{ julia_gpu_type }}"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Create a julia GPU module"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/modulefiles/julia-{{ julia_gpu }}.lua"
-        dest: "{{ modulefiles_dir }}/julia-{{ julia_gpu }}/{{ julia_version }}.lua"
+        src: "{{ playbook_dir }}/modulefiles/julia-{{ julia_gpu_type }}.lua"
+        dest: "{{ modulefiles_dir }}/julia-{{ julia_gpu_type }}/{{ julia_version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 

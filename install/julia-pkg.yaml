@@ -1,4 +1,4 @@
-: "Install julia environment"
+- name: "Install julia environment"
   hosts:
     - "group_localhost"
     - "group_puhti"
@@ -32,7 +32,7 @@
 
     - name: "Install GPU"
       ansible.builtin.script:
-        cmd: "{{ playbook_dir }}/pkg/{{ julia_gpu }}.jl"
+        cmd: "{{ playbook_dir }}/pkg/{{ julia_gpu_type }}.jl"
         executable: "{{ julia_wrapper }}"
 
     - name: "Precompile packages"

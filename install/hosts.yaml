@@ -10,7 +10,8 @@ group_localhost:
     modules:
       - "gcc/11"
       - "openmpi/4"
-    julia_gpu: "cuda"
+    julia_gpu_type: "cuda"
+    julia_gpu_version: ""
 group_puhti:
   hosts:
     puhti-install:
@@ -23,7 +24,8 @@ group_puhti:
     modules:
       - "gcc/11"
       - "openmpi/4"
-    julia_gpu: "cuda"
+    julia_gpu_type: "cuda"
+    julia_gpu_version: "11.7"
 group_mahti:
   hosts:
     mahti-install:
@@ -36,7 +38,8 @@ group_mahti:
     modules:
       - "gcc/11"
       - "openmpi/4"
-    julia_gpu: "cuda"
+    julia_gpu_type: "cuda"
+    julia_gpu_version: "11.5"
 group_lumi:
   hosts:
     lumi-install:
@@ -48,4 +51,5 @@ group_lumi:
     modulefiles_dir: "/appl/local/csc/modulefiles"
     modules:
       - "prgEnv-cray"
-    julia_gpu: "amdgpu"
+    julia_gpu_type: "amdgpu"
+    julia_gpu_version: ""
