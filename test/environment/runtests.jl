@@ -14,19 +14,20 @@ if ispuhti || ismahti
 elseif islumi
     const csc_appl_dir = "/appl/local/csc"
 else
-    throw(ArgumentError("System \"$csc_syste_name\" not recognized"))
+    throw(ArgumentError("System \"$csc_system_name\" not recognized"))
 end
 const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
+const csc_julia_depot_dir = joinpath(csc_appl_dir, "depot")
 
 @testset "DEPOT_PATH" begin
     @test haskey(ENV, "JULIA_DEPOT_PATH")
     @test length(DEPOT_PATH) == 3
     @test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
-    @test DEPOT_PATH[2] == joinpath(csc_appl_dir, "depot")
+    @test DEPOT_PATH[2] == csc_julia_depot_dir
     @test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia")
 end
 
-const site_environment_dir = joinpath(csc_julia_appl_dir, "depot", "environments", "v$(VERSION.major).$(VERSION.minor)_shared")
+const site_environment_dir = joinpath(csc_julia_depot_dir, "environments", "v$(VERSION.major).$(VERSION.minor)_shared")
 
 @testset "LOAD_PATH" begin
     @test haskey(ENV, "JULIA_LOAD_PATH")
@@ -85,25 +86,25 @@ end
     @test begin
         @info "Check that MPI is available as a shared package."
         import MPI
-        contains(pathof(MPI), joinpath(csc_julia_appl_dir, "depot", "packages" , "MPI"))
+        contains(pathof(MPI), joinpath(csc_julia_depot_dir, "packages" , "MPI"))
     end
 
     @test begin
         @info "Check that IJulia is available as a shared package."
         import IJulia
-        contains(pathof(IJulia), joinpath(csc_julia_appl_dir, "depot", "packages", "IJulia"))
+        contains(pathof(IJulia), joinpath(csc_julia_depot_dir, "packages", "IJulia"))
     end skip=islumi
 
     @test begin
         @info "Check that CUDA is available as a shared package."
         import CUDA
-        contains(pathof(CUDA), joinpath(csc_julia_appl_dir, "depot", "packages", "CUDA"))
+        contains(pathof(CUDA), joinpath(csc_julia_depot_dir, "packages", "CUDA"))
     end skip=islumi
 
     @test begin
         @info "Check that AMDGPU is available as a shared package."
         import AMDGPU
-        contains(pathof(AMDGPU), joinpath(csc_julia_appl_dir, "depot", "packages", "AMDGPU"))
+        contains(pathof(AMDGPU), joinpath(csc_julia_depot_dir, "packages", "AMDGPU"))
     end skip=(ispuhti || ismahti)
 end
 
