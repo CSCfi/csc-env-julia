@@ -9,11 +9,11 @@ sbatch \
     --account="$SBATCH_ACCOUNT" \
     --output="test_julia_%j.out" \
     --job-name="test_julia" \
-    --partition=standard \
+    --partition=test \
     --time=00:30:00 \
     --nodes=1 \
     --ntasks-per-node=1 \
     --cpus-per-task=128 \
     --mem=0 \
     --exclusive \
-    "$SCRIPT_DIR/runtests.sh"
+    "$SCRIPT_DIR/batch.sh"

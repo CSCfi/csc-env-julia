@@ -75,10 +75,3 @@
         dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
         mode: "ug=rw,o="
         group: "{{ group }}"
-
-    - name: "Create a directory for tests"
-      ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-test"
-        state: "directory"
-        mode: "ug=rwx,o=rx,g+s"
-        group: "{{ group }}"
