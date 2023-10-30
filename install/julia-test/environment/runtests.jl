@@ -17,7 +17,7 @@ else
     throw(ArgumentError("System \"$csc_system_name\" not recognized"))
 end
 const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
-const csc_julia_depot_dir = joinpath(csc_appl_dir, "depot")
+const csc_julia_depot_dir = joinpath(csc_appl_dir, "soft/math/julia-depot")
 
 @testset "DEPOT_PATH" begin
     @test haskey(ENV, "JULIA_DEPOT_PATH")
