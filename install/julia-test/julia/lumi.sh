@@ -3,7 +3,7 @@ set -euo pipefail
 
 JULIA_VERSION=$1
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
-export JULIA_VERSION, SCRIPT_DIR
+export JULIA_VERSION SCRIPT_DIR
 
 sbatch \
     --account="$SBATCH_ACCOUNT" \
