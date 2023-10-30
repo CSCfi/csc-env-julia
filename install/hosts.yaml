@@ -4,6 +4,7 @@ group_localhost:
     localhost:
       ansible_connection: "local"
   vars:
+    system_name: "local"
     group: "csc"
     appl_dir: "{{ ansible_env.HOME }}/scratch/appl/soft/math"
     modulefiles_dir: "{{ ansible_env.HOME}}/scratch/appl/modulefiles"
@@ -18,6 +19,7 @@ group_puhti:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
+    system_name: "puhti"
     group: "p_installation"
     appl_dir: "/appl/soft/math"
     modulefiles_dir: "/appl/modulefiles"
@@ -32,6 +34,7 @@ group_mahti:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
+    system_name: "mahti"
     group: "m_installation"
     appl_dir: "/appl/soft/math"
     modulefiles_dir: "/appl/modulefiles"
@@ -46,6 +49,7 @@ group_lumi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/opt/cray/pe/python/3.9.13.1/bin/python3.9"
   vars:
+    system_name: "lumi"
     group: "appl_csc"
     appl_dir: "/appl/local/csc/soft/math"
     modulefiles_dir: "/appl/local/csc/modulefiles"

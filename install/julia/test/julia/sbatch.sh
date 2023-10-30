@@ -29,7 +29,7 @@ puhti() {
         --ntasks-per-node=1 \
         --cpus-per-task=20 \
         --mem-per-cpu=2000 \
-        test.sh
+        runtests.sh
 }
 
 # Mahti batch job
@@ -45,7 +45,7 @@ mahti() {
         --cpus-per-task=128 \
         --mem=0 \
         --exclusive \
-        test.sh
+        runtests.sh
 }
 
 # LUMI batch job
@@ -61,7 +61,7 @@ lumi() {
         --cpus-per-task=128 \
         --mem=0 \
         --exclusive \
-        test.sh
+        runtests.sh
 }
 
 # Pass arguments
