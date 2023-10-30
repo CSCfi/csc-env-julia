@@ -16,7 +16,7 @@
 
     - name: "Copy requirements for the virtual environment"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/jupyter/requirements.txt"
+        src: "{{ playbook_dir }}/requirements.txt"
         dest: "{{ appl_dir }}/julia-jupyter/requirements.txt"
         mode: "ug=rw,o=r"
         group: "{{ group }}"

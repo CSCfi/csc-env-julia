@@ -1,0 +1,17 @@
+- name: "Install julia environment"
+  hosts:
+    - "group_localhost"
+    - "group_puhti"
+    - "group_mahti"
+    #- "group_lumi"
+  become: false
+  vars:
+    julia_version: "1.9.3"
+    julia_wrapper: "/tmp/julia"
+
+  tasks:
+    - name: "Install julia wrapper"
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/julia.j2"
+        dest: "{{ julia_wrapper }}"
+        mode: "u=rx,go="
