@@ -1,1 +1,0 @@
-../../puhti/julia-cuda/1.9.0.lua

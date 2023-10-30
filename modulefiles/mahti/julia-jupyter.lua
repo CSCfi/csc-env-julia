@@ -1,1 +1,0 @@
-../puhti/julia-jupyter.lua
