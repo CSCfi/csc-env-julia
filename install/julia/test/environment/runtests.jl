@@ -4,7 +4,7 @@ import InteractiveUtils
 InteractiveUtils.versioninfo()
 println()
 
-const csc_system_name = ENV["CSC_SYSTEM_NAME"]
+const csc_system_name = ARGS[1]
 const ispuhti = csc_system_name == "puhti"
 const ismahti = csc_system_name == "mahti"
 const islumi = csc_system_name == "lumi"
