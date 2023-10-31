@@ -5,6 +5,8 @@ JULIA_VERSION=$1
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 export JULIA_VERSION SCRIPT_DIR
 
+module use /appl/local/csc/modulefiles
+
 sbatch \
     --account="$SBATCH_ACCOUNT" \
     --output="test_amdgpu_%j.out" \
