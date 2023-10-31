@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Load Julia module
+# Set the environment
 module --quiet purge
 module load "julia/$JULIA_VERSION"
 module list
 
-# Run the test set
+# Run the tests
 julia "$SCRIPT_DIR/runtests.jl"
