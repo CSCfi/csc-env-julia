@@ -6,4 +6,8 @@
   task:
     - name: ""
       ansible.builtin.command: |
-        rsync --archive --delete "{{ appl_dir }}/julia" "/pfs/lustrep2/appl/local/csc/soft/math/julia"
+        rsync --archive --delete "/pfs/lustrep1/{{ appl_dir }}/julia" "{{ item }}/{{ appl_dir }}/julia"
+      loop:
+        - "/pfs/lustrep2"
+        - "/pfs/lustrep3"
+        - "/pfs/lustrep4"
