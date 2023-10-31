@@ -9,8 +9,8 @@ sbatch \
     --account="$SBATCH_ACCOUNT" \
     --output="test_cuda_%j.out" \
     --job-name="test_cuda" \
-    --partition=gputest \
-    --time=00:15:00 \
+    --partition=gpu \
+    --time=01:00:00 \
     --nodes=1 \
     --ntasks-per-node=1 \
     --cpus-per-task=10 \
