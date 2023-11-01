@@ -20,10 +20,10 @@ rs = fetch.(tasks)
 for (worker, r) in zip(ps, rs)
     println(r)
     @test r[1] == worker
-    @test r[3] == cpus_per_task
+    @test string(r[3]) == cpus_per_task
 end
 
-@test remotecall_fetch(+,ps[1],1,1) == 2
+@test remotecall_fetch(+, ps[1], 1, 1) == 2
 
 rmprocs(ps)
 @test nprocs() == 1
