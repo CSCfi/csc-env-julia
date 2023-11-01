@@ -4,8 +4,9 @@ Pkg.add("https://github.com/JuliaParallel/MPIBenchmarks.jl")
 
 using MPIBenchmarks
 
-mkpath("output")
-cd("output")
+const job_id = get(ENV, "SLURM_JOB_ID", "0")
+mkpath("mpi_benchmarks_$job_id")
+cd("mpi_benchmarks_$job_id")
 
 # Collective benchmarks
 benchmark(IMBAllreduce())
