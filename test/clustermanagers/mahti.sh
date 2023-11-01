@@ -9,7 +9,7 @@ sbatch \
     --account="$SBATCH_ACCOUNT" \
     --output="test_clustermanagers_%j.out" \
     --job-name="test_clustermanagers" \
-    --partition=test \
+    --partition=medium \
     --time=00:05:00 \
     --nodes=2 \
     --ntasks-per-node=2 \
