@@ -49,6 +49,20 @@
         chdir: "{{ appl_dir }}/julia-jupyter"
         removes: "{{ appl_dir }}/julia-jupyter/env/kernels/python3"
 
+    - name: "Create julia-jupyter data directory"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-jupyter/data"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
+    - name: "Copy installkernel script"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/scripts/installkernel.jl"
+        dest: "{{ modulefiles_dir }}/julia-jupyter/installkernel.jl"
+        mode: "ug=rw,o="
+        group: "{{ group }}"
+
     - name: "Create julia-jupyter modulefiles directory"
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia-jupyter"
