@@ -1,3 +1,7 @@
+using Pkg
+Pkg.activate(; temp=true)
+Pkg.add("https://github.com/JuliaParallel/MPIBenchmarks.jl")
+
 using MPIBenchmarks
 
 mkpath("output")
