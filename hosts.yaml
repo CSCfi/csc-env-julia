@@ -54,6 +54,6 @@ group_lumi:
     appl_dir: "/appl/local/csc/soft/math"
     modulefiles_dir: "/appl/local/csc/modulefiles"
     modules:
-      - "prgEnv-cray"
+      - "PrgEnv-cray"
     julia_gpu_type: "amdgpu"
     julia_gpu_version: ""
