@@ -19,7 +19,7 @@
         url: "{{ julia_url }}"
         dest: "{{ appl_dir }}/julia/{{ julia_version }}.tar.gz"
         checksum: "{{ julia_checksum }}"
-        mode: "ug=rw,o="
+        mode: "ug=rw,o=r"
         group: "{{ group }}"
 
     - name: "Extract the julia binaries"

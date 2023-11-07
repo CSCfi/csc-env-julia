@@ -59,7 +59,7 @@
     - name: "Copy installkernel script"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/scripts/installkernel.jl"
-        dest: "{{ modulefiles_dir }}/julia-jupyter/installkernel.jl"
+        dest: "{{ appl_dir }}/julia-jupyter/installkernel.jl"
         mode: "ug=rw,o="
         group: "{{ group }}"
 
