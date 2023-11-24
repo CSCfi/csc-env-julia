@@ -90,6 +90,12 @@ end
     end
 
     @test begin
+        @info "Check that MPI is executed using srun"
+        import MPI
+        MPI.mpiexec(cmd -> cmd) == "srun"
+    end
+
+    @test begin
         @info "Check that IJulia is available as a shared package."
         import IJulia
         contains(pathof(IJulia), joinpath(csc_julia_depot_dir, "packages", "IJulia"))
