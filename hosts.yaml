@@ -15,7 +15,7 @@ group_localhost:
     julia_gpu_version: ""
 group_puhti:
   hosts:
-    puhti-install:
+    puhti-login13.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
@@ -30,7 +30,7 @@ group_puhti:
     julia_gpu_version: "11.7"
 group_mahti:
   hosts:
-    mahti-install:
+    mahti-login13.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
@@ -45,7 +45,7 @@ group_mahti:
     julia_gpu_version: "11.5"
 group_lumi:
   hosts:
-    lumi-install:
+    lumi-uan04.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/opt/cray/pe/python/3.9.13.1/bin/python3.9"
   vars:
