@@ -3,6 +3,7 @@ group_localhost:
   hosts:
     localhost:
       ansible_connection: "local"
+      ansible_python_interpreter: "/usr/bin/python3"
   vars:
     system_name: "local"
     group: "csc"
@@ -18,6 +19,7 @@ group_puhti:
     puhti-login13.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
+      ansible_remote_tmp: "/local_scratch/$USER/.ansible/tmp"
   vars:
     system_name: "puhti"
     group: "p_installation"
@@ -33,6 +35,7 @@ group_mahti:
     mahti-login13.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
+      ansible_remote_tmp: "/local_scratch/$USER/.ansible/tmp"
   vars:
     system_name: "mahti"
     group: "m_installation"
