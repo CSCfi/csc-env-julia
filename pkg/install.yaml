@@ -16,21 +16,6 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Install MPI.jl"
-      ansible.builtin.script:
-        cmd: "{{ playbook_dir }}/pkg/mpi.jl"
-        executable: "{{ julia_wrapper }}"
-
-    - name: "Install GPU"
-      ansible.builtin.script:
-        cmd: "{{ playbook_dir }}/pkg/{{ julia_gpu_type }}.jl"
-        executable: "{{ julia_wrapper }}"
-
-    - name: "Precompile packages"
-      ansible.builtin.script:
-        cmd: "{{ playbook_dir }}/pkg/precompile.jl"
-        executable: "{{ julia_wrapper }}"
-
     - name: "Ensure correct access rights"
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-depot"
