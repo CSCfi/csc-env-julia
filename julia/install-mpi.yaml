@@ -1,0 +1,39 @@
+- name: "Install julia environment"
+  hosts:
+    - "group_localhost"
+    - "group_puhti"
+    - "group_mahti"
+    - "group_lumi"
+  become: false
+
+  tasks:
+    - name: "Create a directory for julia MPI modulefiles"
+      ansible.builtin.file:
+        path: "{{ modulefiles_dir }}/julia-mpi"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
+    - name: "Create a julia MPI module"
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/system/{{ system_name }}/julia-mpi.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia-mpi/default.lua"
+        mode: "ug=rw,o=r"
+        group: "{{ group }}"
+
+    - name: "Create a directory for shared depots"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/{{ item }}"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+      loop:
+        - "julia-depot"
+        - "julia-depot/environments"
+
+    - name: "Copy the global MPI preferences"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/system/{{ system_name }}/mpi.toml"
+        dest: "{{ appl_dir }}/julia-depot/environments/mpi.toml"
+        mode: "ug=rw,o=r"
+        group: "{{ group }}"
