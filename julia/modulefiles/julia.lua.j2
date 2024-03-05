@@ -7,10 +7,6 @@ whatis("Version : " .. version)
 whatis("Description : The Julia programming language")
 whatis("URL : http://julialang.org")
 
-{% for module in modules %}
-depends_on("{{ module }}")
-{% endfor %}
-
 local appl_dir = "{{ appl_dir }}"
 local julia_appl_dir = pathJoin(appl_dir, "julia")
 local release_dir = pathJoin(julia_appl_dir, version)
