@@ -9,11 +9,7 @@ group_localhost:
     group: "csc"
     appl_dir: "{{ ansible_env.HOME }}/scratch/appl/soft/math"
     modulefiles_dir: "{{ ansible_env.HOME}}/scratch/appl/modulefiles"
-    modules:
-      - "gcc/11"
-      - "openmpi/4"
     julia_gpu_type: "cuda"
-    julia_gpu_version: ""
 group_puhti:
   hosts:
     puhti-login13.csc.fi:
@@ -25,11 +21,7 @@ group_puhti:
     group: "p_installation"
     appl_dir: "/appl/soft/math"
     modulefiles_dir: "/appl/modulefiles"
-    modules:
-      - "gcc/11"
-      - "openmpi/4"
     julia_gpu_type: "cuda"
-    julia_gpu_version: "11.7"
 group_mahti:
   hosts:
     mahti-login13.csc.fi:
@@ -41,11 +33,7 @@ group_mahti:
     group: "m_installation"
     appl_dir: "/appl/soft/math"
     modulefiles_dir: "/appl/modulefiles"
-    modules:
-      - "gcc/11"
-      - "openmpi/4"
     julia_gpu_type: "cuda"
-    julia_gpu_version: "11.5"
 group_lumi:
   hosts:
     lumi-uan04.csc.fi:
@@ -56,7 +44,4 @@ group_lumi:
     group: "appl_csc"
     appl_dir: "/appl/local/csc/soft/math"
     modulefiles_dir: "/appl/local/csc/modulefiles"
-    modules:
-      - "PrgEnv-cray"
     julia_gpu_type: "amdgpu"
-    julia_gpu_version: ""
