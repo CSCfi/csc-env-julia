@@ -12,14 +12,14 @@ local julia_release_dir = pathJoin(appl_dir, "julia", version)
 
 -- Path to Julia binaries, manual and libraries (if necessary).
 prepend_path("PATH", pathJoin(julia_release_dir, "bin"))
-prepend_path("MANPATH", pathJoin(julia_release_dir, "share/man"))
+prepend_path("MANPATH", pathJoin(julia_release_dir, "share", "man"))
 --prepend_path("LD_LIBRARY_PATH", pathJoin(julia_release_dir, "lib"))
 
 -- We define the depot path explicitly so we can extend if necessary.
 -- First depot directory is the user specific location.
 -- Second depot directory is directory that contains the base and stdlib.
 append_path("JULIA_DEPOT_PATH", pathJoin(os.getenv("HOME"), ".julia"))
-append_path("JULIA_DEPOT_PATH", pathJoin(julia_release_dir, "share/julia"))
+append_path("JULIA_DEPOT_PATH", pathJoin(julia_release_dir, "share", "julia"))
 
 -- We define the load path explicitly so we can extend if necessary.
 -- The default load path.
