@@ -3,21 +3,20 @@
     - "group_localhost"
     - "group_puhti"
     - "group_mahti"
-    - "group_lumi"
   become: false
 
   tasks:
     - name: "Create a directory for julia GPU modulefiles"
       ansible.builtin.file:
-        path: "{{ modulefiles_dir }}/julia-{{ julia_gpu_type }}"
+        path: "{{ modulefiles_dir }}/julia-cuda"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Create a julia GPU module"
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/julia-{{ julia_gpu_type }}.lua.j2"
-        dest: "{{ modulefiles_dir }}/julia-{{ julia_gpu_type }}/default.lua"
+        src: "{{ playbook_dir }}/system/{{ system_name }}/julia-cuda.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia-cuda/default.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
@@ -33,7 +32,7 @@
 
     - name: "Copy the global GPU preferences"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/{{ julia_gpu_type }}.toml"
-        dest: "{{ appl_dir }}/julia-depot/environments/{{ julia_gpu_type }}.toml"
+        src: "{{ playbook_dir }}/system/{{ system_name }}/cuda.toml"
+        dest: "{{ appl_dir }}/julia-depot/environments/cuda.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
