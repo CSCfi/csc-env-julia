@@ -1,5 +1,3 @@
-import IJulia
-
 # Jupyter data dir. E.g., /appl/soft/math/julia-jupyter/data
 const jupyter_dir = ARGS[1]
 
@@ -68,6 +66,14 @@ chmod(run_kernel_path, mode1)
 write(wrapper_path, wrapper_script)
 chmod(wrapper_path, mode2)
 
+# TODO: can we avoid having to load IJulia to install the kernel?
+try
+    import IJulia
+catch
+    import Pkg
+    Pkg.add("IJulia")
+    import IJulia
+end
 copy_config(joinpath(ijulia_dir, "deps", "logo-32x32.png"), kernel_dir, mode1)
 copy_config(joinpath(ijulia_dir, "deps", "logo-64x64.png"), kernel_dir, mode1)
 copy_config(joinpath(ijulia_dir, "deps", "logo-svg.svg"), kernel_dir, mode1)
