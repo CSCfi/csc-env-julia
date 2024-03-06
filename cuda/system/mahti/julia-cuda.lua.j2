@@ -3,8 +3,7 @@ help([[Environment for using CUDA.jl with the Julia language.]])
 depends_on("cuda/11.5")
 
 local appl_dir = "{{ appl_dir }}"
-local preferences_cuda = pathJoin(appl_dir, "julia-depot", "environments", "cuda.toml")
-append_path("JULIA_LOAD_PATH", preferences_cuda)
+append_path("JULIA_LOAD_PATH", pathJoin(appl_dir, "julia-cuda", "cuda.toml"))
 
 -- Disable memory pool for CUDA.jl
 setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")

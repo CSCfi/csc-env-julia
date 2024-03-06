@@ -4,8 +4,7 @@ depends_on("amd-mixed")
 depends_on("rocm/5.2")
 
 local appl_dir = "{{ appl_dir }}"
-local preferences_amdgpu = pathJoin(appl_dir, "julia-depot", "environments", "admgpu.toml")
-append_path("JULIA_LOAD_PATH", preferences_amdgpu)
+append_path("JULIA_LOAD_PATH", pathJoin(appl_dir, "julia-amdgpu", "admgpu.toml"))
 
 -- Use local ROCm installation for AMDGPU.jl.
 setenv("JULIA_AMDGPU_DISABLE_ARTIFACTS", "1")
