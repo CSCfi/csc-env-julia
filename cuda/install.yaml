@@ -8,7 +8,7 @@
   tasks:
     - name: "Create a directory for the preferences"
       ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-cuda/{{ version }}}"
+        path: "{{ appl_dir }}/julia-cuda/{{ version }}"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
