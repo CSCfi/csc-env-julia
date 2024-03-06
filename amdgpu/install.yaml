@@ -7,15 +7,15 @@
   tasks:
     - name: "Create a directory for the preferences"
       ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-amdgpu"
+        path: "{{ appl_dir }}/julia-amdgpu/{{ version }}"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Copy the preferences"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/Project.toml"
-        dest: "{{ appl_dir }}/julia-amdgpu/Project.toml"
+        src: "{{ playbook_dir }}/version/{{ version }}/system/{{ system_name }}/Project.toml"
+        dest: "{{ appl_dir }}/julia-amdgpu/{{ version }}/Project.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
@@ -28,7 +28,7 @@
 
     - name: "Create a module"
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/julia-amdgpu.lua.j2"
-        dest: "{{ modulefiles_dir }}/julia-amdgpu/default.lua"
+        src: "{{ playbook_dir }}/version/{{ version }}/system/{{ system_name }}/julia-amdgpu.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia-amdgpu/{{ version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
