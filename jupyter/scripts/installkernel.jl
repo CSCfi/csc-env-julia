@@ -15,7 +15,13 @@ const modules = "julia/$(Base.VERSION_STRING)"
 # Script for finding julia jupyter kernel dynamically
 const run_kernel_path = joinpath(kernel_dir, "run_kernel.jl")
 const run_kernel_script = """
-import IJulia
+try
+    import IJulia
+catch
+    import Pkg
+    Pkg.add("IJulia")
+    import IJulia
+end
 include(joinpath(dirname(pathof(IJulia)), "kernel.jl"))
 """
 
