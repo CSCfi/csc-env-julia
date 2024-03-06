@@ -1,0 +1,4 @@
+julia_version: "1.10.2"
+julia_url: "https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.2-linux-x86_64.tar.gz"
+julia_checksum: "sha256:51bccc9bb245197f24e6b2394e6aa69c0dc1e41b4e300b796e17da34ef64db1e"
+julia_prefix: "julia-1.10.2"
