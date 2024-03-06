@@ -14,8 +14,8 @@
 
     - name: "Copy the preferences"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/amdgpu.toml"
-        dest: "{{ appl_dir }}/julia-amdgpu/amdgpu.toml"
+        src: "{{ playbook_dir }}/system/{{ system_name }}/Project.toml"
+        dest: "{{ appl_dir }}/julia-amdgpu/Project.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
