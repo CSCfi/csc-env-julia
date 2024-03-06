@@ -23,3 +23,10 @@
         recurse: true
         mode: "ug=rwX,o=rX"
         group: "{{ group }}"
+
+    - name: "Create a hidden module for installing shared packages"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/modulefiles/julia-pkg.lua"
+        dest: "{{ modulefiles_dir }}/.julia-pkg.lua"
+        mode: "ug=rw,o="
+        group: "{{ group }}"
