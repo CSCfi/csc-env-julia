@@ -1,4 +1,4 @@
 depends_on("PrgEnv-cray")
 
 local appl_dir = "{{ appl_dir }}"
-append_path("JULIA_LOAD_PATH", pathJoin(appl_dir, "julia-mpi", "mpi.toml"))
+append_path("JULIA_LOAD_PATH", pathJoin(appl_dir, "julia-mpi", "Project.toml"))

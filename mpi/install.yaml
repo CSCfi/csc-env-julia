@@ -16,8 +16,8 @@
 
     - name: "Copy the preferences"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/mpi.toml"
-        dest: "{{ appl_dir }}/julia-mpi/mpi.toml"
+        src: "{{ playbook_dir }}/system/{{ system_name }}/Project.toml"
+        dest: "{{ appl_dir }}/julia-mpi/Project.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
