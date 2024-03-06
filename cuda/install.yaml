@@ -1,4 +1,4 @@
-- name: "Install julia environment"
+- name: "Install CUDA.jl preferences"
   hosts:
     - "group_localhost"
     - "group_puhti"
@@ -6,33 +6,30 @@
   become: false
 
   tasks:
-    - name: "Create a directory for julia GPU modulefiles"
+    - name: "Create a directory for the preferences"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-cuda"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
+    - name: "Copy the preferences"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/system/{{ system_name }}/cuda.toml"
+        dest: "{{ appl_dir }}/julia-cuda/cuda.toml"
+        mode: "ug=rw,o=r"
+        group: "{{ group }}"
+
+    - name: "Create a directory for the modulefiles"
       ansible.builtin.file:
         path: "{{ modulefiles_dir }}/julia-cuda"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Create a julia GPU module"
+    - name: "Create a module"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/system/{{ system_name }}/julia-cuda.lua.j2"
         dest: "{{ modulefiles_dir }}/julia-cuda/default.lua"
-        mode: "ug=rw,o=r"
-        group: "{{ group }}"
-
-    - name: "Create a directory for shared depots"
-      ansible.builtin.file:
-        path: "{{ appl_dir }}/{{ item }}"
-        state: "directory"
-        mode: "ug=rwx,o=rx,g+s"
-        group: "{{ group }}"
-      loop:
-        - "julia-depot"
-        - "julia-depot/environments"
-
-    - name: "Copy the global GPU preferences"
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/system/{{ system_name }}/cuda.toml"
-        dest: "{{ appl_dir }}/julia-depot/environments/cuda.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
