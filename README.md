@@ -15,7 +15,7 @@ python3 -m pip install --user ansible-core
 Install Julia and modulefiles
 
 ```bash
-ansible-playbook -i hosts.yaml -l group_puhti -e @julia/version/1.9.3.yaml julia/install.yaml
+ansible-playbook -i hosts.yaml -l group_puhti -e version=1.10.2 julia/install.yaml
 ```
 
 
