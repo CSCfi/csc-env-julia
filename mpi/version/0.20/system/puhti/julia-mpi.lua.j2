@@ -4,4 +4,4 @@ depends_on("gcc/11")
 depends_on("openmpi/4")
 
 local appl_dir = "{{ appl_dir }}"
-append_path("JULIA_LOAD_PATH", pathJoin(appl_dir, "julia-mpi", version, "Project.toml"))
+append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-mpi", version, "Project.toml"))
