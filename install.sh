@@ -1,21 +1,24 @@
 #!/bin/bash
-#
-# Install Julia using Ansible.
-#
-# EXAMPLES
-#     Install Julia version 1.10.2 to Puhti:
-#
-#     ./install.sh puhti julia 1.10.2
-#
-#     Install MPI preferences for version 0.20 to Puhti:
-#
-#     ./install.sh puhti mpi 0.20
-#
-#     Install CUDA preferences for version 5.2 to Puhti:
-#
-#     ./install.sh puhti cuda 5.2
 
-set -euo pipefail
+usage="
+Install Julia using Ansible.
+
+USAGE
+    ./install.sh <systemname> <target> <version>
+
+EXAMPLES
+    Install Julia version 1.10.2 to Puhti:
+
+    ./install.sh puhti julia 1.10.2
+
+    Install MPI preferences for version 0.20 to Puhti:
+
+    ./install.sh puhti mpi 0.20
+
+    Install CUDA preferences for version 5.2 to Puhti:
+
+    ./install.sh puhti cuda 5.2
+"
 
 SYSTEMNAME=$1
 TARGET=$2
@@ -36,6 +39,7 @@ case $SYSTEMNAME in
         GROUPNAME=group_lumi
         ;;
     *)
+        echo "$usage" >&2
         exit 1
         ;;
 esac
