@@ -1,10 +1,10 @@
 #!/bin/bash
 
 usage="
-Install Julia using Ansible.
+Install Julia and related environments using Ansible.
 
 USAGE
-    ./install.sh <systemname> <target> <version>
+    ./install.sh <systemname> <target> [<version>]
 
 EXAMPLES
     Install Julia version 1.10.2 to Puhti:
@@ -24,12 +24,7 @@ EXAMPLES
     ./install.sh lumi amdgpu 0.8
 "
 
-SYSTEMNAME=$1
-TARGET=$2
-VERSION=$3
-shift 3
-
-case $SYSTEMNAME in
+case $1 in
     local|localhost)
         GROUPNAME=group_localhost
         ;;
@@ -42,10 +37,18 @@ case $SYSTEMNAME in
     lumi)
         GROUPNAME=group_lumi
         ;;
+    -h|--help)
+        echo "$usage"
+        exit 0
+        ;;
     *)
         echo "$usage" >&2
         exit 1
         ;;
 esac
+
+TARGET=$2
+VERSION=$3
+shift 3
 
 ansible-playbook -i hosts.yaml -l "$GROUPNAME" -e "version=$VERSION" "$TARGET/install.yaml" "$@"

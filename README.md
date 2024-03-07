@@ -4,24 +4,14 @@ We install and configure MPI and GPU packages in the shared environment.
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for environment modules and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 Documentation is available for the [using the Julia application](https://docs.csc.fi/apps/julia/) and [running Julia on the cluster](https://docs.csc.fi/support/tutorials/julia/).
 
+Setup
 
-## Setup
 ```bash
 python3 -m pip install --user ansible-core
 ```
 
-
-## Julia
-Install Julia and modulefiles
+Usage
 
 ```bash
-ansible-playbook -i hosts.yaml -l group_puhti -e version=1.10.2 julia/install.yaml
-```
-
-
-## Jupyter
-Install Jupyter for Julia
-
-```bash
-ansible-playbook -i hosts.yaml -l group_puhti jupyter/install.yaml
+./install puhti julia 1.10.2
 ```
