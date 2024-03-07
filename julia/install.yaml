@@ -51,3 +51,26 @@
         dest: "{{ modulefiles_dir }}/julia/{{ julia_version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
+
+- name: "Synchronize installation across LUMI Lustres"
+  hosts:
+    - "group_lumi"
+  become: false
+
+  tasks:
+    - name: "Synchronize julia binaries and modulefiles"
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      loop:
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia"
+          dest: "/pfs/lustrep2/{{ appl_dir }}/julia"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia"
+          dest: "/pfs/lustrep3/{{ appl_dir }}/julia"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia"
+          dest: "/pfs/lustrep4/{{ appl_dir }}/julia"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia"
+          dest: "/pfs/lustrep2/{{ modulefiles_dir }}/julia"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia"
+          dest: "/pfs/lustrep3/{{ modulefiles_dir }}/julia"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia"
+          dest: "/pfs/lustrep4/{{ modulefiles_dir }}/julia"
