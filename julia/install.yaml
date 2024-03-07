@@ -52,7 +52,7 @@
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
-- name: "Synchronize installation across LUMI Lustres"
+- name: "Synchronize across LUMI Lustres"
   hosts:
     - "group_lumi"
   become: false

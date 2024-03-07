@@ -34,3 +34,33 @@
         dest: "{{ modulefiles_dir }}/julia-mpi/{{ version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
+
+- name: "Synchronize across LUMI Lustres"
+  hosts:
+    - "group_lumi"
+  become: false
+
+  tasks:
+    - name: "Synchronize preferences"
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      args:
+        creates: "{{ item.dest }}/{{ version }}"
+      loop:
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
+          dest: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
+          dest: "/pfs/lustrep3/{{ appl_dir }}/julia-mpi"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
+          dest: "/pfs/lustrep4/{{ appl_dir }}/julia-mpi"
+
+    - name: "Synchronize modulefiles"
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      loop:
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+          dest: "/pfs/lustrep2/{{ modulefiles_dir }}"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+          dest: "/pfs/lustrep3/{{ modulefiles_dir }}"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+          dest: "/pfs/lustrep4/{{ modulefiles_dir }}"
