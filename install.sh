@@ -18,6 +18,10 @@ EXAMPLES
     Install CUDA preferences for version 5.2 to Puhti:
 
     ./install.sh puhti cuda 5.2
+
+    Install ADMGPU preferences for version 0.8 to LUMI:
+
+    ./install.sh lumi amdgpu 0.8
 "
 
 SYSTEMNAME=$1
