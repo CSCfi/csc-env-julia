@@ -1,4 +1,3 @@
-# Use localhost for testing
 group_localhost:
   hosts:
     localhost:

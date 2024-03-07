@@ -58,9 +58,11 @@
   become: false
 
   tasks:
-    - name: "Synchronize julia binaries and modulefiles"
+    - name: "Synchronize binaries"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      args:
+        creates: "{{ item.dest }}/{{ julia_version }}"
       loop:
         - src: "/pfs/lustrep1/{{ appl_dir }}/julia/{{ julia_version }}"
           dest: "/pfs/lustrep2/{{ appl_dir }}/julia"
@@ -68,6 +70,11 @@
           dest: "/pfs/lustrep3/{{ appl_dir }}/julia"
         - src: "/pfs/lustrep1/{{ appl_dir }}/julia/{{ julia_version }}"
           dest: "/pfs/lustrep4/{{ appl_dir }}/julia"
+
+    - name: "Synchronize modulefiles"
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      loop:
         - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia"
           dest: "/pfs/lustrep2/{{ modulefiles_dir }}"
         - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia"
