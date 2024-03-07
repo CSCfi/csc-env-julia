@@ -44,8 +44,6 @@
     - name: "Synchronize preferences"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
-      args:
-        creates: "{{ item.dest }}/{{ version }}"
       loop:
         - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
           dest: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi"
