@@ -16,3 +16,9 @@ setenv("JULIA_PROJECT", "")
 
 -- Disable automatic precompilation when installing packages
 setenv("JULIA_PKG_PRECOMPILE_AUTO", "0")
+
+-- Do not install the default kernel for IJulia
+setenv("IJULIA_NODEFAULTKERNEL", "1")
+
+-- Do not install Conda when installing IJulia
+setenv("JUPYTER", "jupyter")
