@@ -1,4 +1,4 @@
-- name: "Install julia environment"
+- name: "Create shared depot directory"
   hosts:
     - "group_localhost"
     - "group_puhti"
@@ -14,16 +14,17 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Ensure correct access rights"
-      ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-depot"
-        state: "directory"
-        mode: "ug=rwX,o=rX"
-        group: "{{ group }}"
-
     - name: "Create a hidden module for installing shared packages"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/templates/julia-depot.lua"
         dest: "{{ modulefiles_dir }}/.julia-depot.lua"
         mode: "ug=rw,o="
+        group: "{{ group }}"
+
+    - name: "Ensure correct access rights"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-depot"
+        state: "directory"
+        recurse: true
+        mode: "ug=rwX,o=rX"
         group: "{{ group }}"
