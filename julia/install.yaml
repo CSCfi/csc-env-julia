@@ -47,7 +47,7 @@
 
     - name: "Create a julia module"
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/modulefiles/julia.lua.j2"
+        src: "{{ playbook_dir }}/templates/julia.lua.j2"
         dest: "{{ modulefiles_dir }}/julia/{{ version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"

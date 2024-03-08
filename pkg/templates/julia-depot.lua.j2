@@ -1,0 +1,19 @@
+local appl_dir = "{{ appl_dir }}"
+local site_depot_dir = pathJoin(appl_dir, "julia-depot")
+local version_major, version_minor = version:match("(%d+)%.(%d+)")
+local site_environment_dir = pathJoin(site_depot_dir, "environments/v" .. version_major .. "." .. version_minor .. "_shared")
+
+-- Installing packages requires loading the julia module.
+prereq("julia")
+
+-- Use the default load path for installing shared packages.
+pushenv("JULIA_LOAD_PATH", "@:@v#.#:@stdlib")
+
+-- Directory for the shared packages and other depots.
+setenv("JULIA_DEPOT_PATH", site_depot_dir)
+
+-- Directory for the shared environment.
+setenv("JULIA_PROJECT", site_environment_dir)
+
+-- Disable automatic precompilation when installing packages
+setenv("JULIA_PKG_PRECOMPILE_AUTO", "0")
