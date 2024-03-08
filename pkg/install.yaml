@@ -23,7 +23,7 @@
 
     - name: "Create a hidden module for installing shared packages"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/modulefiles/julia-depot.lua"
+        src: "{{ playbook_dir }}/templates/julia-depot.lua"
         dest: "{{ modulefiles_dir }}/.julia-depot.lua"
         mode: "ug=rw,o="
         group: "{{ group }}"
