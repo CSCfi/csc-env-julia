@@ -21,7 +21,14 @@
         mode: "ug=rw,o="
         group: "{{ group }}"
 
-    - name: "Ensure correct access rights"
+    - name: "Ensure correct mode"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-depot"
+        state: "directory"
+        recurse: true
+        mode: "ug=rwX,o=rX"
+
+    - name: "Ensure correct group"
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-depot"
         state: "directory"
