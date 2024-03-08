@@ -1,10 +1,11 @@
 #!/bin/bash
+set -euo pipefail
 
 usage="
 Install Julia and related environments using Ansible.
 
 USAGE
-    ./install.sh <systemname> <target> [<version>]
+    ./install.sh <systemname> <target> <version>
 
 EXAMPLES
     Install Julia version 1.10.2 to Puhti:
@@ -24,7 +25,7 @@ EXAMPLES
     ./install.sh lumi amdgpu 0.8
 "
 
-case $1 in
+case ${1:-} in
     local|localhost)
         GROUPNAME=group_localhost
         ;;
@@ -46,9 +47,12 @@ case $1 in
         exit 1
         ;;
 esac
+shift 1
 
 TARGET=$2
+shift 1
+
 VERSION=$3
-shift 3
+shift 1
 
 ansible-playbook -i hosts.yaml -l "$GROUPNAME" -e "version=$VERSION" "$TARGET/install.yaml" "$@"

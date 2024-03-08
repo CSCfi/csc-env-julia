@@ -3,6 +3,7 @@ Ansible playbooks for installing a shared environment for the [Julia language](h
 We install and configure MPI and GPU packages in the shared environment.
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for environment modules and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 Documentation is available for the [using the Julia application](https://docs.csc.fi/apps/julia/) and [running Julia on the cluster](https://docs.csc.fi/support/tutorials/julia/).
+More information about [Julia on HPC clusters](https://juliahpc.github.io/JuliaOnHPCClusters/).
 
 Directory structure
 
@@ -13,14 +14,20 @@ Directory structure
 - `cuda` contains playbook for installing global CUDA.jl preferences and corresponding modulefile.
 - `amdgpu` contains playbook for installing global AMDGPU.jl preferences and corresponding modulefile.
 
-Setup
+We need to install Ansible for the configuration.
 
 ```bash
 python3 -m pip install --user ansible-core
 ```
 
-Usage
+We can use the wrapper script to perform installations:
 
 ```bash
-./install puhti julia 1.10.2
+./install.sh puhti julia 1.10.2
+```
+
+For more information, use the help flag:
+
+```bash
+./install.sh --help
 ```
