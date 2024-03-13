@@ -2,6 +2,7 @@ local version = myModuleVersion()
 
 help([[Environment for using CUDA.jl with the Julia language.]])
 
+depends_on("gcc/11")
 depends_on("cuda/11.7")
 
 local appl_dir = "{{ appl_dir }}"

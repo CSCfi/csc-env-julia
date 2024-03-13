@@ -2,6 +2,7 @@ local version = myModuleVersion()
 
 help([[Environment for using AMDGPU.jl with the Julia language.]])
 
+depends_on("PrgEnv-cray")
 depends_on("amd-mixed")
 depends_on("rocm/5.2")
 
