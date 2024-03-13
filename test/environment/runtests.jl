@@ -10,32 +10,27 @@ const ismahti = csc_system_name == "mahti"
 const islumi = csc_system_name == "lumi"
 
 if ispuhti || ismahti
-    const csc_appl_dir = "/appl"
+    const csc_appl_dir = joinpath("/", "appl")
 elseif islumi
-    const csc_appl_dir = "/appl/local/csc"
+    const csc_appl_dir = joinpath("/", "appl", "local", "csc")
 else
     throw(ArgumentError("System \"$csc_system_name\" not recognized"))
 end
-const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft/math/julia")
-const csc_julia_depot_dir = joinpath(csc_appl_dir, "soft/math/julia-depot")
+const csc_julia_appl_dir = joinpath(csc_appl_dir, "soft", "math", "julia")
 
 @testset "DEPOT_PATH" begin
     @test haskey(ENV, "JULIA_DEPOT_PATH")
-    @test length(DEPOT_PATH) == 3
+    @test length(DEPOT_PATH) == 2
     @test DEPOT_PATH[1] == joinpath(homedir(), ".julia")
-    @test DEPOT_PATH[2] == csc_julia_depot_dir
-    @test DEPOT_PATH[3] == joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia")
+    @test DEPOT_PATH[2] == joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia")
 end
-
-const site_environment_dir = joinpath(csc_julia_depot_dir, "environments", "v$(VERSION.major).$(VERSION.minor)_shared")
 
 @testset "LOAD_PATH" begin
     @test haskey(ENV, "JULIA_LOAD_PATH")
-    @test length(LOAD_PATH) == 4
+    @test length(LOAD_PATH) == 3
     @test LOAD_PATH[1] == "@"
     @test LOAD_PATH[2] == "@v#.#"
     @test LOAD_PATH[3] == "@stdlib"
-    @test LOAD_PATH[4] == site_environment_dir
 end
 
 const default_project = joinpath(homedir(), ".julia", "environments", "v$(VERSION.major).$(VERSION.minor)", "Project.toml")
@@ -43,10 +38,9 @@ const stdlib_dir = joinpath(csc_julia_appl_dir, string(VERSION), "share", "julia
 
 @testset "Expanded load path and active project" begin
     load_path = Base.load_path()
-    @test length(load_path) == 3
+    @test length(load_path) == 2
     @test load_path[1] == default_project
     @test load_path[2] == realpath(stdlib_dir)
-    @test load_path[3] == joinpath(site_environment_dir, "Project.toml")
     @test Base.active_project() == default_project
 end
 
@@ -80,38 +74,6 @@ const julia_man = joinpath(csc_julia_appl_dir, string(VERSION), "share", "man", 
 @testset "Man pages" begin
     @info "Check that Julia man pages are available"
     @test first(readlines(`man -w julia`)) == julia_man
-end
-
-@testset "Shared packages" begin
-    @test begin
-        @info "Check that MPI is available as a shared package."
-        import MPI
-        contains(pathof(MPI), joinpath(csc_julia_depot_dir, "packages" , "MPI"))
-    end
-
-    @test begin
-        @info "Check that MPI is executed using srun"
-        import MPI
-        MPI.mpiexec(cmd -> cmd) == "srun"
-    end
-
-    @test begin
-        @info "Check that IJulia is available as a shared package."
-        import IJulia
-        contains(pathof(IJulia), joinpath(csc_julia_depot_dir, "packages", "IJulia"))
-    end skip=islumi
-
-    @test begin
-        @info "Check that CUDA is available as a shared package."
-        import CUDA
-        contains(pathof(CUDA), joinpath(csc_julia_depot_dir, "packages", "CUDA"))
-    end skip=islumi
-
-    @test begin
-        @info "Check that AMDGPU is available as a shared package."
-        import AMDGPU
-        contains(pathof(AMDGPU), joinpath(csc_julia_depot_dir, "packages", "AMDGPU"))
-    end skip=(ispuhti || ismahti)
 end
 
 const read = 0x04
