@@ -49,10 +49,10 @@ case ${1:-} in
 esac
 shift 1
 
-TARGET=$2
+TARGET=$1
 shift 1
 
-VERSION=$3
+VERSION=$1
 shift 1
 
 ansible-playbook -i hosts.yaml -l "$GROUPNAME" -e "version=$VERSION" "$TARGET/install.yaml" "$@"
