@@ -14,7 +14,7 @@
 
     - name: "Copy the preferences"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/version/{{ version }}/system/{{ system_name }}/Project.toml"
+        src: "{{ playbook_dir }}/version/{{ version }}/{{ system_name }}/Project.toml"
         dest: "{{ appl_dir }}/julia-amdgpu/{{ version }}/Project.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
@@ -28,7 +28,7 @@
 
     - name: "Create a module"
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/version/{{ version }}/system/{{ system_name }}/julia-amdgpu.lua.j2"
+        src: "{{ playbook_dir }}/version/{{ version }}/{{ system_name }}/julia-amdgpu.lua.j2"
         dest: "{{ modulefiles_dir }}/julia-amdgpu/{{ version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
