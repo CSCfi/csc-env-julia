@@ -58,6 +58,17 @@
   become: false
 
   tasks:
+    - name: "Create a julia application directory"
+      ansible.builtin.file:
+        path: "{{ item}}"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+      loop:
+        - "/pfs/lustrep2/{{ appl_dir }}/julia"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia"
+
     - name: "Synchronize binaries"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
