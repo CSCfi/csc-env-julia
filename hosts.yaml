@@ -3,11 +3,12 @@ group_localhost:
     localhost:
       ansible_connection: "local"
       ansible_python_interpreter: "/usr/bin/python3"
+      ansible_remote_tmp: "$HOME/.ansible/tmp"
   vars:
     system_name: "local"
     group: "csc"
-    appl_dir: "{{ ansible_env.HOME }}/scratch/appl/soft/math"
-    modulefiles_dir: "{{ ansible_env.HOME}}/scratch/appl/modulefiles"
+    appl_dir: "{{ inventory_dir }}/.tmp/appl/soft/math"
+    modulefiles_dir: "{{ inventory_dir }}/.tmp/appl/modulefiles"
 group_puhti:
   hosts:
     puhti-login13.csc.fi:
@@ -35,6 +36,7 @@ group_lumi:
     lumi-uan04.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/opt/cray/pe/python/3.9.13.1/bin/python3.9"
+      ansible_remote_tmp: "$HOME/.ansible/tmp"
   vars:
     system_name: "lumi"
     group: "appl_csc"
