@@ -41,6 +41,17 @@
   become: false
 
   tasks:
+    - name: "Create a directory for the preferences"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-mpi/{{ version }}"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+      loop:
+        - "/pfs/lustrep2/{{ appl_dir }}/julia-mpi/{{ version }}"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia-mpi/{{ version }}"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia-mpi/{{ version }}"
+
     - name: "Synchronize preferences"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
