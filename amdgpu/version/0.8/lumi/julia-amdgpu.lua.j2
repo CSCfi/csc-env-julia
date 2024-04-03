@@ -2,16 +2,12 @@ local version = myModuleVersion()
 
 help([[Environment for using AMDGPU.jl with the Julia language.]])
 
+depends_on("LUMI/22.08")
 depends_on("PrgEnv-cray")
-depends_on("amd-mixed")
-depends_on("rocm/5.2")
+depends_on("partition/G", "rocm/5.3.3")
 
 local appl_dir = "{{ appl_dir }}"
 append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-amdgpu", version, "Project.toml"))
 
--- Use local ROCm installation for AMDGPU.jl.
-setenv("JULIA_AMDGPU_DISABLE_ARTIFACTS", "1")
-
 -- Enable GPU-aware MPI
---depends_on("craype-accel-amd-gfx90a")
---setenv("MPICH_GPU_SUPPORT_ENABLED", "1")
+setenv("MPICH_GPU_SUPPORT_ENABLED", "1")
