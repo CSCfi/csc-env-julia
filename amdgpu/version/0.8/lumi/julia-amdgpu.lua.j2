@@ -3,6 +3,7 @@ local version = myModuleVersion()
 help([[Environment for using AMDGPU.jl with the Julia language.]])
 
 depends_on("LUMI/22.08")
+depends_on("partition/G")
 depends_on("rocm/5.3.3")
 
 local appl_dir = "{{ appl_dir }}"
