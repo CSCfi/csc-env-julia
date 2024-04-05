@@ -1,0 +1,3 @@
+[preferences.HDF5]
+libhdf5 = "/opt/cray/pe/hdf5-parallel/1.12.1.5/crayclang/14.0/lib/libhdf5.so"
+libhdf5_hl = "/opt/cray/pe/hdf5-parallel/1.12.1.5/crayclang/14.0/lib/libhdf5_hl.so"

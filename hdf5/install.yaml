@@ -1,15 +1,13 @@
-- name: "Install MPI.jl preferences"
+- name: "Install HDF5.jl preferences"
   hosts:
     - "group_localhost"
-    - "group_puhti"
-    - "group_mahti"
     - "group_lumi"
   become: false
 
   tasks:
     - name: "Create a directory for the preferences"
       ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-mpi/{{ version }}"
+        path: "{{ appl_dir }}/julia-hdf5/{{ version }}"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
@@ -17,21 +15,21 @@
     - name: "Copy the preferences"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/version/{{ version }}/{{ system_name }}/Project.toml"
-        dest: "{{ appl_dir }}/julia-mpi/{{ version }}/Project.toml"
+        dest: "{{ appl_dir }}/julia-hdf5/{{ version }}/Project.toml"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
     - name: "Create a directory for the modulefiles"
       ansible.builtin.file:
-        path: "{{ modulefiles_dir }}/julia-mpi"
+        path: "{{ modulefiles_dir }}/julia-hdf5"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
     - name: "Create a module"
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/version/{{ version }}/{{ system_name }}/julia-mpi.lua.j2"
-        dest: "{{ modulefiles_dir }}/julia-mpi/{{ version }}.lua"
+        src: "{{ playbook_dir }}/version/{{ version }}/{{ system_name }}/julia-hdf5.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia-hdf5/{{ version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
@@ -48,31 +46,31 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
       loop:
-        - "/pfs/lustrep2/{{ appl_dir }}/julia-mpi"
-        - "/pfs/lustrep2/{{ appl_dir }}/julia-mpi/{{ version }}"
-        - "/pfs/lustrep3/{{ appl_dir }}/julia-mpi"
-        - "/pfs/lustrep3/{{ appl_dir }}/julia-mpi/{{ version }}"
-        - "/pfs/lustrep4/{{ appl_dir }}/julia-mpi"
-        - "/pfs/lustrep4/{{ appl_dir }}/julia-mpi/{{ version }}"
+        - "/pfs/lustrep2/{{ appl_dir }}/julia-hdf5"
+        - "/pfs/lustrep2/{{ appl_dir }}/julia-hdf5/{{ version }}"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia-hdf5"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia-hdf5/{{ version }}"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia-hdf5"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia-hdf5/{{ version }}"
 
     - name: "Synchronize preferences"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
       loop:
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
-          dest: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi"
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
-          dest: "/pfs/lustrep3/{{ appl_dir }}/julia-mpi"
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
-          dest: "/pfs/lustrep4/{{ appl_dir }}/julia-mpi"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-hdf5/{{ version }}"
+          dest: "/pfs/lustrep2/{{ appl_dir }}/julia-hdf5"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-hdf5/{{ version }}"
+          dest: "/pfs/lustrep3/{{ appl_dir }}/julia-hdf5"
+        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-hdf5/{{ version }}"
+          dest: "/pfs/lustrep4/{{ appl_dir }}/julia-hdf5"
 
     - name: "Synchronize modulefiles"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
       loop:
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-hdf5"
           dest: "/pfs/lustrep2/{{ modulefiles_dir }}"
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-hdf5"
           dest: "/pfs/lustrep3/{{ modulefiles_dir }}"
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-hdf5"
           dest: "/pfs/lustrep4/{{ modulefiles_dir }}"

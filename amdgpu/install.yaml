@@ -39,6 +39,20 @@
   become: false
 
   tasks:
+    - name: "Create a directory for the preferences"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+      loop:
+        - "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu"
+        - "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia-amdgpu"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia-amdgpu"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+
     - name: "Synchronize preferences"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
