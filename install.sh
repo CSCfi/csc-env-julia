@@ -8,19 +8,19 @@ USAGE
     install.sh <systemname> <target> <version>
 
 EXAMPLES
-    Install Julia version 1.10.2 to Puhti:
+    # Install Julia version 1.10.2 to Puhti:
 
     install.sh puhti julia 1.10.2
 
-    Install MPI preferences for version 0.20 to Puhti:
+    # Install MPI preferences for version 0.20 to Puhti:
 
     install.sh puhti mpi 0.20
 
-    Install CUDA preferences for version 5.2 to Puhti:
+    # Install CUDA preferences for version 5.2 to Puhti:
 
     install.sh puhti cuda 5.2
 
-    Install ADMGPU preferences for version 0.8 to LUMI:
+    # Install ADMGPU preferences for version 0.8 to LUMI:
 
     install.sh lumi amdgpu 0.8
 "
