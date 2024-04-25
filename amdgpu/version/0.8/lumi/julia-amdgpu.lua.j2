@@ -11,3 +11,4 @@ append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-amdgpu", version
 
 -- Enable GPU-aware MPI
 setenv("MPICH_GPU_SUPPORT_ENABLED", "1")
+setenv("MPICH_OFI_NIC_POLICY", "GPU")
