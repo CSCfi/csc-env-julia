@@ -1,6 +1,8 @@
 local version = myModuleVersion()
 
 depends_on("LUMI/22.08")
+depends_on("PrgEnv-cray")
+depends_on("cray-mpich")
 
 local appl_dir = "{{ appl_dir }}"
 append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-mpi", version, "Project.toml"))

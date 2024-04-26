@@ -1,7 +1,8 @@
 local version = myModuleVersion()
 
 depends_on("LUMI/22.08")
-depends_on("cray-hdf5-parallel")
+depends_on("PrgEnv-cray")
+depends_on("cray-hdf5-parallel/1.12.1.5")
 
 local appl_dir = "{{ appl_dir }}"
 append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-hdf5", version, "Project.toml"))
