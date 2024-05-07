@@ -1,0 +1,3 @@
+julia_url: "https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.3-linux-x86_64.tar.gz"
+julia_checksum: "sha256:81b910c922fff0e27ae1f256f2cc803db81f3960215281eddd2d484721928c70"
+julia_prefix: "julia-1.10.3"
