@@ -12,7 +12,7 @@ install_julia() {
         -l "group_${argc_host}" \
         -e "version=${argc_version}" \
         -e "arch=${argc_arch}" \
-        "./julia/install.yaml" "$@"
+        "./install/julia/install.yaml" "$@"
 }
 
 # @cmd
@@ -23,7 +23,7 @@ install_mpi() {
         -i hosts.yaml \
         -l "group_${argc_host}" \
         -e "version=${argc_version}" \
-        "./mpi/install.yaml" "$@"
+        "./install/mpi/install.yaml" "$@"
 }
 
 # @cmd
@@ -34,7 +34,7 @@ install_cuda() {
         -i hosts.yaml \
         -l "group_${argc_host}" \
         -e "version=${argc_version}" \
-        "./cuda/install.yaml" "$@"
+        "./install.cuda/install.yaml" "$@"
 }
 
 # @cmd
@@ -45,7 +45,7 @@ install_amdgpu() {
         -i hosts.yaml \
         -l "group_${argc_host}" \
         -e "version=${argc_version}" \
-        "./amdgpu/install.yaml" "$@"
+        "./install/amdgpu/install.yaml" "$@"
 }
 
 # See more details at https://github.com/sigoden/argc
