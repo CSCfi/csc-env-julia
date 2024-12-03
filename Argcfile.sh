@@ -38,7 +38,7 @@ install_cuda() {
 }
 
 # @cmd
-# @option --host![lumi]
+# @option --host=lumi
 # @option --version!
 install_amdgpu() {
     ansible-playbook \
