@@ -9,7 +9,7 @@
   tasks:
     - name: "Include variables"
       ansible.builtin.include_vars:
-        file: "{{ playbook_dir }}/version/{{ version }}.yaml"
+        file: "{{ playbook_dir }}/version/{{ arch }}/{{ version }}.yaml"
 
     - name: "Create a julia application directory"
       ansible.builtin.file:
