@@ -15,9 +15,13 @@ install_julia() {
         "./install/julia/install.yaml" "$@"
 }
 
+_choice_mpi_version() {
+    ls ./install/mpi/version
+}
+
 # @cmd
 # @option --host![puhti|mahti|lumi]
-# @option --version!
+# @option --version![`_choice_mpi_version`]
 install_mpi() {
     ansible-playbook \
         -i hosts.yaml \
@@ -26,9 +30,13 @@ install_mpi() {
         "./install/mpi/install.yaml" "$@"
 }
 
+_choice_cuda_version() {
+    ls ./install/cuda/version
+}
+
 # @cmd
 # @option --host![puhti|mahti]
-# @option --version!
+# @option --version![`_choice_cuda_version`]
 install_cuda() {
     ansible-playbook \
         -i hosts.yaml \
@@ -37,9 +45,13 @@ install_cuda() {
         "./install.cuda/install.yaml" "$@"
 }
 
+_choice_amdgpu_version() {
+    ls ./install/amdgpu/version
+}
+
 # @cmd
 # @option --host=lumi
-# @option --version!
+# @option --version![`_choice_amdgpu_version`]
 install_amdgpu() {
     ansible-playbook \
         -i hosts.yaml \
