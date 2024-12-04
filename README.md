@@ -24,7 +24,7 @@ Installation scripts depend on [argc](https://github.com/sigoden/argc) and ansib
 We can use the wrapper script to perform installations:
 
 ```bash
-argc install-julia --version 1.10.2 --target puhti
+argc install-julia-linux-x86-64 --version 1.10.2 --target puhti
 ```
 
 For more information, use `argc --help`.
