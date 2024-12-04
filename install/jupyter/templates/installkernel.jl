@@ -28,6 +28,7 @@ const wrapper_path = joinpath(kernel_dir, "julia.sh")
 const wrapper_script = """
 #!/bin/bash
 module load $modules
+module load julia-ijulia
 exec julia -i --color=yes --project=@ "$run_kernel_path" "\$@"
 """
 

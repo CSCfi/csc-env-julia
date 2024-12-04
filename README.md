@@ -31,5 +31,5 @@ We can use the wrapper script to perform installations:
 For more information, use the help flag:
 
 ```bash
-./install.sh --help
+argc --help
 ```

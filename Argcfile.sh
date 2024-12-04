@@ -3,7 +3,8 @@
 set -e
 
 # @cmd
-# @option --host![=localhost|puhti|mahti|lumi]
+# @meta require-tools ansible-playbook
+# @option --host![localhost|puhti|mahti|lumi]
 # @option --version!
 # @option --arch=linux-x86_64
 install_julia() {
@@ -20,6 +21,7 @@ _choice_mpi_version() {
 }
 
 # @cmd
+# @meta require-tools ansible-playbook
 # @option --host![puhti|mahti|lumi]
 # @option --version![`_choice_mpi_version`]
 install_mpi() {
@@ -35,6 +37,7 @@ _choice_cuda_version() {
 }
 
 # @cmd
+# @meta require-tools ansible-playbook
 # @option --host![puhti|mahti]
 # @option --version![`_choice_cuda_version`]
 install_cuda() {
@@ -50,6 +53,7 @@ _choice_amdgpu_version() {
 }
 
 # @cmd
+# @meta require-tools ansible-playbook
 # @option --host=lumi
 # @option --version![`_choice_amdgpu_version`]
 install_amdgpu() {

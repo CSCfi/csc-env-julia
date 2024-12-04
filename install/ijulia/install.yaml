@@ -1,0 +1,36 @@
+- name: "Install IJulia.jl environment"
+  hosts:
+    - "group_localhost"
+    - "group_puhti"
+    - "group_mahti"
+    - "group_lumi"
+  become: false
+
+  tasks:
+    - name: "Create a directory for the environment"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-ijulia/{{ version }}"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
+    - name: "Copy the preferences"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/version/{{ version }}/system/{{ system_name }}/Project.toml"
+        dest: "{{ appl_dir }}/julia-ijulia/{{ version }}/Project.toml"
+        mode: "ug=rw,o=r"
+        group: "{{ group }}"
+
+    - name: "Create a directory for the modulefiles"
+      ansible.builtin.file:
+        path: "{{ modulefiles_dir }}/julia-ijulia"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
+    - name: "Create a module"
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/version/{{ version }}/system/{{ system_name }}/julia-ijulia.lua.j2"
+        dest: "{{ modulefiles_dir }}/julia-ijulia/{{ version }}.lua"
+        mode: "ug=rw,o=r"
+        group: "{{ group }}"

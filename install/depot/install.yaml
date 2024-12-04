@@ -21,6 +21,8 @@
         mode: "ug=rw,o="
         group: "{{ group }}"
 
+    # TODO: remove julia-depot/enviroments/
+
     - name: "Ensure correct mode"
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-depot"

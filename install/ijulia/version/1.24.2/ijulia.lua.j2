@@ -1,0 +1,6 @@
+local version = myModuleVersion()
+local appl_dir = "{{ appl_dir }}"
+
+-- IJulia is preinstalled to shared depot
+append_path("JULIA_DEPOT_PATH", pathJoin(appl_dir, "julia-depot"))
+append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-ijulia", version))
