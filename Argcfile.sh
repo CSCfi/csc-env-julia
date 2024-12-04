@@ -45,7 +45,7 @@ install_cuda() {
         -i hosts.yaml \
         -l "group_${argc_target}" \
         -e "version=${argc_version}" \
-        "./install.cuda/install.yaml" "$@"
+        "./install/cuda/install.yaml" "$@"
 }
 
 _choice_amdgpu_version() {
