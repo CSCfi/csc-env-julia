@@ -2,17 +2,20 @@
 
 set -e
 
+_choice_julia_linux_x86_64_version() {
+    ls ./install/julia/version/linux-x86_64 | sed 's/\.yaml//g'
+}
+
 # @cmd
 # @meta require-tools ansible-playbook
 # @option --target![localhost|puhti|mahti|lumi]
-# @option --version!
-# @option --arch=linux-x86_64
-install_julia() {
+# @option --version![`_choice_julia_linux_x86_64_version`]
+install_julia_linux_x86_64() {
     ansible-playbook \
         -i hosts.yaml \
         -l "group_${argc_target}" \
         -e "version=${argc_version}" \
-        -e "arch=${argc_arch}" \
+        -e "arch=linux-x86_64" \
         "./install/julia/install.yaml" "$@"
 }
 
