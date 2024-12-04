@@ -46,8 +46,8 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
       loop:
-        - "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu"
-        - "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+        - "/pfs/lustrep1/{{ appl_dir }}/julia-amdgpu"
+        - "/pfs/lustrep1/{{ appl_dir }}/julia-amdgpu/{{ version }}"
         - "/pfs/lustrep3/{{ appl_dir }}/julia-amdgpu"
         - "/pfs/lustrep3/{{ appl_dir }}/julia-amdgpu/{{ version }}"
         - "/pfs/lustrep4/{{ appl_dir }}/julia-amdgpu"
@@ -57,20 +57,20 @@
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
       loop:
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-amdgpu/{{ version }}"
-          dest: "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu"
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+          dest: "/pfs/lustrep1/{{ appl_dir }}/julia-amdgpu"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu/{{ version }}"
           dest: "/pfs/lustrep3/{{ appl_dir }}/julia-amdgpu"
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-amdgpu/{{ version }}"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-amdgpu/{{ version }}"
           dest: "/pfs/lustrep4/{{ appl_dir }}/julia-amdgpu"
 
     - name: "Synchronize modulefiles"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
       loop:
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-amdgpu"
-          dest: "/pfs/lustrep2/{{ modulefiles_dir }}"
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-amdgpu"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-amdgpu"
+          dest: "/pfs/lustrep1/{{ modulefiles_dir }}"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-amdgpu"
           dest: "/pfs/lustrep3/{{ modulefiles_dir }}"
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-amdgpu"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-amdgpu"
           dest: "/pfs/lustrep4/{{ modulefiles_dir }}"

@@ -48,8 +48,8 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
       loop:
-        - "/pfs/lustrep2/{{ appl_dir }}/julia-mpi"
-        - "/pfs/lustrep2/{{ appl_dir }}/julia-mpi/{{ version }}"
+        - "/pfs/lustrep1/{{ appl_dir }}/julia-mpi"
+        - "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
         - "/pfs/lustrep3/{{ appl_dir }}/julia-mpi"
         - "/pfs/lustrep3/{{ appl_dir }}/julia-mpi/{{ version }}"
         - "/pfs/lustrep4/{{ appl_dir }}/julia-mpi"
@@ -59,20 +59,20 @@
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
       loop:
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
-          dest: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi"
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi/{{ version }}"
+          dest: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi/{{ version }}"
           dest: "/pfs/lustrep3/{{ appl_dir }}/julia-mpi"
-        - src: "/pfs/lustrep1/{{ appl_dir }}/julia-mpi/{{ version }}"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-mpi/{{ version }}"
           dest: "/pfs/lustrep4/{{ appl_dir }}/julia-mpi"
 
     - name: "Synchronize modulefiles"
       ansible.builtin.command: |
         rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
       loop:
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
-          dest: "/pfs/lustrep2/{{ modulefiles_dir }}"
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-mpi"
+          dest: "/pfs/lustrep1/{{ modulefiles_dir }}"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-mpi"
           dest: "/pfs/lustrep3/{{ modulefiles_dir }}"
-        - src: "/pfs/lustrep1/{{ modulefiles_dir }}/julia-mpi"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-mpi"
           dest: "/pfs/lustrep4/{{ modulefiles_dir }}"
