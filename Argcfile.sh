@@ -6,7 +6,7 @@ _choice_julia_linux_x86_64_version() {
     ls ./install/julia/version/linux-x86_64 | sed 's/\.yaml//g'
 }
 
-# @cmd
+# @cmd Install Julia for Linux x86_64
 # @meta require-tools ansible-playbook
 # @option --target![localhost|puhti|mahti|lumi]
 # @option --version![`_choice_julia_linux_x86_64_version`]
@@ -23,7 +23,7 @@ _choice_mpi_version() {
     ls ./install/mpi/version
 }
 
-# @cmd
+# @cmd Install MPI.jl preferences
 # @meta require-tools ansible-playbook
 # @option --target![puhti|mahti|lumi]
 # @option --version![`_choice_mpi_version`]
@@ -39,7 +39,7 @@ _choice_cuda_version() {
     ls ./install/cuda/version
 }
 
-# @cmd
+# @cmd Install CUDA.jl preferences
 # @meta require-tools ansible-playbook
 # @option --target![puhti|mahti]
 # @option --version![`_choice_cuda_version`]
@@ -55,7 +55,7 @@ _choice_amdgpu_version() {
     ls ./install/amdgpu/version
 }
 
-# @cmd
+# @cmd Install AMDGPU.jl preferences
 # @meta require-tools ansible-playbook
 # @option --target=lumi
 # @option --version![`_choice_amdgpu_version`]
