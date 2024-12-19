@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-JULIA_VERSION=$1
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
-export JULIA_VERSION SCRIPT_DIR
 
+sbatch <<EOF
+#!/bin/bash
+#SBATCH --account=project_462000007
+#SBATCH --output=test_julia_amdgpu_%j.out
+#SBATCH --job-name=test_julia_amdgpu
+#SBATCH --partition=dev-g
+#SBATCH --time=01:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --gpus-per-task=2
+#SBATCH --cpus-per-task=32
+#SBATCH --mem-per-cpu=1750
 module use /appl/local/csc/modulefiles
-
-sbatch \
-    --account="$SBATCH_ACCOUNT" \
-    --output="test_amdgpu_%j.out" \
-    --job-name="test_amdgpu" \
-    --partition=dev-g \
-    --time=01:00:00 \
-    --nodes=1 \
-    --ntasks-per-node=1 \
-    --gpus-per-task=2 \
-    --cpus-per-task=32 \
-    --mem-per-cpu=1750 \
-    "$SCRIPT_DIR/batch.sh"
+module load julia
+module load julia-amdgpu
+module list
+julia "$SCRIPT_DIR/runtests.jl"
+EOF
