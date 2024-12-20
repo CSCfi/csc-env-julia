@@ -1,7 +1,7 @@
 # Install LocalPreferences.toml for HDF5 parallel.
 #
 # $ module use /appl/local/csc/modulefiles
-# $ module load julia julia-mpi cray-hdf5-parallel
+# $ module load julia cray-hdf5-parallel
 # $ julia --threads 8 ./install.jl
 
 using Pkg
