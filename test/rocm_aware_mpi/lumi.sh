@@ -13,6 +13,7 @@ sbatch <<EOF
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
+#SBATCH --gpus-per-task=1
 #SBATCH --mem-per-cpu=1750
 module use /appl/local/csc/modulefiles
 module load julia
