@@ -1,16 +1,18 @@
 # https://gist.github.com/luraess/a47931d7fb668bd4348a2c730d5489f4
 using MPI
 using AMDGPU
+
+const gpu_devices = AMDGPU.devices()
+const num_devices = length(gpu_devices)
+
 MPI.Init()
 comm = MPI.COMM_WORLD
 rank = MPI.Comm_rank(comm)
 # select device
 comm_l = MPI.Comm_split_type(comm, MPI.COMM_TYPE_SHARED, rank)
 rank_l = MPI.Comm_rank(comm_l)
-# FIXME: indexing how do julia processes on different nodes see devices?
-#device = AMDGPU.device_id!(rank_l+1)
-println(AMDGPU.devices())
-device = AMDGPU.device_id!(1)
+# TODO: Is this robust? We should control how ranks are distributed per node.
+device = AMDGPU.device_id!(mod(rank_l, num_devices)+1)
 gpu_id = AMDGPU.device_id(AMDGPU.device())
 # select device
 size = MPI.Comm_size(comm)
