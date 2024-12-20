@@ -11,7 +11,7 @@ sbatch <<EOF
 #SBATCH --partition=dev-g
 #SBATCH --time=00:05:00
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
 #SBATCH --gpus-per-task=1
 #SBATCH --mem-per-cpu=1750
