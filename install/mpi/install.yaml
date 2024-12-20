@@ -1,6 +1,5 @@
 - name: "Install MPI.jl preferences"
   hosts:
-    - "group_localhost"
     - "group_puhti"
     - "group_mahti"
     - "group_lumi"

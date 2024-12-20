@@ -8,7 +8,7 @@ _choice_julia_linux_x86_64_version() {
 
 # @cmd Install Julia for Linux x86_64
 # @meta require-tools ansible-playbook
-# @option --target![localhost|puhti|mahti|lumi]
+# @option --target![puhti|mahti|lumi]
 # @option --version![`_choice_julia_linux_x86_64_version`]
 install_julia_linux_x86_64() {
     ansible-playbook \

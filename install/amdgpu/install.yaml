@@ -1,6 +1,5 @@
 - name: "Install AMDGPU.jl preferences"
   hosts:
-    - "group_localhost"
     - "group_lumi"
   become: false
 

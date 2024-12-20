@@ -1,6 +1,5 @@
 - name: "Install julia environment"
   hosts:
-    - "group_localhost"
     - "group_puhti"
     - "group_mahti"
     - "group_lumi"
