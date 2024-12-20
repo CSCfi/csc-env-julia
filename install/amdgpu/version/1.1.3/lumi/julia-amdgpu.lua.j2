@@ -2,9 +2,9 @@ local version = myModuleVersion()
 
 help([[Environment for using AMDGPU.jl with the Julia language.]])
 
-depends_on("LUMI/24.03")
+depends_on("LUMI")
 depends_on("partition/G")
-depends_on("rocm/6.0.3")
+depends_on("rocm")
 
 local appl_dir = "{{ appl_dir }}"
 append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-amdgpu", version, "Project.toml"))
