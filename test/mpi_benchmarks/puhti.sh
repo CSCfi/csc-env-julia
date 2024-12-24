@@ -6,8 +6,8 @@ SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 sbatch <<EOF
 #!/bin/bash
 #SBATCH --account=project_2001659
-#SBATCH --output=benchmark_julia_mpi_%j.out
-#SBATCH --job-name=benchmark_julia_mpi
+#SBATCH --output=test_julia_mpi_benchmarks_%j.out
+#SBATCH --job-name=test_julia_mpi_benchmarks
 #SBATCH --partition=test
 #SBATCH --time=00:15:00
 #SBATCH --nodes=2
@@ -17,5 +17,5 @@ sbatch <<EOF
 module load julia
 module load julia-mpi
 module list
-julia "$SCRIPT_DIR/benchmark.jl"
+julia "$SCRIPT_DIR/runtests.jl"
 EOF

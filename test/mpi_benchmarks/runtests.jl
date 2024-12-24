@@ -1,7 +1,3 @@
-using Pkg
-Pkg.activate(; temp=true)
-Pkg.add("https://github.com/JuliaParallel/MPIBenchmarks.jl")
-
 using MPIBenchmarks
 
 const job_id = get(ENV, "SLURM_JOB_ID", "0")
