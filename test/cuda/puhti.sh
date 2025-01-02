@@ -18,5 +18,5 @@ sbatch <<EOF
 module load julia
 module load julia-cuda
 module list
-julia "$SCRIPT_DIR/runtests.jl"
+julia --project=. "$SCRIPT_DIR/runtests.jl"
 EOF

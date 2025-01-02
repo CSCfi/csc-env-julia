@@ -17,5 +17,5 @@ sbatch <<EOF
 module load julia
 module load julia-mpi
 module list
-julia "$SCRIPT_DIR/runtests.jl"
+julia --project=. "$SCRIPT_DIR/runtests.jl"
 EOF

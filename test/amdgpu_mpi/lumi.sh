@@ -20,5 +20,5 @@ module load julia
 module load julia-mpi
 module load julia-amdgpu
 module list
-srun julia "$SCRIPT_DIR/runtests.jl"
+srun julia --project=. "$SCRIPT_DIR/runtests.jl"
 EOF

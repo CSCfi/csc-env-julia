@@ -19,5 +19,5 @@ module load julia
 module load julia-mpi
 module load cray-hdf5-parallel
 module list
-srun julia "$SCRIPT_DIR/runtests.jl"
+srun julia --project=. "$SCRIPT_DIR/runtests.jl"
 EOF
