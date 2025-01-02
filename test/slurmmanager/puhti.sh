@@ -16,5 +16,5 @@ sbatch <<EOF
 #SBATCH --mem-per-cpu=1000
 module load julia
 module list
-julia runtests.jl
+julia --project=. runtests.jl
 EOF
