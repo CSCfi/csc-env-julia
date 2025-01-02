@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+cd "$(realpath "$(dirname "$0")")"
 
 sbatch <<EOF
 #!/bin/bash
@@ -18,5 +18,5 @@ sbatch <<EOF
 module load julia
 module load julia-mpi
 module list
-julia --project=. "$SCRIPT_DIR/runtests.jl"
+julia --project=. runtests.jl
 EOF

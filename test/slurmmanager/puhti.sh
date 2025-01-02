@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+cd "$(realpath "$(dirname "$0")")"
 
 sbatch <<EOF
 #!/bin/bash
@@ -16,5 +16,5 @@ sbatch <<EOF
 #SBATCH --mem-per-cpu=1000
 module load julia
 module list
-julia "$SCRIPT_DIR/runtests.jl"
+julia runtests.jl
 EOF

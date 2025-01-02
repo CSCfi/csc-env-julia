@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+cd "$(realpath "$(dirname "$0")")"
 
 sbatch <<EOF
 #!/bin/bash
@@ -19,5 +19,5 @@ module use /appl/local/csc/modulefiles
 module load julia
 module load julia-amdgpu
 module list
-julia --project=. "$SCRIPT_DIR/runtests.jl"
+julia --project=. runtests.jl
 EOF
