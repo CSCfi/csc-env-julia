@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Exit if script is sourced.
-[[ "${BASH_SOURCE[0]}" != "${0}" ]] && exit 1
+cd "$(realpath "$(dirname "$0")")"
 
-module --quiet purge
-module load "julia/$JULIA_VERSION"
-module load "julia-cuda/$JULIA_VERSION"
+module load julia
 module list
-
-julia "$(dirname "$0")/runtests.jl" puhti
+julia runtests.jl puhti
