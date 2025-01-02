@@ -3,9 +3,10 @@
 # $ module use /appl/local/csc/modulefiles
 # $ module load julia
 # $ module load cray-hdf5-parallel
-# $ julia --project=. --threads 8 ./setup.jl
+# $ julia --threads 8 ./setup.jl
 
 using Pkg
+Pkg.activate(".")
 Pkg.instantiate()
 
 using Preferences
