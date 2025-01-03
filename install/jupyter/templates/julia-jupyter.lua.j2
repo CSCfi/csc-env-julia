@@ -13,8 +13,3 @@ setenv("IJULIA_NODEFAULTKERNEL", "1")
 
 -- Additional binaries
 append_path("PATH", pathJoin(appl_dir, "julia-jupyter", "bin"))
-
--- Set path to Julia kernels so that Jupyter can find them.
--- We use separate directory so that the kernels do not conflict with other Jupyter installations.
-home_dir = os.getenv("HOME")
-prepend_path("JUPYTER_PATH", pathJoin(home_dir, ".local", "share", "julia-jupyter", "kernels"))
