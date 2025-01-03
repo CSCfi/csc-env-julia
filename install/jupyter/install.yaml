@@ -65,13 +65,6 @@
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
-    #- name: "Create julia-jupyter data directory"
-    #  ansible.builtin.file:
-    #    path: "{{ appl_dir }}/julia-jupyter/data"
-    #    state: "directory"
-    #    mode: "ug=rwx,o=rx,g+s"
-    #    group: "{{ group }}"
-
     - name: "Create julia-jupyter binary directory"
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-jupyter/bin"
