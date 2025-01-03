@@ -1,11 +1,8 @@
 # Jupyter data dir. E.g., /appl/soft/math/julia-jupyter/data
-const jupyter_dir = ARGS[1]
-
-# Path to the IJulia.jl installation directory.
-const ijulia_dir = dirname(dirname(pathof(IJulia)))
+const jupyter_data_dir = joinpath(homedir(), ".local", "share", "jupyter")
 
 # Location to install the Julia kernel.
-const kernel_dir = joinpath(jupyter_dir, "kernels", "julia-$(Base.VERSION_STRING)")
+const kernel_dir = joinpath(jupyter_data_dir, "kernels", "julia-$(Base.VERSION_STRING)")
 
 # Modules that we need to load
 const modules = "julia/$(Base.VERSION_STRING)"
@@ -74,6 +71,9 @@ catch
     Pkg.add("IJulia")
     import IJulia
 end
+
+# Path to the IJulia.jl installation directory.
+const ijulia_dir = dirname(dirname(pathof(IJulia)))
 copy_config(joinpath(ijulia_dir, "deps", "logo-32x32.png"), kernel_dir, mode1)
 copy_config(joinpath(ijulia_dir, "deps", "logo-64x64.png"), kernel_dir, mode1)
 copy_config(joinpath(ijulia_dir, "deps", "logo-svg.svg"), kernel_dir, mode1)
