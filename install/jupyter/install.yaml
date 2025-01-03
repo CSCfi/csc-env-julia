@@ -79,7 +79,7 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Copy installkernel script"
+    - name: "Create script for installing IJulia.jl and kernel"
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/templates/install_ijulia_kernel.jl"
         dest: "{{ appl_dir }}/julia-jupyter/bin/install_ijulia_kernel.jl"

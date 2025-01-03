@@ -27,7 +27,7 @@ const wrapper_path = joinpath(kernel_dir, "julia.sh")
 const wrapper_script = """
 #!/bin/bash
 module load $modules
-exec julia --interactive --color=yes --project=@ "$run_kernel_path" "\$@"
+exec julia --interactive --color=yes "$run_kernel_path" "\$@"
 """
 
 # Kernel specification that uses the wrapper script.
