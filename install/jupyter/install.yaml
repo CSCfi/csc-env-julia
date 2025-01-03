@@ -49,7 +49,7 @@
         ./{{ version }}/bin/jupyter kernelspec remove -y python3
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
-        removes: "{{ appl_dir }}/julia-jupyter/{{ version }}/kernels/python3"
+        removes: "{{ appl_dir }}/julia-jupyter/{{ version }}/share/jupyter/kernels/python3"
 
     - name: "Create julia-jupyter modulefiles directory"
       ansible.builtin.file:

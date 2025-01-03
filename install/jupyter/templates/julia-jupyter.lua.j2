@@ -1,12 +1,9 @@
-local name = myModuleName()
-local version = myModuleVersion()
-
 help([[Jupyter Notebook and Jupyter Lab, and Julia kernels for them.]])
 
 local appl_dir = "{{ appl_dir }}"
 
 -- Set path to Python virtual env containing Jupyter.
-prepend_path("PATH", pathJoin(appl_dir, "julia-jupyter", version, "bin"))
+prepend_path("PATH", pathJoin(appl_dir, "julia-jupyter", "{{ version }}", "bin"))
 
 -- Jupyter executable name for IJulia
 setenv("JUPYTER", "jupyter")
