@@ -6,8 +6,8 @@ cd "$(realpath "$(dirname "$0")")"
 sbatch <<EOF
 #!/bin/bash
 #SBATCH --account=project_462000007
-#SBATCH --output=test_julia_rocm_aware_mpi_%j.out
-#SBATCH --job-name=test_julia_rocm_aware_mpi
+#SBATCH --output=test_julia_amdgpu_mpi_%j.out
+#SBATCH --job-name=test_julia_amdgpu_mpi
 #SBATCH --partition=dev-g
 #SBATCH --time=00:05:00
 #SBATCH --nodes=2
