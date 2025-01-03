@@ -78,3 +78,50 @@
         dest: "{{ appl_dir }}/julia-jupyter/bin/install_ijulia_kernel.jl"
         mode: "ug=rwx,o=rx"
         group: "{{ group }}"
+
+- name: "Synchronize across LUMI Lustres"
+  hosts:
+    - "group_lumi"
+  become: false
+
+  tasks:
+    - name: "Create a julia application directory"
+      ansible.builtin.file:
+        path: "{{ item}}"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+      loop:
+        - "/pfs/lustrep1/{{ appl_dir }}/julia-jupyter"
+        - "/pfs/lustrep3/{{ appl_dir }}/julia-jupyter"
+        - "/pfs/lustrep4/{{ appl_dir }}/julia-jupyter"
+
+    - name: "Synchronize binaries"
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      args:
+        creates: "{{ item.dest }}/{{ version }}"
+      loop:
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-jupyter/{{ version }}"
+          dest: "/pfs/lustrep1/{{ appl_dir }}/julia-jupyter"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-jupyter/{{ version }}"
+          dest: "/pfs/lustrep3/{{ appl_dir }}/julia-jupyter"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-jupyter/{{ version }}"
+          dest: "/pfs/lustrep4/{{ appl_dir }}/julia-jupyter"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-jupyter/bin"
+          dest: "/pfs/lustrep1/{{ appl_dir }}/julia-jupyter"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-jupyter/bin"
+          dest: "/pfs/lustrep3/{{ appl_dir }}/julia-jupyter"
+        - src: "/pfs/lustrep2/{{ appl_dir }}/julia-jupyter/bin"
+          dest: "/pfs/lustrep4/{{ appl_dir }}/julia-jupyter"
+
+    - name: "Synchronize modulefiles"
+      ansible.builtin.command: |
+        rsync --archive --delete "{{ item.src }}" "{{ item.dest }}"
+      loop:
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-jupyter"
+          dest: "/pfs/lustrep1/{{ modulefiles_dir }}"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-jupyter"
+          dest: "/pfs/lustrep3/{{ modulefiles_dir }}"
+        - src: "/pfs/lustrep2/{{ modulefiles_dir }}/julia-jupyter"
+          dest: "/pfs/lustrep4/{{ modulefiles_dir }}"
