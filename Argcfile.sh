@@ -67,5 +67,21 @@ install_amdgpu() {
         "./install/amdgpu/install.yaml" "$@"
 }
 
+_choice_jupyter_version() {
+    ls ./install/jupyter/version | sed 's/\.yaml//g'
+}
+
+# @cmd Install Jupyter for IJulia.jl
+# @meta require-tools ansible-playbook
+# @option --target![puhti|mahti|lumi]
+# @option --version![`_choice_jupyter_version`]
+install_jupyter() {
+    ansible-playbook \
+        -i hosts.yaml \
+        -l "group_${argc_target}" \
+        -e "version=${argc_version}" \
+        "./install/jupyter/install.yaml" "$@"
+}
+
 # See more details at https://github.com/sigoden/argc
 eval "$(argc --argc-eval "$0" "$@")"

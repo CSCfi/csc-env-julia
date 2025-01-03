@@ -6,6 +6,10 @@
   become: false
 
   tasks:
+    - name: "Include variables"
+      ansible.builtin.include_vars:
+        file: "{{ playbook_dir }}/version/{{ version }}.yaml"
+
     - name: "Create julia-jupyter application directory"
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-jupyter"
@@ -13,54 +17,39 @@
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Copy requirements for the virtual environment"
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/requirements.txt"
-        dest: "{{ appl_dir }}/julia-jupyter/requirements.txt"
-        mode: "ug=rw,o=r"
-        group: "{{ group }}"
-
-    - name: "Create Python virtual environment"
-      ansible.builtin.command: |
-        python3.9 -m venv "env"
-      args:
-        chdir: "{{ appl_dir }}/julia-jupyter"
-        creates: "{{ appl_dir }}/julia-jupyter/env"
-
-    - name: "Install packages to the virtual environment"
-      ansible.builtin.command: |
-        ./env/bin/pip install -r requirements.txt
-      args:
-        chdir: "{{ appl_dir }}/julia-jupyter"
-        creates: "{{ appl_dir }}/julia-jupyter/env/bin/jupyter"
-
-    - name: "Freeze pip requirements"
-      ansible.builtin.shell: |
-        ./env/bin/pip freeze -r requirements.txt > requirements-freeze.txt
-      args:
-        chdir: "{{ appl_dir }}/julia-jupyter"
-        creates: "{{ appl_dir }}/julia-jupyter/requirements-freeze.txt"
-
-    - name: "Remove the default kernel"
-      ansible.builtin.command: |
-        ./env/bin/jupyter kernelspec remove -y python3
-      args:
-        chdir: "{{ appl_dir }}/julia-jupyter"
-        removes: "{{ appl_dir }}/julia-jupyter/env/kernels/python3"
-
-    - name: "Create julia-jupyter data directory"
+    - name: "Create julia-jupyter application directory"
       ansible.builtin.file:
-        path: "{{ appl_dir }}/julia-jupyter/data"
+        path: "{{ appl_dir }}/julia-jupyter/{{ version }}"
         state: "directory"
         mode: "ug=rwx,o=rx,g+s"
         group: "{{ group }}"
 
-    - name: "Copy installkernel script"
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/templates/installkernel.jl"
-        dest: "{{ appl_dir }}/julia-jupyter/installkernel.jl"
-        mode: "ug=rw,o="
-        group: "{{ group }}"
+    - name: "Create Python virtual environment"
+      ansible.builtin.command: |
+        python3.9 -m venv "{{ version }}"
+      args:
+        chdir: "{{ appl_dir }}/julia-jupyter"
+        creates: "{{ appl_dir }}/julia-jupyter/{{ version }}/bin"
+
+    - name: "Upgrade pip to latest version. We pin the version manually for reproducibility."
+      ansible.builtin.command: |
+        ./{{ version }}/bin/pip install --upgrade pip==24.3.1
+      args:
+        chdir: "{{ appl_dir }}/julia-jupyter"
+
+    - name: "Install packages to the virtual environment"
+      ansible.builtin.command: |
+        ./{{ version }}/bin/pip install {{ requirements }}
+      args:
+        chdir: "{{ appl_dir }}/julia-jupyter"
+        creates: "{{ appl_dir }}/julia-jupyter/{{ version }}/bin/jupyter"
+
+    - name: "Remove the default kernel"
+      ansible.builtin.command: |
+        ./{{ version }}/bin/jupyter kernelspec remove -y python3
+      args:
+        chdir: "{{ appl_dir }}/julia-jupyter"
+        removes: "{{ appl_dir }}/julia-jupyter/{{ version }}/kernels/python3"
 
     - name: "Create julia-jupyter modulefiles directory"
       ansible.builtin.file:
@@ -72,6 +61,20 @@
     - name: "Create a julia-jupyter module"
       ansible.builtin.template:
         src: "{{ playbook_dir }}/templates/julia-jupyter.lua.j2"
-        dest: "{{ modulefiles_dir }}/julia-jupyter/env.lua"
+        dest: "{{ modulefiles_dir }}/julia-jupyter/{{ version }}.lua"
         mode: "ug=rw,o=r"
         group: "{{ group }}"
+
+    #- name: "Create julia-jupyter data directory"
+    #  ansible.builtin.file:
+    #    path: "{{ appl_dir }}/julia-jupyter/data"
+    #    state: "directory"
+    #    mode: "ug=rwx,o=rx,g+s"
+    #    group: "{{ group }}"
+
+    #- name: "Copy installkernel script"
+    #  ansible.builtin.copy:
+    #    src: "{{ playbook_dir }}/templates/installkernel.jl"
+    #    dest: "{{ appl_dir }}/julia-jupyter/installkernel.jl"
+    #    mode: "ug=rw,o="
+    #    group: "{{ group }}"
