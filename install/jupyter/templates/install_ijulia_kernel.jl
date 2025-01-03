@@ -1,7 +1,7 @@
 #!/usr/bin/env julia
 
 # Jupyter data dir.
-const jupyter_data_dir = joinpath(homedir(), ".local", "share", "jupyter")
+const jupyter_data_dir = joinpath(homedir(), ".local", "share", "julia-jupyter")
 
 # Location to install the Julia kernel.
 const kernel_dir = joinpath(jupyter_data_dir, "kernels", "julia-$(Base.VERSION_STRING)")
