@@ -1,4 +1,6 @@
-# Jupyter data dir. E.g., /appl/soft/math/julia-jupyter/data
+#!/usr/bin/env julia
+
+# Jupyter data dir.
 const jupyter_data_dir = joinpath(homedir(), ".local", "share", "jupyter")
 
 # Location to install the Julia kernel.
@@ -63,7 +65,7 @@ chmod(run_kernel_path, mode1)
 write(wrapper_path, wrapper_script)
 chmod(wrapper_path, mode2)
 
-# TODO: can we avoid having to load IJulia to install the kernel?
+# We need to load IJulia to install the kernel
 try
     import IJulia
 catch

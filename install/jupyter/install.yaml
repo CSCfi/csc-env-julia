@@ -72,9 +72,16 @@
     #    mode: "ug=rwx,o=rx,g+s"
     #    group: "{{ group }}"
 
-    #- name: "Copy installkernel script"
-    #  ansible.builtin.copy:
-    #    src: "{{ playbook_dir }}/templates/installkernel.jl"
-    #    dest: "{{ appl_dir }}/julia-jupyter/installkernel.jl"
-    #    mode: "ug=rw,o="
-    #    group: "{{ group }}"
+    - name: "Create julia-jupyter binary directory"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-jupyter/bin"
+        state: "directory"
+        mode: "ug=rwx,o=rx,g+s"
+        group: "{{ group }}"
+
+    - name: "Copy installkernel script"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/templates/install_ijulia_kernel.jl"
+        dest: "{{ appl_dir }}/julia-jupyter/bin/install_ijulia_kernel.jl"
+        mode: "ug=rwx,o=rx"
+        group: "{{ group }}"
