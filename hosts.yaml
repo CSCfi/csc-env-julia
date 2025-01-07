@@ -1,33 +1,30 @@
-group_puhti:
+puhti:
   hosts:
     puhti-login13.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
       ansible_remote_tmp: "/local_scratch/$USER/.ansible/tmp"
   vars:
-    system_name: "puhti"
     group: "p_installation"
     appl_dir: "/appl/soft/math"
     modulefiles_dir: "/appl/modulefiles"
-group_mahti:
+mahti:
   hosts:
     mahti-login13.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
       ansible_remote_tmp: "/local_scratch/$USER/.ansible/tmp"
   vars:
-    system_name: "mahti"
     group: "m_installation"
     appl_dir: "/appl/soft/math"
     modulefiles_dir: "/appl/modulefiles"
-group_lumi:
+lumi:
   hosts:
     lumi-uan01.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/opt/cray/pe/python/3.9.13.1/bin/python3.9"
       ansible_remote_tmp: "$HOME/.ansible/tmp"
   vars:
-    system_name: "lumi"
     group: "appl_csc"
     appl_dir: "/appl/local/csc/soft/math"
     modulefiles_dir: "/appl/local/csc/modulefiles"

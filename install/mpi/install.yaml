@@ -1,8 +1,8 @@
 - name: "Install MPI.jl preferences"
   hosts:
-    - "group_puhti"
-    - "group_mahti"
-    - "group_lumi"
+    - "puhti"
+    - "mahti"
+    - "lumi"
   become: false
 
   tasks:
@@ -36,7 +36,7 @@
 
 - name: "Synchronize across LUMI Lustres"
   hosts:
-    - "group_lumi"
+    - "lumi"
   become: false
 
   tasks:

@@ -1,6 +1,6 @@
 - name: "Install AMDGPU.jl preferences"
   hosts:
-    - "group_lumi"
+    - "lumi"
   become: false
 
   tasks:
@@ -34,7 +34,7 @@
 
 - name: "Synchronize across LUMI Lustres"
   hosts:
-    - "group_lumi"
+    - "lumi"
   become: false
 
   tasks:

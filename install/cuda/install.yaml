@@ -1,7 +1,7 @@
 - name: "Install CUDA.jl preferences"
   hosts:
-    - "group_puhti"
-    - "group_mahti"
+    - "puhti"
+    - "mahti"
   become: false
 
   tasks:
