@@ -9,7 +9,20 @@ The `Argcfile.sh` wrapper script for installing different environments depends o
 We can use it as follows:
 
 ```bash
-argc install-julia-linux-x86-64 --version 1.10.2 --target puhti
+# Install Julia binaries
+argc install-julia-linux-x86-64 --version 1.10.7 --system puhti
+
+# Install MPI.jl preferences
+argc install-mpi --version 0.20.0 --system puhti
+
+# Install CUDA.jl preferences
+argc install-cuda --version 5.2.0 --system puhti
+
+# Install AMDGPU.jl preferences
+argc install-amdgpu --version 1.1.3 --system lumi
+
+# Install JupyterLab and notebook for IJulia.jl
+argc install-jupyter ---version 4.3.4 --system puhti
 ```
 
 For more information, use `argc --help`.

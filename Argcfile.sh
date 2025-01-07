@@ -10,7 +10,7 @@ _choice_julia_linux_x86_64_version() {
 # @meta require-tools ansible-playbook
 # @option --system![puhti|mahti|lumi]
 # @option --version![`_choice_julia_linux_x86_64_version`]
-install_julia_linux_x86_64() {
+install-julia-linux-x86-64() {
     ansible-playbook \
         -i hosts.yaml \
         -l "${argc_system}" \
@@ -28,7 +28,7 @@ _choice_mpi_version() {
 # @meta require-tools ansible-playbook
 # @option --system![puhti|mahti|lumi]
 # @option --version![`_choice_mpi_version`]
-install_mpi() {
+install-mpi() {
     ansible-playbook \
         -i hosts.yaml \
         -l "${argc_system}" \
@@ -45,7 +45,7 @@ _choice_cuda_version() {
 # @meta require-tools ansible-playbook
 # @option --system![puhti|mahti]
 # @option --version![`_choice_cuda_version`]
-install_cuda() {
+install-cuda() {
     ansible-playbook \
         -i hosts.yaml \
         -l "${argc_system}" \
@@ -62,7 +62,7 @@ _choice_amdgpu_version() {
 # @meta require-tools ansible-playbook
 # @option --system=lumi
 # @option --version![`_choice_amdgpu_version`]
-install_amdgpu() {
+install-amdgpu() {
     ansible-playbook \
         -i hosts.yaml \
         -l "${argc_system}" \
@@ -79,7 +79,7 @@ _choice_jupyter_version() {
 # @meta require-tools ansible-playbook
 # @option --system![puhti|mahti|lumi]
 # @option --version![`_choice_jupyter_version`]
-install_jupyter() {
+install-jupyter() {
     ansible-playbook \
         -i hosts.yaml \
         -l "${argc_system}" \
