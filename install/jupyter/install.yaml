@@ -51,9 +51,12 @@
         chdir: "{{ appl_dir }}/julia-jupyter"
         removes: "{{ appl_dir }}/julia-jupyter/{{ version }}/share/jupyter/kernels/python3"
 
-    - name: "Ensure correct access rights"
-      ansible.builtin.command: |
-        chmod ug=rwX,o=rX -R "{{ appl_dir }}/julia-jupyter/{{ version }}"
+    - name: "Ensure correct permissions to jupyter env"
+      ansible.builtin.file:
+        path: "{{ appl_dir }}/julia-jupyter/{{ version }}"
+        mode: "u=rwX,g=rwX,o=rX"
+        state: "directory"
+        recurse: true
 
     - name: "Create julia-jupyter modulefiles directory"
       ansible.builtin.file:
