@@ -23,7 +23,7 @@ lumi:
     lumi-uan01.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/opt/cray/pe/python/3.9.13.1/bin/python3.9"
-      ansible_remote_tmp: "/tmp/.ansible/tmp"
+      ansible_remote_tmp: "/tmp/$USER/.ansible/tmp"
   vars:
     group: "appl_csc"
     appl_dir: "/appl/local/csc/soft/math"
