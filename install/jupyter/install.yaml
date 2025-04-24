@@ -72,12 +72,13 @@
         mode: "ug=rw,o=r"
         group: "{{ group }}"
 
-    - name: "Create symlink from env to the current version. Required for compatility with OOD scripts. We may remove the symlink later."
-      ansible.builtin.file:
-        src: "{{ version }}.lua"
-        dest: "{{ modulefiles_dir }}/julia-jupyter/env.lua"
-        state: "link"
-        group: "{{ group }}"
+    # TODO: Verify that this block is no longer needed and remove.
+    #- name: "Create symlink from env to the current version. Required for compatility with OOD scripts. We may remove the symlink later."
+    #  ansible.builtin.file:
+    #    src: "{{ version }}.lua"
+    #    dest: "{{ modulefiles_dir }}/julia-jupyter/env.lua"
+    #    state: "link"
+    #    group: "{{ group }}"
 
     - name: "Create julia-jupyter binary directory"
       ansible.builtin.file:
