@@ -2,14 +2,14 @@
 
 set -e
 
-_choice_julia_linux_x86_64_version() {
+_choice_julia_version_linux_x86_64() {
     ls ./install/julia/version/linux-x86_64 | sed 's/\.yaml//g'
 }
 
 # @cmd Install Julia for Linux x86_64
 # @meta require-tools ansible-playbook
 # @option --system![puhti|mahti|lumi]
-# @option --version![`_choice_julia_linux_x86_64_version`]
+# @option --version![`_choice_julia_version_linux_x86_64`]
 install-julia-linux-x86-64() {
     ansible-playbook \
         -i hosts.yaml \
@@ -17,6 +17,24 @@ install-julia-linux-x86-64() {
         -e "system_name=${argc_system}" \
         -e "version=${argc_version}" \
         -e "arch=linux-x86_64" \
+        "./install/julia/install.yaml" "$@"
+}
+
+_choice_julia_version_linux_aarch64() {
+    ls ./install/julia/version/linux-aarch64 | sed 's/\.yaml//g'
+}
+
+# @cmd Install Julia for Linux aarch64 (ARM)
+# @meta require-tools ansible-playbook
+# @option --system!
+# @option --version![`_choice_julia_version_linux_aarch64`]
+install-julia-linux-aarch64() {
+    ansible-playbook \
+        -i hosts.yaml \
+        -l "${argc_system}" \
+        -e "system_name=${argc_system}" \
+        -e "version=${argc_version}" \
+        -e "arch=linux-aarch64" \
         "./install/julia/install.yaml" "$@"
 }
 
