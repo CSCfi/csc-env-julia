@@ -19,7 +19,12 @@ catch
     Pkg.add("IJulia")
     import IJulia
 end
-include(joinpath(dirname(pathof(IJulia)), "kernel.jl"))
+
+if pkgversion(IJulia) >= v"1.28.0"
+    IJulia.run_kernel()
+else
+    include(joinpath(dirname(pathof(IJulia)), "kernel.jl"))
+end
 """
 
 # Wrapper script for loading module before running a kernel.
