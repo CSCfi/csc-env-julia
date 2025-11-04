@@ -1,8 +1,7 @@
+# Install LocalPreferences.toml for parallel (MPI) HDF5.
 using Pkg
 Pkg.add("Preferences")
 using Preferences
-
-# Install LocalPreferences.toml for HDF5 parallel.
 hdf5_dir = ENV["HDF5_DIR"]
 set_preferences!(
     (Base.UUID("f67ccb44-e63f-5c2f-98bd-6dc0ccc4ba2f"), "HDF5"),
