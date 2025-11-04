@@ -1,20 +1,11 @@
-# Install LocalPreferences.toml for HDF5 parallel.
-#
-# $ module use /appl/local/csc/modulefiles
-# $ module load julia
-# $ module load cray-hdf5-parallel
-# $ julia --threads 8 ./setup.jl
-
 using Pkg
-Pkg.activate(".")
-Pkg.instantiate()
-
+Pkg.add("Preferences")
 using Preferences
-using HDF5
 
+# Install LocalPreferences.toml for HDF5 parallel.
 hdf5_dir = ENV["HDF5_DIR"]
 set_preferences!(
-    HDF5,
+    (Base.UUID("f67ccb44-e63f-5c2f-98bd-6dc0ccc4ba2f"), "HDF5"),
     "libhdf5" => joinpath(hdf5_dir, "lib", "libhdf5.so"),
     "libhdf5_hl" => joinpath(hdf5_dir, "lib", "libhdf5_hl.so"),
     force = true
