@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 module use /appl/local/csc/modulefiles
 module load julia
 module load cray-hdf5-parallel
