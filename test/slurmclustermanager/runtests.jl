@@ -4,11 +4,8 @@ using SlurmClusterManager
 
 const cpus_per_task = get(ENV, "SLURM_CPUS_PER_TASK", "1")
 
-manager = SlurmManager(ntasks)
+manager = SlurmManager()
 ps = addprocs(manager; exeflags="--threads=$cpus_per_task")
-
-#@test nprocs() == ntasks + 1
-#@test workers() == ps
 
 tasks = map(ps) do worker
     @spawnat worker (myid(), gethostname(), Threads.nthreads())
