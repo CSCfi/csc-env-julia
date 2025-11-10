@@ -10,13 +10,13 @@ sbatch <<EOF
 #SBATCH --job-name=test_julia_hdf5_mpi
 #SBATCH --partition=test
 #SBATCH --time=00:15:00
-#SBATCH --nodes=1
+#SBATCH --nodes=2
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=100
+#SBATCH --mem-per-cpu=1000
 module load julia
 module load julia-mpi
 module load hdf5/1.10.7-mpi
 module list
-julia --project=. runtests.jl
+srun julia --project=. runtests.jl
 EOF
