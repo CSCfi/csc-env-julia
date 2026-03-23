@@ -8,7 +8,7 @@ _choice_julia_version_linux_x86_64() {
 
 # @cmd Install Julia for Linux x86_64
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|lumi]
+# @option --system![puhti|mahti|lumi|roihu_cpu]
 # @option --version![`_choice_julia_version_linux_x86_64`]
 install-julia-linux-x86-64() {
     ansible-playbook \
@@ -26,7 +26,7 @@ _choice_julia_version_linux_aarch64() {
 
 # @cmd Install Julia for Linux aarch64 (ARM)
 # @meta require-tools ansible-playbook
-# @option --system!
+# @option --system![roihu_gpu]
 # @option --version![`_choice_julia_version_linux_aarch64`]
 install-julia-linux-aarch64() {
     ansible-playbook \
