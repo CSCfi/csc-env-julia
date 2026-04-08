@@ -44,7 +44,7 @@ _choice_mpi_version() {
 
 # @cmd Install MPI.jl preferences
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|lumi]
+# @option --system![puhti|mahti|lumi|roihu_cpu|roihu_gpu]
 # @option --version![`_choice_mpi_version`]
 install-mpi() {
     ansible-playbook \

@@ -3,6 +3,8 @@
     - "puhti"
     - "mahti"
     - "lumi"
+    - "roihu_cpu"
+    - "roihu_gpu"
   become: false
 
   tasks:

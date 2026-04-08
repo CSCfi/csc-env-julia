@@ -30,7 +30,7 @@ lumi:
     modulefiles_dir: "/appl/local/csc/modulefiles"
 roihu_cpu:
   hosts:
-    roihu-cpu-inst:
+    roihu-cpu-inst.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
@@ -39,7 +39,7 @@ roihu_cpu:
     modulefiles_dir: "/appl/modulefiles/manual/general/x86_64"
 roihu_gpu:
   hosts:
-    roihu-gpu-inst:
+    roihu-gpu-inst.csc.fi:
       ansible_connection: "ssh"
       ansible_python_interpreter: "/usr/bin/python3.9"
   vars:
