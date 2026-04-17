@@ -14,7 +14,7 @@ sbatch <<EOF
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=8000
-export TMPDIR=$PWD/tmp
+export TMPDIR=/dev/shm
 export UCX_WARN_UNUSED_ENV_VARS=n
 module purge
 module load julia
