@@ -61,7 +61,7 @@ _choice_cuda_version() {
 
 # @cmd Install CUDA.jl preferences
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti]
+# @option --system![puhti|mahti|roihu_gpu]
 # @option --version![`_choice_cuda_version`]
 install-cuda() {
     ansible-playbook \

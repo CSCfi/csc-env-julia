@@ -1,0 +1,12 @@
+local version = myModuleVersion()
+
+help([[Environment for using CUDA.jl with the Julia language.]])
+
+depends_on("gcc/15.2.0")
+depends_on("cuda/13.1.1")
+
+local appl_dir = "{{ appl_dir }}"
+append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-cuda", version, "Project.toml"))
+
+-- Disable memory pool for CUDA.jl
+setenv("JULIA_CUDA_USE_MEMORY_POOL", "none")

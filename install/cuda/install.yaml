@@ -2,6 +2,7 @@
   hosts:
     - "puhti"
     - "mahti"
+    - "roihu_gpu"
   become: false
 
   tasks:

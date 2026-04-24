@@ -19,7 +19,7 @@ export TMPDIR=/dev/shm
 export UCX_WARN_UNUSED_ENV_VARS=n
 module purge
 module load julia
-#module load julia-cuda
+module load julia-cuda
 module list
 julia --project=. runtests.jl
 EOF
