@@ -14,6 +14,8 @@ sbatch <<EOF
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1000
+module purge
+module load gcc/14.3
 module load julia
 module load julia-mpi
 module load hdf5
