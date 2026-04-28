@@ -13,12 +13,14 @@ sbatch <<EOF
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=1000
+#SBATCH --mem-per-cpu=4000
+#SBATCH --gpus-per-node=1
 module purge
 module load gcc/14.3
 module load julia
 module load julia-mpi
 module load hdf5
 module list
+export UCX_WARN_UNUSED_ENV_VARS=n
 srun julia --project=. runtests.jl
 EOF
