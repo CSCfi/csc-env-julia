@@ -15,11 +15,11 @@ sbatch <<EOF
 #SBATCH --cpus-per-task=72
 #SBATCH --mem=120G
 #SBATCH --gpus-per-node=1
-export TMPDIR=/dev/shm
-export UCX_WARN_UNUSED_ENV_VARS=n
 module purge
 module load julia
 module load julia-cuda
 module list
+#export TMPDIR=/dev/shm
+export UCX_WARN_UNUSED_ENV_VARS=n
 julia --project=. runtests.jl
 EOF
