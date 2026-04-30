@@ -17,5 +17,5 @@ sbatch <<EOF
 #SBATCH --exclusive
 module load julia
 module list
-julia --project=. runscript.jl
+julia --project=. runtests.jl
 EOF
