@@ -95,7 +95,7 @@ _choice_jupyter_version() {
 
 # @cmd Install Jupyter for IJulia.jl
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|lumi]
+# @option --system![puhti|mahti|lumi|roihu_cpu|roihu_gpu]
 # @option --version![`_choice_jupyter_version`]
 install-jupyter() {
     ansible-playbook \
