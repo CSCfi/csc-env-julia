@@ -17,5 +17,6 @@ sbatch <<EOF
 module purge
 module load julia
 module list
+#export JULIA_DEBUG=all
 julia --project=. runtests.jl
 EOF
