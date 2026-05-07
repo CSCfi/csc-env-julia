@@ -9,7 +9,7 @@ sbatch <<EOF
 #SBATCH --output=test_julia_slurmclustermanager_%j.out
 #SBATCH --job-name=test_julia_slurmclustermanager
 #SBATCH --partition=test
-#SBATCH --time=00:05:00
+#SBATCH --time=00:15:00
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=384
 #SBATCH --cpus-per-task=1
