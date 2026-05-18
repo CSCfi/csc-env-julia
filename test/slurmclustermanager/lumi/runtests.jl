@@ -4,7 +4,7 @@ using SlurmClusterManager
 
 const cpus_per_task = get(ENV, "SLURM_CPUS_PER_TASK", "1")
 
-manager = SlurmManager()
+manager = SlurmManager(; launch_timeout=300)
 ps = addprocs(manager; exeflags="--threads=$cpus_per_task")
 
 tasks = map(ps) do worker
