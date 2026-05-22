@@ -13,14 +13,13 @@ sbatch <<EOF
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=72
-#SBATCH --mem-per-task=120G
 #SBATCH --gpus-per-node=4
-export TMPDIR=/dev/shm
-export UCX_WARN_UNUSED_ENV_VARS=n
 module purge
 module load julia
-#module load julia-mpi
-#module load julia-cuda
+module load julia-mpi
+module load julia-cuda
 module list
-julia --project=. runtests.jl
+#export TMPDIR=/dev/shm
+export UCX_WARN_UNUSED_ENV_VARS=n
+srun julia --project=. runtests.jl
 EOF
