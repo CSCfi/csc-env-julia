@@ -19,7 +19,6 @@ module load julia
 module load julia-mpi
 module load julia-cuda
 module list
-#export TMPDIR=/dev/shm
 export UCX_WARN_UNUSED_ENV_VARS=n
 #export UCX_TLS=^gdr_copy  # exclude gdr_copy transport
 srun julia --project=. runtests.jl
