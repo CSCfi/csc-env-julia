@@ -4,6 +4,7 @@ help([[Environment for using CUDA.jl with the Julia language.]])
 
 depends_on("gcc/14.3.0")
 depends_on("cuda/12.9.1")
+setenv("UCX_WARN_UNUSED_ENV_VARS", "n")
 
 local appl_dir = "{{ appl_dir }}"
 append_path("JULIA_LOAD_PATH", ":" .. pathJoin(appl_dir, "julia-cuda", version, "Project.toml"))
