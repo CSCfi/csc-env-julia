@@ -13,7 +13,7 @@ sbatch <<EOF
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=72
-#SBATCH --gpus-per-node=4
+#SBATCH --gres=gpu:gh200:4
 module purge
 module load julia
 module load julia-mpi
