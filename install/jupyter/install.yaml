@@ -3,6 +3,8 @@
     - "puhti"
     - "mahti"
     - "lumi"
+    - "roihu_cpu"
+    - "roihu_gpu"
   become: false
 
   tasks:
@@ -57,6 +59,8 @@
         mode: "u=rwX,g=rwX,o=rX"
         state: "directory"
         recurse: true
+        follow: false
+        group: "{{ group }}"
 
     - name: "Create julia-jupyter modulefiles directory"
       ansible.builtin.file:
