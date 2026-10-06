@@ -11,7 +11,7 @@ sbatch <<EOF
 #SBATCH --partition=test
 #SBATCH --time=00:15:00
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=8000
 module purge
@@ -25,6 +25,6 @@ module list
 DEPOT_DIR=\$(mktemp -d)
 srun -m arbitrary -w "\$SLURM_JOB_NODELIST" ./unpack_depot.sh \${DEPOT_DIR}
 
-export JULIA_DEPOT_PATH={DEPOT_DIR}:
+export JULIA_DEPOT_PATH=\${DEPOT_DIR}:
 srun julia --project=. runtests.jl
 EOF
