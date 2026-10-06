@@ -14,12 +14,10 @@ sbatch <<EOF
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=8000
+
 module purge
 module load julia
 module list
-
-# Create the depot archive.
-./create_depot.sh
 
 # Distribute the depot dir from Lustre to node local disk and unpack it.
 DEPOT_DIR=\$(mktemp -d)

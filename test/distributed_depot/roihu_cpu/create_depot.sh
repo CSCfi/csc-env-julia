@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+module load julia
+
 # Precompile to unique depot dir
 DEPOT_DIR=$(mktemp -d)
 mkdir -p ${DEPOT_DIR}

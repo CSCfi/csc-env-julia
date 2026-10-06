@@ -1,2 +1,2 @@
 using Example
-hello("world!")
+println(hello("world!"))
