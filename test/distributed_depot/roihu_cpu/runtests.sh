@@ -19,9 +19,8 @@ module purge
 module load julia
 module list
 
-# Distribute the depot dir from Lustre to node local disk (job-specific
-# \$TMPDIR, wiped at job end) and unpack it once per node.
-DEPOT_DIR="\${TMPDIR}/depot"
+# Distribute the depot dir from Lustre to node local disk and unpack it once per node.
+DEPOT_DIR="\$(mktemp -u -t depot.XXXXXX)"
 srun -N \$SLURM_NNODES --ntasks-per-node=1 ./unpack_depot.sh "\${DEPOT_DIR}"
 
 export JULIA_DEPOT_PATH="\${DEPOT_DIR}:"
