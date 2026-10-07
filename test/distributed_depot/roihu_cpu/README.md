@@ -18,7 +18,7 @@ Then, run the tests:
 ./runtests.sh
 ```
 
-This submits a job to the `test` partition (2 nodes, 2 tasks per node). The job unpacks `depot.tar.zst` once per node into `$TMPDIR/depot`, then runs `runtests.jl` on every task with `JULIA_DEPOT_PATH` pointing to the local depot.
+This submits a job to the `test` partition (2 nodes, 2 tasks per node). The job unpacks `depot.tar.zst` once per node into unique directory, then runs `runtests.jl` on every task with `JULIA_DEPOT_PATH` pointing to the local depot.
 To use a different project, edit `--account` in `runtests.sh`.
 
 Check the result in `test_julia_distributed_depot_<jobid>.out`. A passing run prints `Hello, world!` once per task (4 times).
