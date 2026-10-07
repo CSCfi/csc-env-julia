@@ -14,4 +14,4 @@ export JULIA_DEPOT_PATH="${DEPOT_DIR}:"
 julia --project=. -e 'import Pkg; Pkg.instantiate()'
 
 # Pack and compress the depot dir and place it on Lustre
-tar czf depot.tar.gz --directory "${DEPOT_DIR}" .
+tar --zstd -cf depot.tar.zst --directory "${DEPOT_DIR}" .
