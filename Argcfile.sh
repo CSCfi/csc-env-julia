@@ -90,7 +90,7 @@ install-amdgpu() {
 }
 
 _choice_jupyter_version() {
-    ls ./install/jupyter/version | sed 's/\.yaml//g'
+    ls ./install/jupyter/version | sed 's/\.txt//g'
 }
 
 # @cmd Install Jupyter for IJulia.jl

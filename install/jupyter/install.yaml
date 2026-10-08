@@ -6,10 +6,6 @@
   become: false
 
   tasks:
-    - name: "Include variables"
-      ansible.builtin.include_vars:
-        file: "{{ playbook_dir }}/version/{{ version }}.yaml"
-
     - name: "Create julia-jupyter application directory"
       ansible.builtin.file:
         path: "{{ appl_dir }}/julia-jupyter"
@@ -37,9 +33,16 @@
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
 
+    - name: "Copy the requirements"
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/version/{{ version }}.txt"
+        dest: "{{ appl_dir }}/julia-jupyter/{{ version }}/requirements.txt"
+        mode: "ug=rw,o=r"
+        group: "{{ group }}"
+
     - name: "Install packages to the virtual environment"
       ansible.builtin.command: |
-        ./{{ version }}/bin/pip install {{ requirements }}
+        ./{{ version }}/bin/pip install -r ./{{ version }}/requirements.txt
       args:
         chdir: "{{ appl_dir }}/julia-jupyter"
         creates: "{{ appl_dir }}/julia-jupyter/{{ version }}/bin/jupyter"
