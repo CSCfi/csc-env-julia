@@ -1,7 +1,5 @@
 - name: "Install julia-jupyter environment"
   hosts:
-    - "puhti"
-    - "mahti"
     - "lumi"
     - "roihu_cpu"
     - "roihu_gpu"

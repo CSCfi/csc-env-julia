@@ -1,5 +1,5 @@
 # csc-env-julia
-Ansible playbooks for installing a shared environment for the [Julia language](https://julialang.org/) on [Puhti](https://docs.csc.fi/computing/systems-puhti/), [Mahti](https://docs.csc.fi/computing/systems-mahti/), [Roihu](https://docs.csc.fi/computing/systems-roihu/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance computing clusters.
+Ansible playbooks for installing a shared environment for the [Julia language](https://julialang.org/) on [Roihu](https://docs.csc.fi/computing/systems-roihu/) and [LUMI](https://docs.lumi-supercomputer.eu/) high-performance computing clusters.
 The environments include plain Julia using official binaries and global [preferences](https://github.com/JuliaPackaging/Preferences.jl) for using system installation binaries for [MPI.jl](https://github.com/JuliaParallel/MPI.jl), [CUDA.jl](https://github.com/JuliaGPU/CUDA.jl), and [AMDGPU.jl](https://github.com/JuliaGPU/AMDGPU.jl).
 The clusters use [Lmod](https://lmod.readthedocs.io/en/latest/) for environment modules and [Slurm](https://slurm.schedmd.com/) for managing workloads.
 Documentation is available for [using the Julia environment](https://docs.csc.fi/apps/julia/) and [running Julia batch jobs on the cluster](https://docs.csc.fi/support/tutorials/julia/).
@@ -10,19 +10,22 @@ We can use it as follows:
 
 ```bash
 # Install Julia binaries
-argc install-julia-linux-x86-64 --version 1.10.7 --system puhti
+argc install-julia-linux-x86-64 --version 1.12.7 --system roihu_cpu
+
+# Install Julia binaries (ARM)
+argc install-julia-linux-aarch64 --version 1.12.7 --system roihu_gpu
 
 # Install MPI.jl preferences
-argc install-mpi --version 0.20.0 --system puhti
+argc install-mpi --version 0.20.0 --system roihu_cpu
 
 # Install CUDA.jl preferences
-argc install-cuda --version 5.2.0 --system puhti
+argc install-cuda --version 5.11.2 --system roihu_gpu
 
 # Install AMDGPU.jl preferences
 argc install-amdgpu --version 1.1.3 --system lumi
 
 # Install JupyterLab and notebook for IJulia.jl
-argc install-jupyter ---version 4.3.4 --system puhti
+argc install-jupyter --version 4.5.4 --system roihu_cpu
 ```
 
 For more information, use `argc --help`.

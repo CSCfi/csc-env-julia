@@ -5,13 +5,9 @@ InteractiveUtils.versioninfo()
 println()
 
 const csc_system_name = ARGS[1]
-const ispuhti = csc_system_name == "puhti"
-const ismahti = csc_system_name == "mahti"
 const islumi = csc_system_name == "lumi"
 
-if ispuhti || ismahti
-    const csc_appl_dir = joinpath("/", "appl")
-elseif islumi
+if islumi
     const csc_appl_dir = joinpath("/", "appl", "local", "csc")
 else
     throw(ArgumentError("System \"$csc_system_name\" not recognized"))

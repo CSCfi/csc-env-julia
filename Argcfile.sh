@@ -8,7 +8,7 @@ _choice_julia_version_linux_x86_64() {
 
 # @cmd Install Julia for Linux x86_64
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|lumi|roihu_cpu]
+# @option --system![lumi|roihu_cpu]
 # @option --version![`_choice_julia_version_linux_x86_64`]
 install-julia-linux-x86-64() {
     ansible-playbook \
@@ -44,7 +44,7 @@ _choice_mpi_version() {
 
 # @cmd Install MPI.jl preferences
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|lumi|roihu_cpu|roihu_gpu]
+# @option --system![lumi|roihu_cpu|roihu_gpu]
 # @option --version![`_choice_mpi_version`]
 install-mpi() {
     ansible-playbook \
@@ -61,7 +61,7 @@ _choice_cuda_version() {
 
 # @cmd Install CUDA.jl preferences
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|roihu_gpu]
+# @option --system![roihu_gpu]
 # @option --version![`_choice_cuda_version`]
 install-cuda() {
     ansible-playbook \
@@ -95,7 +95,7 @@ _choice_jupyter_version() {
 
 # @cmd Install Jupyter for IJulia.jl
 # @meta require-tools ansible-playbook
-# @option --system![puhti|mahti|lumi|roihu_cpu|roihu_gpu]
+# @option --system![lumi|roihu_cpu|roihu_gpu]
 # @option --version![`_choice_jupyter_version`]
 install-jupyter() {
     ansible-playbook \

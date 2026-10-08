@@ -1,7 +1,5 @@
 - name: "Install julia environment"
   hosts:
-    - "puhti"
-    - "mahti"
     - "lumi"
     - "roihu_cpu"
     - "roihu_gpu"

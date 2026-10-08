@@ -1,7 +1,5 @@
 - name: "Install CUDA.jl preferences"
   hosts:
-    - "puhti"
-    - "mahti"
     - "roihu_gpu"
   become: false
 

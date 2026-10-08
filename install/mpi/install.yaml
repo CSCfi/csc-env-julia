@@ -1,7 +1,5 @@
 - name: "Install MPI.jl preferences"
   hosts:
-    - "puhti"
-    - "mahti"
     - "lumi"
     - "roihu_cpu"
     - "roihu_gpu"
